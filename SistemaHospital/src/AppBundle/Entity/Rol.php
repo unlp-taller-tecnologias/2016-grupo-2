@@ -9,28 +9,28 @@
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
- * @Entity
- * @Table(name="rol")
+ * @ORM\Entity
+ * @ORM\Table(name="rol")
  */
 class Rol
 {
     /**
-     * @Id
-     * @Column(type="integer")
-     * @GeneratedValue
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     protected $id;
 
-    /** @Column(type="string", length=45) **/
+    /** @ORM\Column(type="string", length=45) **/
     protected $nombre;
 
-    /** @Column(type="boolean") **/
+    /** @ORM\Column(type="boolean") **/
     protected $baja=false;
 
     /**
      * Get id
      *
-     * @return integer
+     * @ORM\return integer
      */
     public function getId()
     {
@@ -40,7 +40,7 @@ class Rol
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @ORM\param string $nombre
      */
     public function setNombre($nombre)
     {
@@ -50,7 +50,7 @@ class Rol
     /**
      * Get nombre
      *
-     * @return string
+     * @ORM\return string
      */
     public function getNombre()
     {
@@ -60,7 +60,7 @@ class Rol
     /**
      * Set baja
      *
-     * @param $baja
+     * @ORM\param $baja
      */
     public function setBaja($baja)
     {
@@ -70,7 +70,7 @@ class Rol
     /**
      * Get baja
      *
-     * @return boolean
+     * @ORM\return boolean
      *
      */
     public function getBaja()
