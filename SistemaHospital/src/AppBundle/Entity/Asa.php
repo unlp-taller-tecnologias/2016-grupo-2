@@ -10,9 +10,9 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
- * @ORM\Table(name="anestesia")
+ * @ORM\Table(name="asa")
  */
-class Anestesia
+class Asa
 {
     /**
      * @ORM\Id
@@ -24,7 +24,7 @@ class Anestesia
     /** @ORM\Column(type="string", length=45) **/
     protected $grado;
 
-    /** @ORM\Column(type="string", length=45) **/
+    /** @ORM\Column(type="string", length=255) **/
     protected $descripcion;
 
     /** @ORM\Column(type="boolean") **/

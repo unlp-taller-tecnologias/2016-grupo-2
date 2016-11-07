@@ -9,12 +9,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use AppBundle\Entity\User;
 /**
  * @ORM\Entity
  * @ORM\Table(name="personal")
  */
-class Personal extends  Persona
+class Personal extends Persona
 {
     /**
      * @ORM\Id
@@ -24,16 +24,22 @@ class Personal extends  Persona
     protected $id;
 
     /**
-     * @OneToOne(targetEntity="User", mappedBy="Personal")
-     * @JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="User", mappedBy="personal")
      */
-    protected $user;
+    private $user;
 
     /**
-     * @ManyToMany(targetEntity="Servicio",inversedBy="personal")
-     * @JoinTable(name="personal_servicios")
+     * @ORM\ManyToMany(targetEntity="Servicio",inversedBy="personal")
+     * @ORM\JoinTable(name="personal_servicios")
      */
     protected $servicios;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Rol")
+     * @ORM\JoinColumn(nullable=false)
+     *
+     */
+    protected $rol;
 
 
     public function __construct() {
@@ -79,5 +85,25 @@ class Personal extends  Persona
     public function getServicios()
     {
         return $this->servicios;
+    }
+
+    /**
+     * Set rol
+     *
+     * @param Rol $rol
+     */
+    public function setRol(Rol $rol)
+    {
+        $this->rol = $rol;
+    }
+
+    /**
+     * Get rol
+     *
+     * @return Rol
+     */
+    public function getRol()
+    {
+        return $this->rol;
     }
 }

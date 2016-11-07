@@ -32,7 +32,7 @@ class Servicio
     protected $baja=false;
 
     /**
-     * @ManyToMany(targetEntity="Personal", mappedBy="servicios")
+     * @ORM\ManyToMany(targetEntity="Personal", mappedBy="servicios")
      */
     protected $personal;
 
