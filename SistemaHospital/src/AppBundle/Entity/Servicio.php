@@ -32,6 +32,15 @@ class Servicio
     protected $baja=false;
 
     /**
+     * @ManyToMany(targetEntity="Personal", mappedBy="servicios")
+     */
+    protected $personal;
+
+
+    public function __construct() {
+        $this->personal = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    /**
      * Set id
      *
      * @ORM\param integer $id
@@ -62,7 +71,7 @@ class Servicio
     }
 
     /**
-     * Set tipo
+     * Set Descripcion
      *
      * @ORM\param string $descripcion
      */
@@ -72,12 +81,32 @@ class Servicio
     }
 
     /**
-     * Get tipo
+     * Get Descripcion
      *
      * @ORM\return string
      */
     public function getDescripcion()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set Personal
+     *
+     * @ORM\param string $personal
+     */
+    public function setPersonal($personal)
+    {
+        $this->personal = $personal;
+    }
+
+    /**
+     * Get Personal
+     *
+     * @ORM\return Personal
+     */
+    public function getPersonal()
+    {
+        return $this->personal;
     }
 }

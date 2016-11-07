@@ -30,6 +30,17 @@ class Personal extends  Persona
     protected $user;
 
     /**
+     * @ManyToMany(targetEntity="Servicio",inversedBy="personal")
+     * @JoinTable(name="personal_servicios")
+     */
+    protected $servicios;
+
+
+    public function __construct() {
+        $this->servicios = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get $user
      *
      *@ORM\return integer
@@ -47,5 +58,26 @@ class Personal extends  Persona
     public function setUser($user)
     {
         return $this->user=$user;
+    }
+
+
+    /**
+     * Set Servicios
+     *
+     * @ORM\param string &servicios
+     */
+    public function setServicios($servicios)
+    {
+        $this->servicios = $servicios;
+    }
+
+    /**
+     * Get Servicios
+     *
+     * @ORM\return Servicios
+     */
+    public function getServicios()
+    {
+        return $this->servicios;
     }
 }

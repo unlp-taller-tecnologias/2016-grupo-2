@@ -17,7 +17,7 @@ class User extends BaseUser{
 
     /**
      * @OneToOne(targetEntity="Personal", inversedBy="user")
-     * @JoinColumn(name="id", referencedColumnName="id")
+     * @JoinColumn(name="personal_id", referencedColumnName="id")
      */
     private $personal;
 
