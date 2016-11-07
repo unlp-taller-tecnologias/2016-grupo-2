@@ -23,18 +23,29 @@ class Personal extends  Persona
      */
     protected $id;
 
-    /** @ORM\Column(type="string", length=45) **/
-    protected $saraza;
+    /**
+     * @OneToOne(targetEntity="User", mappedBy="Personal")
+     * @JoinColumn(nullable=false)
+     */
+    protected $user;
 
     /**
-     * Get id
+     * Get $user
      *
-     * @ORM\return integer
+     *@ORM\return integer
      */
-    public function getId()
+    public function getUser()
     {
-        return $this->id;
+        return $this->user;
     }
 
-
+    /**
+     * Set user
+     *
+     * @ORM\param User $user
+     */
+    public function setUser($user)
+    {
+        return $this->user=$user;
+    }
 }
