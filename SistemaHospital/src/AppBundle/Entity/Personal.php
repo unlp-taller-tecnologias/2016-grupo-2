@@ -36,25 +36,5 @@ class Personal extends  Persona
         return $this->id;
     }
 
-    /**
-     * Set nombre
-     *
-     *
-     * @ORM\param string $saraza
-     */
-    public function setSaraza($saraza)
-    {
-        $this->saraza = $saraza;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @ORM\return string
-     */
-    public function getSaraza()
-    {
-        return $this->saraza;
-    }
 
 }
