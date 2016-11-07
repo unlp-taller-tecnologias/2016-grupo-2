@@ -109,4 +109,26 @@ class Servicio
     {
         return $this->personal;
     }
+
+    /**
+     * Set Baja
+     *
+     * @ORM\param boolean
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+    }
+
+    /**
+     * Get Baja
+     *
+     * @ORM\return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
+
+
 }

@@ -3,18 +3,19 @@
  * Created by PhpStorm.
  * User: Fer
  * Date: 01/11/2016
- * Time: 19:43
+ * Time: 17:03
  */
 
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\User;
+
+
 /**
  * @ORM\Entity
- * @ORM\Table(name="personal")
+ * @ORM\Table(name="reserva")
  */
-class Personal extends Persona
+class Reserva
 {
     /**
      * @ORM\Id
@@ -24,25 +25,18 @@ class Personal extends Persona
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", mappedBy="personal")
+     * @ORM\Column(type="string", length=45, unique=true) *
      */
-    private $user;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Servicio",inversedBy="personal")
-     * @ORM\JoinTable(name="personal_servicios")
-     */
-    protected $servicios;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Rol")
-     * @ORM\JoinColumn(nullable=false)
-     *
-     */
-    protected $rol;
+    protected $numeroReserva;
 
     /** @ORM\Column(type="boolean") **/
     protected $baja=false;
+
+    /** @Column(type="datetime") **/
+    protected $fecha_inicio;
+
+    /** @Column(type="datetime") **/
+    protected $fecha_fin;
 
 
     public function __construct() {
@@ -130,4 +124,46 @@ class Personal extends Persona
     {
         return $this->baja;
     }
+
+    /**
+     * Set fecha_inicio
+     *
+     * @ORM\param DateTime
+     */
+    public function setFechaInicio($fecha)
+    {
+        $this->fecha_inicio = $fecha;
+    }
+
+    /**
+     * Get fecha_inicio
+     *
+     * @ORM\return DateTime
+     */
+    public function getFechaInicio()
+    {
+        return $this->fecha_inicio;
+    }
+
+
+    /**
+     * Set fecha_fin
+     *
+     * @ORM\param DateTime
+     */
+    public function setFechaFin($fecha)
+    {
+        $this->fecha_fin = $fecha;
+    }
+
+    /**
+     * Get fecha_fin
+     *
+     * @ORM\return DateTime
+     */
+    public function getFechaFin()
+    {
+        return $this->fecha_fin;
+    }
+
 }

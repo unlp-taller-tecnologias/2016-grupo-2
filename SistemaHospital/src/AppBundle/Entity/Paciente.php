@@ -25,7 +25,6 @@ class Paciente extends Persona
     protected $mutual;
 
     /** @ORM\Column(type="boolean") **/
-
     protected $baja=false;
 
     /**
