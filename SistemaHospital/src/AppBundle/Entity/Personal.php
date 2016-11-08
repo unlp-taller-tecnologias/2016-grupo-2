@@ -34,7 +34,7 @@ class Personal extends Persona
     protected $servicios;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Operaciones",inversedBy="personal")
+     * @ORM\ManyToMany(targetEntity="Operacion",inversedBy="personal")
      * @ORM\JoinTable(name="personal_operacion")
      */
     protected $operaciones;
