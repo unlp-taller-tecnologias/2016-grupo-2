@@ -36,10 +36,18 @@ class Servicio
      */
     protected $personal;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="servicio",cascade={"remove"}, orphanRemoval=true)
+     */
+    protected $reservas;
+
 
     public function __construct() {
         $this->personal = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservas =  new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+
     /**
      * Set id
      *
@@ -48,6 +56,16 @@ class Servicio
     public function getId()
     {
         return $this->id ;
+    }
+
+    /**
+     * Get Reservas
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
     }
 
     /**
@@ -93,7 +111,7 @@ class Servicio
     /**
      * Set Personal
      *
-     * @ORM\param string $personal
+     * @ORM\param \Doctrine\Common\Collections\ArrayCollection $personal
      */
     public function setPersonal($personal)
     {
@@ -103,7 +121,7 @@ class Servicio
     /**
      * Get Personal
      *
-     * @ORM\return Personal
+     * @ORM\return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getPersonal()
     {

@@ -28,6 +28,28 @@ class Paciente extends Persona
     protected $baja=false;
 
     /**
+     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="paciente",cascade={"remove"}, orphanRemoval=true)
+     */
+    protected $reservas;
+
+
+    public function __construct()
+    {
+        $this->reservas =  new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Get Reservas
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
+    }
+
+    /**
      * Get id
      *
      * @ORM\return integer

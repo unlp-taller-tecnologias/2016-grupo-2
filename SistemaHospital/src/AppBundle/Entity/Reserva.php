@@ -32,78 +32,119 @@ class Reserva
     /** @ORM\Column(type="boolean") **/
     protected $baja=false;
 
-    /** @Column(type="datetime") **/
+    /** @ORM\Column(type="datetime") **/
     protected $fecha_inicio;
 
-    /** @Column(type="datetime") **/
+    /** @ORM\Column(type="datetime") **/
     protected $fecha_fin;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Paciente",inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $paciente;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Servicio",inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $servicio;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Estado",inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $estado;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Quirofano",inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $quirofano;
 
     public function __construct() {
-        $this->servicios = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
-     * Get $user
+     * Set Quirofano
      *
-     *@ORM\return integer
+     * @ORM\param Quirofano $quirofano
      */
-    public function getUser()
+    public function setQuirofano($quirofano)
     {
-        return $this->user;
+        $this->quirofano = $quirofano;
     }
 
     /**
-     * Set user
+     * Get Quirofano
      *
-     * @ORM\param User $user
+     * @ORM\return Quirofano
      */
-    public function setUser($user)
+    public function getQuirofano()
     {
-        return $this->user=$user;
-    }
-
-
-    /**
-     * Set Servicios
-     *
-     * @ORM\param string &servicios
-     */
-    public function setServicios($servicios)
-    {
-        $this->servicios = $servicios;
+        return $this->quirofano;
     }
 
     /**
-     * Get Servicios
+     * Set Estado
      *
-     * @ORM\return Servicios
+     * @ORM\param Estado $estado
      */
-    public function getServicios()
+    public function setEstado($estado)
     {
-        return $this->servicios;
+        $this->estado = $estado;
     }
 
     /**
-     * Set rol
+     * Get Estado
      *
-     * @param Rol $rol
+     * @ORM\return Estado
      */
-    public function setRol(Rol $rol)
+    public function getEstado()
     {
-        $this->rol = $rol;
+        return $this->servicio;
     }
 
     /**
-     * Get rol
+     * Set Servicio
      *
-     * @return Rol
+     * @ORM\param Servicio $servicio
      */
-    public function getRol()
+    public function setServicio($servicio)
     {
-        return $this->rol;
+        $this->servicio = $servicio;
     }
 
+    /**
+     * Get Servicio
+     *
+     * @ORM\return Servicio
+     */
+    public function getServicio()
+    {
+        return $this->servicio;
+    }
+
+    /**
+     * Set Paciente
+     *
+     * @ORM\param Paciente $paciente
+     */
+    public function setPaciente($paciente)
+    {
+        $this->paciente = $paciente;
+    }
+
+    /**
+     * Get Paciente
+     *
+     * @ORM\return Paciente
+     */
+    public function getPaciente()
+    {
+        return $this->paciente;
+    }
 
     /**
      * Set Baja
