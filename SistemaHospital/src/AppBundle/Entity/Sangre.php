@@ -25,6 +25,26 @@ class Sangre
     protected $nombre;
 
     /**
+     * @ORM\OneToMany(targetEntity="Operacion", mappedBy="sangre",cascade={"remove"}, orphanRemoval=true)
+     */
+    protected $operaciones;
+
+    public function __construct()
+    {
+        $this->operaciones =  new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get operaciones
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getOperaciones()
+    {
+        return $this->operaciones;
+    }
+
+    /**
      * Get id
      *
      * @ORM\return integer

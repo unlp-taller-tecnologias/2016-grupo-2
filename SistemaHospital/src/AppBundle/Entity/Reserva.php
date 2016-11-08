@@ -39,6 +39,12 @@ class Reserva
     protected $fecha_fin;
 
     /**
+     * @ORM\OneToOne(targetEntity="Operacion", inversedBy="reserva" )
+     * @ORM\JoinColumn(name="operacion_id", referencedColumnName="id")
+     */
+    protected $operacion;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Paciente",inversedBy="reservas")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -64,6 +70,26 @@ class Reserva
 
     public function __construct() {
 
+    }
+
+    /**
+     * Get Operacion
+     *
+     *@ORM\return Operacion
+     */
+    public function getOperacion()
+    {
+        return $this->operacion;
+    }
+
+    /**
+     * Set Operacion
+     *
+     * @ORM\param Operacion $operacion
+     */
+    public function setOperacion($operacion)
+    {
+        return $this->operacion=$operacion;
     }
 
     /**

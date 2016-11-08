@@ -9,7 +9,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\User;
 /**
  * @ORM\Entity
  * @ORM\Table(name="personal")
@@ -35,6 +34,12 @@ class Personal extends Persona
     protected $servicios;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Operaciones",inversedBy="personal")
+     * @ORM\JoinTable(name="personal_operacion")
+     */
+    protected $operaciones;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Rol")
      * @ORM\JoinColumn(nullable=false)
      *
@@ -47,12 +52,13 @@ class Personal extends Persona
 
     public function __construct() {
         $this->servicios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->operaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get $user
      *
-     *@ORM\return integer
+     *@ORM\return User
      */
     public function getUser()
     {
@@ -73,7 +79,7 @@ class Personal extends Persona
     /**
      * Set Servicios
      *
-     * @ORM\param string &servicios
+     * @ORM\param \Doctrine\Common\Collections\ArrayCollection &servicios
      */
     public function setServicios($servicios)
     {
@@ -83,11 +89,31 @@ class Personal extends Persona
     /**
      * Get Servicios
      *
-     * @ORM\return Servicios
+     * @ORM\return \Doctrine\Common\Collections\ArrayCollection &servicios
      */
     public function getServicios()
     {
         return $this->servicios;
+    }
+
+    /**
+     * Set Operaciones
+     *
+     * @ORM\param \Doctrine\Common\Collections\ArrayCollection $operaciones
+     */
+    public function setOperaciones($operaciones)
+    {
+        $this->operaciones = $operaciones;
+    }
+
+    /**
+     * Get Operaciones
+     *
+     * @ORM\return \Doctrine\Common\Collections\ArrayCollection $operaciones
+     */
+    public function getOperaciones()
+    {
+        return $this->operaciones;
     }
 
     /**

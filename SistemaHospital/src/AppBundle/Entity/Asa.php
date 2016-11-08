@@ -32,6 +32,29 @@ class Asa
     protected $baja=false;
 
     /**
+     * @ORM\OneToMany(targetEntity="Operacion", mappedBy="asa",cascade={"remove"}, orphanRemoval=true)
+     */
+    protected $operaciones;
+
+
+    public function __construct()
+    {
+        $this->operaciones =  new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    
+    /**
+     * Get operaciones
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getOperaciones()
+    {
+        return $this->operaciones;
+    }
+
+
+    /**
      * Get id
      *
      * @ORM\return integer
