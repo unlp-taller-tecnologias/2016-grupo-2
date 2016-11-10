@@ -38,24 +38,23 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-
-
+                        {% block header_navigation_links %}
                             <li>
-                                <a href="{#{{ path('reserva_index') }}#}">
-                                    <i class="fa fa-home" aria-hidden="true"></i> Reservas
+                                <a href="{{ path('reserva_index') }}">
+                                    <i class="fa fa-plus-square" aria-hidden="true"></i> Reservas
                                 </a>
                             </li>
                             <li>
                                 <a href="{#{{ path('operacion_index') }}#}">
-                                    <i class="fa fa-home" aria-hidden="true"></i> Operaciones
+                                    <i class="fa fa-stethoscope " aria-hidden="true"></i> Operaciones
                                 </a>
                             </li>
-                        {#ESto es lo que va a ver el admin#}
-                        {% block header_navigation_links %}
+
+                            {#ESto es lo que va a ver el admin#}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li>
                                     <a href="{#{{ path('admin_index') }}#}">
-                                        <i class="fa fa-lock" aria-hidden="true"></i> Configuracion
+                                        <i class="fa fa-wrench" aria-hidden="true"></i> Configuracion
                                     </a>
                                 </li>
                                 <li>

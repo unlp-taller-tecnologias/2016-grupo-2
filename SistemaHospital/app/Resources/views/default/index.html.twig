@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block body_id 'homepage' %}
+{% block body_id 'intro' %}
 
 {#
     Segun lo que traduci este es el "truco" para hacer q los blockes no tengan ningun contenido porq mas q en el padre tengan contenido.. esta piola
@@ -10,28 +10,20 @@
 
 {% block body %}
     <div class="page-header">
-        <h1>Esto es el home del hospital rossi viejass</h1>
+        <h1>Hospital Rossi </h1>
+        <h2>Sistema de gestion de operaciones</h2>
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="jumbotron">
                 <p>
-                    <a class="btn btn-primary btn-lg" href={#"{{ path('reserva_index') }}"#}>
-                        <i class="fa fa-users" aria-hidden="true"></i> prueba
+                    <a class="btn btn-primary btn-lg" href="{{ path('reserva_index') }}">
+                        <i class="fa fa-users" aria-hidden="true"></i> Ingresar
                     </a>
-                </p>
-            </div>
-        </div>
 
-        <div class="col-sm-6">
-            <div class="jumbotron">
-                <p>
-                    prueba2
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href={#"{{ path('admin_index') }}"#}>
-                        <i class="fa fa-lock" aria-hidden="true"></i> prueba3
+                    <a class="btn btn-primary btn-lg" href="{#{{ path('login') }}#}">
+                        <i class="fa fa-users" aria-hidden="true"></i> Ingresar como administrador
                     </a>
                 </p>
             </div>
