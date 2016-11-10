@@ -1,13 +1,118 @@
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}HospitalRossi{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-flatly-3.3.7.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/font-awesome-4.6.3.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/font-lato.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-datetimepicker.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/highlight-solarized-light.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
+<body id="{% block body_id %}{% endblock %}">
+
+{% block header %}
+    <header>
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ path('homepage') }}">
+                        Hospital Rossi
+                    </a>
+
+                    <button type="button" class="navbar-toggle"
+                            data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                        <span class="sr-only">menu_desplegable</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+
+
+                            <li>
+                                <a href="{#{{ path('reserva_index') }}#}">
+                                    <i class="fa fa-home" aria-hidden="true"></i> Reservas
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{#{{ path('operacion_index') }}#}">
+                                    <i class="fa fa-home" aria-hidden="true"></i> Operaciones
+                                </a>
+                            </li>
+                        {#ESto es lo que va a ver el admin#}
+                        {% block header_navigation_links %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{#{{ path('admin_index') }}#}">
+                                        <i class="fa fa-lock" aria-hidden="true"></i> Configuracion
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{#{{ path('security_logout') }}#}">
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesion
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endblock %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+<div class="container body-container">
+    {% block body %}
+        <div class="row">
+            <div id="main" class="col-sm-9">
+                {{ include('default/_flash_messages.html.twig') }}
+
+                {% block main %}
+                   {#Aca va el el contenido mas importante por lo general van a ser las tablas y las estadisticas#}
+                {% endblock %}
+            </div>
+
+            <div id="sidebar" class="col-sm-3">
+                {% block sidebar %}
+                    {#aca va el sidebar de operaciones o reservas o configuracoines... serian las opciones#}
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+</div>
+
+{% block footer %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div id="footer-copyright" class="col-md-6">
+                    <p>&copy; {{ 'now'|date('Y') }} - Proyecto - UNLP|Facultad Informatica</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery-2.2.4.min.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-3.3.7.min.js') }}"></script>
+    <script src="{{ asset('js/highlight.pack.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}
+
+
+</body>
 </html>
