@@ -32,6 +32,18 @@
             $(this).parent().attr("class","active");
             $(this).parent().siblings().removeAttr("class");
         });
+
+
+        //ADMIN BOTONES!!!
+        btnperfil=$("#btn-perfil");
+        btnpersonal=$("#btn-personal");
+        btnusuarios=$("#btn-usuarios");
+        btnservicios=$("#btn-servicios");
+        btnroles=$("#btn-roles");
+        btnanestesias=$("#btn-anestesias");
+        btnasa=$("#btn-asa");
+        btnquirofano=$("#btn-quirofano");
+        //
         
         
         
