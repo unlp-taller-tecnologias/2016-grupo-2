@@ -26,6 +26,15 @@
                 close: 'fa fa-remove'
             }
         });
+
+        //esto es para el nav del sidevar darles estilos
+        $("#sidebar ul li a").click(function () {
+            $(this).parent().attr("class","active");
+            $(this).parent().siblings().removeAttr("class");
+        });
+        
+        
+        
     });
 
     // Handling the modal confirmation message.

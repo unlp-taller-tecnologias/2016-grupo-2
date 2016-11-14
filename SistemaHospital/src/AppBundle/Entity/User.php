@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
+use AppBundle\Entity\Personal;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
@@ -18,7 +19,7 @@ class User extends BaseUser{
 
     /**
      * @ORM\OneToOne(targetEntity="Personal", inversedBy="user")
-     * @ORM\JoinColumn(name="personal_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="personal_id", referencedColumnName="id",nullable=false)
      */
     private $personal;
 
