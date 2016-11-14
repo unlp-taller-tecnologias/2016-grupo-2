@@ -25,7 +25,9 @@ class AdminController extends  Controller
         //return $this->render('default/index.html.twig');
         return $this->render('Admin/partials/listaPersonal.html.twig'/*, ['reservas' => $reservas]*/);
     }
-
+    /**
+     * @Route("/usuarios", name="admin_user")
+     */
     public function listaUserAction()
     {
         // replace this example code with whatever you need
