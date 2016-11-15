@@ -3,8 +3,8 @@
  {% block sidebar %}
      <ul class="nav nav-pills nav-stacked">
          <li><a href="#" id="btn-perfil">Mi perfil</a></li>
-         <li class="" ><a href="{{ path('admin_index')}}" id="btn-personal">Lista del Personal</a></li>
-         <li class=""><a href="{{ path('admin_user')}}" id="btn-usuarios">Lista de Usuarios</a></li>
+         <li class="" ><a href="{{ path('personal_index')}}" id="btn-personal">Lista del Personal</a></li>
+         <li class=""><a href="{{ path('user_index')}}" id="btn-usuarios">Lista de Usuarios</a></li>
          <li class="dropdown">
              <a class="dropdown-toggle" data-toggle="dropdown" href="#" >
                  Configuracion <span class="caret"></span>
@@ -12,7 +12,7 @@
              <ul class="dropdown-menu">
                  {#<li class="divider"></li>#}
                  <li><a href="#" id="btn-servicios">Servicios</a></li>
-                 <li><a href="#" id="btn-roles">Roles</a></li>
+                 <li><a href="{{ path("admin_rol_index") }}" id="btn-roles">Roles</a></li>
                  <li><a href="#" id="btn-anestesias">Tipos de Anestesias</a></li>
                  <li><a href="#" id="btn-asa">ASA</a></li>
                  <li><a href="#" id="btn-quirofano">Quirófanos</a></li>

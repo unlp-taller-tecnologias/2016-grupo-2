@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Personal controller.
  *
- * @Route("personal")
+ * @Route("/admin")
  */
 class PersonalController extends Controller
 {
@@ -26,7 +26,7 @@ class PersonalController extends Controller
 
         $personals = $em->getRepository('AppBundle:Personal')->findAll();
 
-        return $this->render('personal/index.html.twig', array(
+        return $this->render('Admin/partials/personal/index.html.twig', array(
             'personals' => $personals,
         ));
     }
@@ -51,7 +51,7 @@ class PersonalController extends Controller
             return $this->redirectToRoute('personal_show', array('id' => $personal->getId()));
         }
 
-        return $this->render('personal/new.html.twig', array(
+        return $this->render('Admin/partials/personal/new.html.twig', array(
             'personal' => $personal,
             'form' => $form->createView(),
         ));
@@ -67,7 +67,7 @@ class PersonalController extends Controller
     {
         $deleteForm = $this->createDeleteForm($personal);
 
-        return $this->render('personal/show.html.twig', array(
+        return $this->render('Admin/partials/personal/show.html.twig', array(
             'personal' => $personal,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -91,7 +91,7 @@ class PersonalController extends Controller
             return $this->redirectToRoute('personal_edit', array('id' => $personal->getId()));
         }
 
-        return $this->render('personal/edit.html.twig', array(
+        return $this->render('Admin/partials/personal/edit.html.twig', array(
             'personal' => $personal,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

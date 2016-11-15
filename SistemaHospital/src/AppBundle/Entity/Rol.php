@@ -27,10 +27,12 @@ class Rol
     /** @ORM\Column(type="boolean") **/
     protected $baja=false;
 
+
+
     /**
      * Get id
      *
-     * @ORM\return integer
+     * @return integer
      */
     public function getId()
     {
@@ -40,17 +42,21 @@ class Rol
     /**
      * Set nombre
      *
-     * @ORM\param string $nombre
+     * @param string $nombre
+     *
+     * @return Rol
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
      * Get nombre
      *
-     * @ORM\return string
+     * @return string
      */
     public function getNombre()
     {
@@ -60,18 +66,21 @@ class Rol
     /**
      * Set baja
      *
-     * @ORM\param $baja
+     * @param boolean $baja
+     *
+     * @return Rol
      */
     public function setBaja($baja)
     {
         $this->baja = $baja;
+
+        return $this;
     }
 
     /**
      * Get baja
      *
-     * @ORM\return boolean
-     *
+     * @return boolean
      */
     public function getBaja()
     {

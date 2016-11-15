@@ -1,7 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'Admin/layout.html.twig' %}
 
-{% block body %}
-    <h1>User creation</h1>
+{% block main %}
+    <h1>Servicio creation</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
+            <a href="{{ path('admin_servicio_index') }}">Back to the list</a>
         </li>
     </ul>
 {% endblock %}

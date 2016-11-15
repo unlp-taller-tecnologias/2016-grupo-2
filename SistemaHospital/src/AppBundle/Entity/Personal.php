@@ -24,6 +24,7 @@ class Personal extends Persona
 
     /**
      * @ORM\OneToOne(targetEntity="User", mappedBy="personal")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 

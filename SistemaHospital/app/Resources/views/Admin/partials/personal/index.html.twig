@@ -1,9 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'Admin/layout.html.twig' %}
 
-{% block body %}
+{% block main %}
     <h1>Personals list</h1>
 
-    <table>
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -13,7 +13,8 @@
                 <th>Genero</th>
                 <th>Dni</th>
                 <th>Edad</th>
-                <th>Actions</th>
+                <th>Ver</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -27,23 +28,16 @@
                 <td>{{ personal.dni }}</td>
                 <td>{{ personal.edad }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('personal_show', { 'id': personal.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('personal_edit', { 'id': personal.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <a href="{{ path('personal_show', { 'id': personal.id }) }}">show</a>
+                </td>
+                <td>
+                    <a href="{{ path('personal_edit', { 'id': personal.id }) }}">edit</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
             <a href="{{ path('personal_new') }}">Create a new personal</a>
-        </li>
-    </ul>
+
 {% endblock %}

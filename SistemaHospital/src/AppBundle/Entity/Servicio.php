@@ -47,41 +47,34 @@ class Servicio
         $this->reservas =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-
     /**
-     * Set id
+     * Get id
      *
-     * @ORM\param integer $id
+     * @return integer
      */
     public function getId()
     {
-        return $this->id ;
-    }
-
-    /**
-     * Get Reservas
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getReservas()
-    {
-        return $this->reservas;
+        return $this->id;
     }
 
     /**
      * Set tipo
      *
-     * @ORM\param string $tipo
+     * @param string $tipo
+     *
+     * @return Servicio
      */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
+
+        return $this;
     }
 
     /**
      * Get tipo
      *
-     * @ORM\return string
+     * @return string
      */
     public function getTipo()
     {
@@ -89,39 +82,81 @@ class Servicio
     }
 
     /**
-     * Set Descripcion
+     * Set descripcion
      *
-     * @ORM\param string $descripcion
+     * @param string $descripcion
+     *
+     * @return Servicio
      */
-    public function setDescripcion($tipo)
+    public function setDescripcion($descripcion)
     {
-        $this->tipo = $tipo;
+        $this->descripcion = $descripcion;
+
+        return $this;
     }
 
     /**
-     * Get Descripcion
+     * Get descripcion
      *
-     * @ORM\return string
+     * @return string
      */
     public function getDescripcion()
     {
-        return $this->tipo;
+        return $this->descripcion;
     }
 
     /**
-     * Set Personal
+     * Set baja
      *
-     * @ORM\param \Doctrine\Common\Collections\ArrayCollection $personal
+     * @param boolean $baja
+     *
+     * @return Servicio
      */
-    public function setPersonal($personal)
+    public function setBaja($baja)
     {
-        $this->personal = $personal;
+        $this->baja = $baja;
+
+        return $this;
     }
 
     /**
-     * Get Personal
+     * Get baja
      *
-     * @ORM\return \Doctrine\Common\Collections\ArrayCollection
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
+
+    /**
+     * Add personal
+     *
+     * @param \AppBundle\Entity\Personal $personal
+     *
+     * @return Servicio
+     */
+    public function addPersonal(\AppBundle\Entity\Personal $personal)
+    {
+        $this->personal[] = $personal;
+
+        return $this;
+    }
+
+    /**
+     * Remove personal
+     *
+     * @param \AppBundle\Entity\Personal $personal
+     */
+    public function removePersonal(\AppBundle\Entity\Personal $personal)
+    {
+        $this->personal->removeElement($personal);
+    }
+
+    /**
+     * Get personal
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPersonal()
     {
@@ -129,24 +164,36 @@ class Servicio
     }
 
     /**
-     * Set Baja
+     * Add reserva
      *
-     * @ORM\param boolean
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return Servicio
      */
-    public function setBaja($baja)
+    public function addReserva(\AppBundle\Entity\Reserva $reserva)
     {
-        $this->baja = $baja;
+        $this->reservas[] = $reserva;
+
+        return $this;
     }
 
     /**
-     * Get Baja
+     * Remove reserva
      *
-     * @ORM\return boolean
+     * @param \AppBundle\Entity\Reserva $reserva
      */
-    public function getBaja()
+    public function removeReserva(\AppBundle\Entity\Reserva $reserva)
     {
-        return $this->baja;
+        $this->reservas->removeElement($reserva);
     }
 
-
+    /**
+     * Get reservas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
+    }
 }
