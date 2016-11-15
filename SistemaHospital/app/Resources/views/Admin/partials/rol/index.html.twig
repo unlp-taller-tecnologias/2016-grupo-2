@@ -1,0 +1,38 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block main %}
+    <h1>Rols list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Baja</th>
+                <th>Ver</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rol in rols %}
+            <tr>
+                <td><a href="{{ path('admin_rol_show', { 'id': rol.id }) }}">{{ rol.id }}</a></td>
+                <td>{{ rol.nombre }}</td>
+                <td>{% if rol.baja %}Yes{% else %}No{% endif %}</td>
+                <td>
+
+                            <a href="{{ path('admin_rol_show', { 'id': rol.id }) }}">show</a>
+                </td>
+                <td>
+                            <a href="{{ path('admin_rol_edit', { 'id': rol.id }) }}">edit</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+            <a href="{{ path('admin_rol_new') }}">Create a new rol</a>
+
+{% endblock %}
