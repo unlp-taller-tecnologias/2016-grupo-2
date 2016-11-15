@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sangres list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sangre in sangres %}
+            <tr>
+                <td><a href="{{ path('Admin_sangre_show', { 'id': sangre.id }) }}">{{ sangre.id }}</a></td>
+                <td>{{ sangre.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('Admin_sangre_show', { 'id': sangre.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('Admin_sangre_edit', { 'id': sangre.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('Admin_sangre_new') }}">Create a new sangre</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace AppBundle\Controller\reserva;
+namespace AppBundle\Controller;
 
 use AppBundle\Entity\Reserva;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/reserva")
  */
-class RerservaController extends Controller
+class ReservaController extends Controller
 {
     /**
      * @Route("/", defaults={"page": 1}, name="reserva_index")

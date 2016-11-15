@@ -34,20 +34,13 @@ class Sangre
         $this->operaciones =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Get operaciones
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getOperaciones()
-    {
-        return $this->operaciones;
-    }
+   
+  
 
     /**
      * Get id
      *
-     * @ORM\return integer
+     * @return integer
      */
     public function getId()
     {
@@ -57,22 +50,58 @@ class Sangre
     /**
      * Set nombre
      *
-     * @ORM\param string $nombre
+     * @param string $nombre
+     *
+     * @return Sangre
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
      * Get nombre
      *
-     * @ORM\return string
+     * @return string
      */
-    public function nombre()
+    public function getNombre()
     {
         return $this->nombre;
     }
 
-  
+    /**
+     * Add operacione
+     *
+     * @param \AppBundle\Entity\Operacion $operacione
+     *
+     * @return Sangre
+     */
+    public function addOperacione(\AppBundle\Entity\Operacion $operacione)
+    {
+        $this->operaciones[] = $operacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove operacione
+     *
+     * @param \AppBundle\Entity\Operacion $operacione
+     */
+    public function removeOperacione(\AppBundle\Entity\Operacion $operacione)
+    {
+        $this->operaciones->removeElement($operacione);
+    }
+
+    /**
+     * Get operaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOperaciones()
+    {
+        return $this->operaciones;
+    }
 }

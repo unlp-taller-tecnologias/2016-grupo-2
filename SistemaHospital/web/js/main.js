@@ -26,6 +26,41 @@
                 close: 'fa fa-remove'
             }
         });
+
+        //esto es para el nav del sidevar darles estilos
+        $("#sidebar ul li a").click(function () {
+            $(this).parent().attr("class","active");
+            $(this).parent().siblings().removeAttr("class");
+        });
+
+
+        //ADMIN BOTONES!!!
+        // btnperfil=$("#btn-perfil");
+        // btnpersonal=$("#btn-personal");
+        // btnusuarios=$("#btn-usuarios");
+        // btnservicios=$("#btn-servicios");
+        // btnroles=$("#btn-roles");
+        // btnanestesias=$("#btn-anestesias");
+        // btnasa=$("#btn-asa");
+        // btnquirofano=$("#btn-quirofano");
+        //
+        //
+        // btnusuarios.click(function(){
+        //     actualizarVista("usuarios");
+        // });
+        //
+        //
+        // function actualizarVista(vista){
+        //
+        // }
+
+
+
+
+        //
+        
+        
+        
     });
 
     // Handling the modal confirmation message.

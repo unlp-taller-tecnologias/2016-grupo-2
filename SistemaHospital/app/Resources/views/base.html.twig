@@ -45,24 +45,30 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{#{{ path('operacion_index') }}#}">
+                                <a href="#{#{{ path('operacion_index') }}#}">
                                     <i class="fa fa-stethoscope " aria-hidden="true"></i> Operaciones
                                 </a>
                             </li>
 
                             {#ESto es lo que va a ver el admin#}
-                            {% if is_granted('ROLE_ADMIN') %}
+                            <li>
+                                <a href="{{ path('admin_index') }}">
+                                    <i class="fa fa-wrench" aria-hidden="true"></i> Configuracion
+                                </a>
+                            </li>
+                            {% if is_granted('ROLE_USER') %}
                                 <li>
-                                    <a href="{#{{ path('admin_index') }}#}">
-                                        <i class="fa fa-wrench" aria-hidden="true"></i> Configuracion
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{#{{ path('security_logout') }}#}">
+                                    <a href="{{ path('fos_user_security_logout') }}">
                                         <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesion
                                     </a>
                                 </li>
                             {% endif %}
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                </div>
+                                <button type="submit" class="btn btn-default">Buscar</button>
+                            </form>
                         {% endblock %}
                     </ul>
                 </div>
@@ -74,6 +80,14 @@
 <div class="container body-container">
     {% block body %}
         <div class="row">
+
+            <div id="sidebar" class="col-sm-3">
+                {% block sidebar %}
+                    {#aca va el sidebar de operaciones o reservas o configuracoines... serian las opciones#}
+                {% endblock %}
+            </div>
+
+
             <div id="main" class="col-sm-9">
                 {{ include('default/_flash_messages.html.twig') }}
 
@@ -82,11 +96,6 @@
                 {% endblock %}
             </div>
 
-            <div id="sidebar" class="col-sm-3">
-                {% block sidebar %}
-                    {#aca va el sidebar de operaciones o reservas o configuracoines... serian las opciones#}
-                {% endblock %}
-            </div>
         </div>
     {% endblock %}
 </div>
@@ -110,6 +119,7 @@
     <script src="{{ asset('js/highlight.pack.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/genericos.js') }}"></script>
 {% endblock %}
 
 
