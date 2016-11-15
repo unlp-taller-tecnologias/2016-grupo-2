@@ -21,8 +21,6 @@ class AdminController extends  Controller
      */
     public function listaPersonalAction()
     {
-        // replace this example code with whatever you need
-        //return $this->render('default/index.html.twig');
         return $this->render('Admin/partials/listaPersonal.html.twig'/*, ['reservas' => $reservas]*/);
     }
     /**
@@ -30,8 +28,6 @@ class AdminController extends  Controller
      */
     public function listaUserAction()
     {
-        // replace this example code with whatever you need
-        //return $this->render('default/index.html.twig');
         return $this->render('Admin/partials/listaUser.html.twig'/*, ['reservas' => $reservas]*/);
     }
 }

@@ -35,14 +35,28 @@
 
 
         //ADMIN BOTONES!!!
-        btnperfil=$("#btn-perfil");
-        btnpersonal=$("#btn-personal");
-        btnusuarios=$("#btn-usuarios");
-        btnservicios=$("#btn-servicios");
-        btnroles=$("#btn-roles");
-        btnanestesias=$("#btn-anestesias");
-        btnasa=$("#btn-asa");
-        btnquirofano=$("#btn-quirofano");
+        // btnperfil=$("#btn-perfil");
+        // btnpersonal=$("#btn-personal");
+        // btnusuarios=$("#btn-usuarios");
+        // btnservicios=$("#btn-servicios");
+        // btnroles=$("#btn-roles");
+        // btnanestesias=$("#btn-anestesias");
+        // btnasa=$("#btn-asa");
+        // btnquirofano=$("#btn-quirofano");
+        //
+        //
+        // btnusuarios.click(function(){
+        //     actualizarVista("usuarios");
+        // });
+        //
+        //
+        // function actualizarVista(vista){
+        //
+        // }
+
+
+
+
         //
         
         

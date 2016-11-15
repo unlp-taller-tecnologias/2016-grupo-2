@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Personals list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Baja</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Genero</th>
+                <th>Dni</th>
+                <th>Edad</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personal in personals %}
+            <tr>
+                <td><a href="{{ path('personal_show', { 'id': personal.id }) }}">{{ personal.id }}</a></td>
+                <td>{% if personal.baja %}Yes{% else %}No{% endif %}</td>
+                <td>{{ personal.nombre }}</td>
+                <td>{{ personal.apellido }}</td>
+                <td>{{ personal.genero }}</td>
+                <td>{{ personal.dni }}</td>
+                <td>{{ personal.edad }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('personal_show', { 'id': personal.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('personal_edit', { 'id': personal.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('personal_new') }}">Create a new personal</a>
+        </li>
+    </ul>
+{% endblock %}
