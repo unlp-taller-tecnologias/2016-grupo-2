@@ -42,22 +42,12 @@ class Asa
         $this->operaciones =  new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-    
-    /**
-     * Get operaciones
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getOperaciones()
-    {
-        return $this->operaciones;
-    }
 
 
     /**
      * Get id
      *
-     * @ORM\return integer
+     * @return integer
      */
     public function getId()
     {
@@ -67,17 +57,21 @@ class Asa
     /**
      * Set grado
      *
-     * @ORM\param string $grado
+     * @param string $grado
+     *
+     * @return Asa
      */
     public function setGrado($grado)
     {
         $this->grado = $grado;
+
+        return $this;
     }
 
     /**
      * Get grado
      *
-     * @ORM\return string
+     * @return string
      */
     public function getGrado()
     {
@@ -85,20 +79,47 @@ class Asa
     }
 
     /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     *
+     * @return Asa
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
      * Set baja
      *
-     * @ORM\param $baja
+     * @param boolean $baja
+     *
+     * @return Asa
      */
     public function setBaja($baja)
     {
         $this->baja = $baja;
+
+        return $this;
     }
 
     /**
      * Get baja
      *
-     * @ORM\return boolean
-     *
+     * @return boolean
      */
     public function getBaja()
     {
@@ -106,22 +127,36 @@ class Asa
     }
 
     /**
-     * Set descripcion
+     * Add operacione
      *
-     * @ORM\param string $descripcion
+     * @param \AppBundle\Entity\Operacion $operacione
+     *
+     * @return Asa
      */
-    public function setDescripcion($descripcion)
+    public function addOperacione(\AppBundle\Entity\Operacion $operacione)
     {
-        $this->descripcion = $descripcion;
+        $this->operaciones[] = $operacione;
+
+        return $this;
     }
 
     /**
-     * Get descripcion
+     * Remove operacione
      *
-     * @ORM\return string
+     * @param \AppBundle\Entity\Operacion $operacione
      */
-    public function getDescripcion()
+    public function removeOperacione(\AppBundle\Entity\Operacion $operacione)
     {
-        return $this->descripcion;
+        $this->operaciones->removeElement($operacione);
+    }
+
+    /**
+     * Get operaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOperaciones()
+    {
+        return $this->operaciones;
     }
 }
