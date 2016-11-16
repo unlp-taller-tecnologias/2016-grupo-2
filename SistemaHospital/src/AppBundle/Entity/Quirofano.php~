@@ -10,9 +10,9 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
- * @ORM\Table(name="rol")
+ * @ORM\Table(name="quirofano")
  */
-class Rol
+class Quirofano
 {
     /**
      * @ORM\Id
@@ -24,8 +24,17 @@ class Rol
     /** @ORM\Column(type="string", length=45) **/
     protected $nombre;
 
-    /** @ORM\Column(type="boolean") **/
-    protected $baja=false;
+    /**
+     * @ORM\OneToMany(targetEntity="Reserva", mappedBy="quirofano",cascade={"remove"}, orphanRemoval=true)
+     */
+    protected $reservas;
+
+    public function __construct()
+    {
+        $this->reservas =  new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
+
+  
 }

@@ -10,12 +10,17 @@
                  Configuracion <span class="caret"></span>
              </a>
              <ul class="dropdown-menu">
-                 {#<li class="divider"></li>#}
-                 <li><a href="#" id="btn-servicios">Servicios</a></li>
+
+                 <li><a href="{{ path("admin_servicio_index") }}" id="btn-servicios">Servicios</a></li>
                  <li><a href="{{ path("admin_rol_index") }}" id="btn-roles">Roles</a></li>
                  <li><a href="#" id="btn-anestesias">Tipos de Anestesias</a></li>
                  <li><a href="#" id="btn-asa">ASA</a></li>
-                 <li><a href="#" id="btn-quirofano">Quirófanos</a></li>
+                 <li><a href="{{ path("admin_quirofano_index") }}" id="btn-quirofano">Quirófanos</a></li>
+                 {% if is_granted('ROLE_ADMIN') %}
+                     {#Esto es el abm de estado solo lo puede tocar el superadmin ... no tiene sentido que alguien del hospital lo modifique#}
+                     <li class="divider"></li>
+                     <li><a href="#">Estado Reserva</a></li>
+                 {% endif %}
              </ul>
          </li>
      </ul>

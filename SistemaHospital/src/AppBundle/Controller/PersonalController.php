@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Personal;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Personal controller.
@@ -22,8 +24,8 @@ class PersonalController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
+        $em = $this->getDoctrine()->getManager();
         $personals = $em->getRepository('AppBundle:Personal')->findAll();
 
         return $this->render('Admin/partials/personal/index.html.twig', array(

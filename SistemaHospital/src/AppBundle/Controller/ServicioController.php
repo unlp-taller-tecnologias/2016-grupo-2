@@ -26,7 +26,7 @@ class ServicioController extends Controller
 
         $servicios = $em->getRepository('AppBundle:Servicio')->findAll();
 
-        return $this->render('Admin/pertials/servicio/index.html.twig', array(
+        return $this->render('Admin/partials/servicio/index.html.twig', array(
             'servicios' => $servicios,
         ));
     }
@@ -51,7 +51,7 @@ class ServicioController extends Controller
             return $this->redirectToRoute('admin_servicio_show', array('id' => $servicio->getId()));
         }
 
-        return $this->render('Admin/pertials/servicio/new.html.twig', array(
+        return $this->render('Admin/partials/servicio/new.html.twig', array(
             'servicio' => $servicio,
             'form' => $form->createView(),
         ));
@@ -67,7 +67,7 @@ class ServicioController extends Controller
     {
         $deleteForm = $this->createDeleteForm($servicio);
 
-        return $this->render('Admin/pertials/servicio/show.html.twig', array(
+        return $this->render('Admin/partials/servicio/show.html.twig', array(
             'servicio' => $servicio,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -91,7 +91,7 @@ class ServicioController extends Controller
             return $this->redirectToRoute('admin_servicio_edit', array('id' => $servicio->getId()));
         }
 
-        return $this->render('Admin/pertials/servicio/edit.html.twig', array(
+        return $this->render('Admin/partials/servicio/edit.html.twig', array(
             'servicio' => $servicio,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
