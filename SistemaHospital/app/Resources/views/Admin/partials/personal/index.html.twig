@@ -13,6 +13,7 @@
                 <th>Genero</th>
                 <th>Dni</th>
                 <th>Edad</th>
+                <th>Es administrador</th>
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
@@ -27,6 +28,13 @@
                 <td>{{ personal.genero }}</td>
                 <td>{{ personal.dni }}</td>
                 <td>{{ personal.edad }}</td>
+
+                <td>{% if personal.user is not empty %}
+                        Si
+                        {% else %}
+                        No
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{{ path('personal_show', { 'id': personal.id }) }}">show</a>
                 </td>

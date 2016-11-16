@@ -20,13 +20,16 @@ class PersonalType extends AbstractType
             ->add('genero')
             ->add('dni')
             ->add('edad')
-            ->add('servicios')
-            ->add('operaciones')
+            ->add('servicios', EntityType::class, [
+                'placeholder' => "Seleccione una opción..",
+                'class'=>"AppBundle:Servicio",
+                'choice_label' => 'getTipo',
+            ])
             ->add('rol', EntityType::class, [
-                'placeholder' => "- Seleccione una opción -",
+                'placeholder' => "- Seleccione una opción..",
                 'class'=>"AppBundle:Rol",
                 'choice_label' => 'getNombre',
-            ]);;
+            ]);
     }
     
     /**

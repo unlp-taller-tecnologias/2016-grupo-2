@@ -18,8 +18,8 @@ class User extends BaseUser{
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Personal", inversedBy="user")
-     * @ORM\JoinColumn(name="personal_id", referencedColumnName="id", nullable=true)
+     *
+     * @ORM\OneToOne(targetEntity="Personal", mappedBy="user")
      */
     private $personal;
 
