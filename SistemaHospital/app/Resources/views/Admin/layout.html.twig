@@ -19,7 +19,7 @@
                  {% if is_granted('ROLE_ADMIN') %}
                      {#Esto es el abm de estado solo lo puede tocar el superadmin ... no tiene sentido que alguien del hospital lo modifique#}
                      <li class="divider"></li>
-                     <li><a href="#">Estado Reserva</a></li>
+                     <li><a href="{{ path('admin_estado_index') }}">Estado Reserva</a></li>
                  {% endif %}
              </ul>
          </li>
