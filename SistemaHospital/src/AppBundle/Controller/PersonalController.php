@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Personal;
+use AppBundle\Form\PersonalType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -42,13 +43,13 @@ class PersonalController extends Controller
     public function newAction(Request $request)
     {
         $personal = new Personal();
-        $form = $this->createForm('AppBundle\Form\PersonalType', $personal);
+        $form = $this->createForm(new PersonalType($this->getDoctrine()), $personal);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($personal);
-            $em->flush($personal);
+        $em->persist($personal);
+         $em->flush($personal);
 
             return $this->redirectToRoute('personal_show', array('id' => $personal->getId()));
         }

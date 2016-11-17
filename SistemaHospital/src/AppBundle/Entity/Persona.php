@@ -82,20 +82,19 @@ class Persona
     /**
      * Set dni
      *
-     * @param string $dni
+     * @param integer $dni
      * @return Persona
      */
     public function setDni($dni)
     {
-        $this->documento = $dni;
+        $this->dni = $dni;
         return $this;
     }
 
     /**
      * Get dni
      *
-     * @return string
-     * @return Persona
+     * @return integer
      */
     public function getDni()
     {
