@@ -42,9 +42,9 @@ class User extends BaseUser{
     }
 
     /**
-     * Get tipo
+     * Get personal
      *
-     * @return string
+     * @return Personal
      */
     public function getPersonal()
     {

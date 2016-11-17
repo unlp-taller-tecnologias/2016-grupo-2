@@ -36,18 +36,26 @@ class UserController extends Controller
     /**
      * Creates a new user entity.
      *
-     * @Route("/new", name="user_new")
+     * @Route("{id_personal}/new", name="user_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id_personal)
     {
+
         $user = new User();
         $form = $this->createForm(new UserType($this->getDoctrine()),$user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user->addRole("ROLE_USER");
             $em = $this->getDoctrine()->getManager();
+
+            $personal= $em->getRepository('AppBundle:Personal')->find($id_personal);
+            $personal->setUser($user);
+
             $em->persist($user);
+            $em->persist($personal);
             $em->flush($user);
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
