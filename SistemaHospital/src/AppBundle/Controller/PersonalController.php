@@ -34,6 +34,18 @@ class PersonalController extends Controller
         ));
     }
 
+
+    /**
+     * Lists all personal entities.
+     *
+     * @Route("/perfil", name="personal_miperfil")
+     * @Method("GET")
+     */
+    public function miPerfilAction()
+    {
+        return $this->render('Admin/partials/personal/perfil.html.twig');
+    }
+
     /**
      * Creates a new personal entity.
      *

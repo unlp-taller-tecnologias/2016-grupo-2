@@ -1,0 +1,43 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block main %}
+    <h1>Mi perfil</h1>
+    <div class="well well-lg">
+            <div class="col-md-6">
+                <h3>Nombre</h3>
+                <p>{{ app.user.personal.nombre }}</p>
+
+                <h3>Apellido</h3>
+                <p>{{ app.user.personal.apellido }}</p>
+
+                <h3>Genero</h3>
+                <p>{{ app.user.personal.genero }}</p>
+
+            </div>
+             <div class="col-md-6">
+                 <h3>Dni</h3>
+                 <p>{{ app.user.personal.dni }}</p>
+
+                 <h3>Edad</h3>
+                 <p>{{ app.user.personal.edad }}</p>
+
+                 <h3>Rol</h3>
+                 <p>{{ app.user.personal.rol.nombre }}</p>
+             </div>
+
+            <div class="col-md-12">
+            <h3>Servicios</h3>
+            {% if app.user.personal.servicios is not empty %}
+                {% for servicio in app.user.personal.servicios %}
+                 <b>{{servicio.tipo}}</b><p>{{servicio.descripcion}}</p>
+                {% endfor %}
+            {% else %}
+                <p>No tengo ningun servicio... Falta agregar algun servicio al usuario?</p>
+            {% endif %}
+
+            </div>
+        <a class="btn btn-primary" href="{{ path('personal_edit', { 'id': app.user.personal.id }) }}">Editar</a>
+    </div>
+
+
+{% endblock %}

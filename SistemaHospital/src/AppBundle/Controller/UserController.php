@@ -47,16 +47,16 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->addRole("ROLE_ADMIN");
+            $user->setEnabled(true);
 
-            $user->addRole("ROLE_USER");
             $em = $this->getDoctrine()->getManager();
 
             $personal= $em->getRepository('AppBundle:Personal')->find($id_personal);
-            $personal->setUser($user);
+            $user->setPersonal($personal);
 
             $em->persist($user);
-            $em->persist($personal);
-            $em->flush($user);
+            $em->flush();
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
 
