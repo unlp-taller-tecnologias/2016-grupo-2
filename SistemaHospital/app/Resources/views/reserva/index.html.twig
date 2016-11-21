@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reservas list</h1>
+    <form action="#" target="rightframe" method="post">
+                <label>Filtrar reservas</label>
+                <input type="date" name="fechadesde" />
+                <input type="date" name="fechahasta" />
+
+                 <button type="submit">Buscar</button><br>
+
+    </form>
+    <ul>
+        <li>
+            <a href="{{ path('reserva_new') }}">Create a new reserva</a>
+        </li>
+    </ul>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numeroreserva</th>
+                <th>Paciente</th>
+                <th>Estado de la reserva</th>
+                <th>Baja</th>
+                <th>Fecha_inicio</th>
+                <th>Fecha_fin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reserva in reservas %}
+            <tr>
+                <td><a href="{{ path('reserva_show', { 'id': reserva.id }) }}">{{ reserva.id }}</a></td>
+                <td>{{ reserva.numeroReserva }}</td>
+                <td>{{ reserva.paciente.nombre }} {{ reserva.paciente.apellido }}</td>
+                <td>{{ reserva.estado.tipo }}</td>
+                <td>{% if reserva.baja %}Yes{% else %}No{% endif %}</td>
+                <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('reserva_show', { 'id': reserva.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('reserva_edit', { 'id': reserva.id }) }}">edit</a>
+                        </li>
+                        {% if reserva.estado.tipo != 'Cancelada' and reserva.estado.tipo != 'Finalizada' %}
+                        <li>
+                            <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}">cancelar</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

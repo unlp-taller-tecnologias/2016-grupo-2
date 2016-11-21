@@ -3,9 +3,9 @@
 {% block main %}
     <h1>Personal creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_widget(form, { 'attr': {'class': 'form-group'}}) }}
+        <input type="submit" value="Create" class="btn btn-success btn-sm" />
     {{ form_end(form) }}
 
     <ul>

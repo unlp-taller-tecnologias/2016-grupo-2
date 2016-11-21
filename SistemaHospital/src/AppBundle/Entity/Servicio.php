@@ -196,4 +196,7 @@ class Servicio
     {
         return $this->reservas;
     }
+     public function __toString() {
+          return $this->tipo;
+    }
 }

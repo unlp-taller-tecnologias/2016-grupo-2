@@ -1,0 +1,73 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Fer
+ * Date: 01/11/2016
+ * Time: 17:03
+ */
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="reserva")
+ */
+class Reserva
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=45, unique=true) *
+     */
+    protected $numeroReserva;
+
+    /** @ORM\Column(type="boolean") **/
+    protected $baja=false;
+
+    /** @ORM\Column(type="datetime") **/
+    protected $fecha_inicio;
+
+    /** @ORM\Column(type="datetime") **/
+    protected $fecha_fin;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Operacion", inversedBy="reserva" )
+     * @ORM\JoinColumn(name="operacion_id", referencedColumnName="id")
+     */
+    protected $operacion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Paciente",inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $paciente;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Servicio",inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $servicio;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Estado",inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $estado;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Quirofano",inversedBy="reservas")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $quirofano;
+
+    
+
+}
