@@ -1,0 +1,39 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block main %}
+    <h1>Estados list</h1>
+
+{% if estados is not empty %}
+<table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>Baja</th>
+                <th>Ver</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for estado in estados %}
+            <tr>
+                <td><a href="{{ path('admin_estado_show', { 'id': estado.id }) }}">{{ estado.id }}</a></td>
+                <td>{{ estado.tipo }}</td>
+                <td>{{ estado.descripcion }}</td>
+                <td>{% if estado.baja %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <a href="{{ path('admin_estado_show', { 'id': estado.id }) }}">show</a>
+                </td>
+                <td>
+                    <a href="{{ path('admin_estado_edit', { 'id': estado.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h2>No hay estados incorporado</h2>
+{% endif %}
+    <a href="{{ path('admin_estado_new') }}">Create a new estado</a>
+{% endblock %}

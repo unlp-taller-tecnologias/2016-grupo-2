@@ -18,8 +18,11 @@ class User extends BaseUser{
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Personal", inversedBy="user")
-     * @ORM\JoinColumn(name="personal_id", referencedColumnName="id",nullable=false)
+     *
+     *
+     *
+     * @ORM\OneToOne(targetEntity="Personal",inversedBy="user")
+     * @ORM\JoinColumn(name="personal_id", referencedColumnName="id", nullable=true)
      */
     private $personal;
 
@@ -32,17 +35,19 @@ class User extends BaseUser{
     /**
      * Set Personal
      *
-     * @ORM\param Personal $personal
+     * @param Personal $personal
+     * @return User
      */
     public function setPersonal($personal)
     {
         $this->personal = $personal;
+        return $this;
     }
 
     /**
-     * Get tipo
+     * Get personal
      *
-     * @ORM\return string
+     * @return Personal
      */
     public function getPersonal()
     {

@@ -1,0 +1,38 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Fer
+ * Date: 01/11/2016
+ * Time: 17:03
+ */
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ *
+ * @ORM\MappedSuperclass
+ */
+class Persona
+{
+    /** @ORM\Column(type="string",length=50) **/
+    protected $nombre;
+
+    /** @ORM\Column(type="string",length=50) **/
+    protected $apellido;
+
+    /** @ORM\Column(type="string",length=50) **/
+    protected $genero;
+
+    /** @ORM\Column(type="integer", unique=true) **/
+    protected $dni;
+
+    /** @ORM\Column(type="integer") **/
+    protected $edad;
+
+
+
+
+}

@@ -1,0 +1,34 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block main %}
+    <h1>Quirofanos list</h1>
+    {% if quirofanos is not empty %}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Ver</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quirofano in quirofanos %}
+            <tr>
+                <td><a href="{{ path('admin_quirofano_show', { 'id': quirofano.id }) }}">{{ quirofano.id }}</a></td>
+                <td>{{ quirofano.nombre }}</td>
+                <td>
+                    <a href="{{ path('admin_quirofano_show', { 'id': quirofano.id }) }}">show</a>
+                </td>
+                <td>
+                    <a href="{{ path('admin_quirofano_edit', { 'id': quirofano.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <h2>No hay quirofanos incorporados</h2>
+    {% endif %}
+        <a href="{{ path('admin_quirofano_new') }}">Create a new quirofano</a>
+{% endblock %}

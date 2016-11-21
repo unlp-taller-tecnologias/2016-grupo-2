@@ -2,42 +2,36 @@
 
  {% block sidebar %}
      <ul class="nav nav-pills nav-stacked">
-         <li><a href="#" id="btn-perfil">Mi perfil</a></li>
-         <li class="" ><a href="" id="btn-personal">Lista del Personal</a></li>
-         <li class=""><a href="" id="btn-usuarios">Lista de Usuarios</a></li>
+         <li><a href="{{ path('personal_miperfil')}}" id="btn-perfil">Mi perfil</a></li>
+         <li class="" ><a href="{{ path('personal_index')}}" id="btn-personal">Lista del Personal</a></li>
+         <li class=""><a href="{{ path('user_index')}}" id="btn-usuarios">Lista de Usuarios</a></li>
          <li class="dropdown">
              <a class="dropdown-toggle" data-toggle="dropdown" href="#" >
                  Configuracion <span class="caret"></span>
              </a>
              <ul class="dropdown-menu">
-                 {#<li class="divider"></li>#}
-                 <li><a href="#" id="btn-servicios">Servicios</a></li>
-                 <li><a href="#" id="btn-roles">Roles</a></li>
-                 <li><a href="#" id="btn-anestesias">Tipos de Anestesias</a></li>
-                 <li><a href="#" id="btn-asa">ASA</a></li>
-                 <li><a href="#" id="btn-quirofano">Quirófanos</a></li>
+
+                 <li><a href="{{ path("admin_servicio_index") }}" id="btn-servicios">Servicios</a></li>
+                 <li><a href="{{ path("admin_rol_index") }}" id="btn-roles">Roles</a></li>
+                 <li><a href="{{ path("admin_anestesia_index") }}" id="btn-anestesias">Tipos de Anestesias</a></li>
+                 <li><a href="{{ path("admin_asa_index") }}" id="btn-asa">ASA</a></li>
+                 <li><a href="{{ path("admin_quirofano_index") }}" id="btn-quirofano">Quirófanos</a></li>
+                 {% if is_granted('ROLE_SUPER_ADMIN') %}
+                     {#Esto es el abm de estado solo lo puede tocar el superadmin ... no tiene sentido que alguien del hospital lo modifique#}
+                     <li class="divider"></li>
+                     <li><a href="{{ path('admin_estado_index') }}">Estado Reserva</a></li>
+                 {% endif %}
              </ul>
          </li>
      </ul>
  {% endblock %}
-{#
+
 {% block javascripts %}
     {{ parent() }}
     <script type="application/javascript">
         $(document).ready(function(){
-
-            /*$("#sidebar ul li a").click(function () {
-
-            });*/
-
-
-
-
-            //hacer que corra una vista parcial con el path de los controladores especificos
-
+            //no hya nada por ahora
         })
     </script>
 
 {% endblock %}
-
-#}

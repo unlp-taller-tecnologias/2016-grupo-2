@@ -42,65 +42,121 @@ class Estado
         $this->reservas =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+
     /**
-     * Set id
+     * Get id
      *
-     * @ORM\param integer $id
+     * @return integer
      */
     public function getId()
     {
-        return $this->id ;
+        return $this->id;
     }
 
     /**
      * Set tipo
      *
-     * @ORM\param string $tipo
+     * @param string $tipo
+     *
+     * @return Estado
      */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
+
+        return $this;
     }
 
     /**
      * Get tipo
      *
-     * @ORM\return string
+     * @return string
      */
     public function getTipo()
     {
         return $this->tipo;
     }
 
-
-
     /**
-     * Get Reservas
+     * Set descripcion
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getReservas()
-    {
-        return $this->reservas;
-    }
-
-    /**
-     * Set tipo
+     * @param string $descripcion
      *
-     * @ORM\param string $descripcion
+     * @return Estado
      */
     public function setDescripcion($descripcion)
     {
-        $this->tipo = $descripcion;
+        $this->descripcion = $descripcion;
+
+        return $this;
     }
 
     /**
-     * Get tipo
+     * Get descripcion
      *
-     * @ORM\return string
+     * @return string
      */
     public function getDescripcion()
     {
         return $this->descripcion;
+    }
+
+    /**
+     * Set baja
+     *
+     * @param boolean $baja
+     *
+     * @return Estado
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+
+        return $this;
+    }
+
+    /**
+     * Get baja
+     *
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
+
+    /**
+     * Add reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return Estado
+     */
+    public function addReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas[] = $reserva;
+
+        return $this;
+    }
+
+    /**
+     * Remove reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     */
+    public function removeReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas->removeElement($reserva);
+    }
+
+    /**
+     * Get reservas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
     }
 }

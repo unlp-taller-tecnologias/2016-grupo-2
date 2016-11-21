@@ -23,6 +23,7 @@ class Personal extends Persona
     protected $id;
 
     /**
+     *
      * @ORM\OneToOne(targetEntity="User", mappedBy="personal")
      */
     private $user;
@@ -55,10 +56,60 @@ class Personal extends Persona
         $this->operaciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+
     /**
-     * Get $user
+     * Get id
      *
-     *@ORM\return User
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set baja
+     *
+     * @param boolean $baja
+     *
+     * @return Personal
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+
+        return $this;
+    }
+
+    /**
+     * Get baja
+     *
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Personal
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
@@ -66,30 +117,33 @@ class Personal extends Persona
     }
 
     /**
-     * Set user
+     * Add servicio
      *
-     * @ORM\param User $user
-     */
-    public function setUser($user)
-    {
-        return $this->user=$user;
-    }
-
-
-    /**
-     * Set Servicios
+     * @param \AppBundle\Entity\Servicio $servicio
      *
-     * @ORM\param \Doctrine\Common\Collections\ArrayCollection &servicios
+     * @return Personal
      */
-    public function setServicios($servicios)
+    public function addServicio(\AppBundle\Entity\Servicio $servicio)
     {
-        $this->servicios = $servicios;
+        $this->servicios[] = $servicio;
+
+        return $this;
     }
 
     /**
-     * Get Servicios
+     * Remove servicio
      *
-     * @ORM\return \Doctrine\Common\Collections\ArrayCollection &servicios
+     * @param \AppBundle\Entity\Servicio $servicio
+     */
+    public function removeServicio(\AppBundle\Entity\Servicio $servicio)
+    {
+        $this->servicios->removeElement($servicio);
+    }
+
+    /**
+     * Get servicios
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getServicios()
     {
@@ -97,19 +151,33 @@ class Personal extends Persona
     }
 
     /**
-     * Set operaciones
+     * Add operacione
      *
-     * @ORM\param \Doctrine\Common\Collections\ArrayCollection $operaciones
+     * @param \AppBundle\Entity\Operacion $operacione
+     *
+     * @return Personal
      */
-    public function setOperaciones($operaciones)
+    public function addOperacione(\AppBundle\Entity\Operacion $operacione)
     {
-        $this->operaciones = $operaciones;
+        $this->operaciones[] = $operacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove operacione
+     *
+     * @param \AppBundle\Entity\Operacion $operacione
+     */
+    public function removeOperacione(\AppBundle\Entity\Operacion $operacione)
+    {
+        $this->operaciones->removeElement($operacione);
     }
 
     /**
      * Get operaciones
      *
-     * @ORM\return \Doctrine\Common\Collections\ArrayCollection $operaciones
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getOperaciones()
     {
@@ -119,41 +187,24 @@ class Personal extends Persona
     /**
      * Set rol
      *
-     * @param Rol $rol
+     * @param \AppBundle\Entity\Rol $rol
+     *
+     * @return Personal
      */
-    public function setRol(Rol $rol)
+    public function setRol(\AppBundle\Entity\Rol $rol)
     {
         $this->rol = $rol;
+
+        return $this;
     }
 
     /**
      * Get rol
      *
-     * @return Rol
+     * @return \AppBundle\Entity\Rol
      */
     public function getRol()
     {
         return $this->rol;
-    }
-
-
-    /**
-     * Set Baja
-     *
-     * @ORM\param boolean
-     */
-    public function setBaja($baja)
-    {
-        $this->baja = $baja;
-    }
-
-    /**
-     * Get Baja
-     *
-     * @ORM\return boolean
-     */
-    public function getBaja()
-    {
-        return $this->baja;
     }
 }

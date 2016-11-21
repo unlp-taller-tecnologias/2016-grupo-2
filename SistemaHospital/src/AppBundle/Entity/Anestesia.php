@@ -41,20 +41,12 @@ class Anestesia
         $this->operaciones =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Get operaciones
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getOperaciones()
-    {
-        return $this->operaciones;
-    }
+
 
     /**
      * Get id
      *
-     * @ORM\return integer
+     * @return integer
      */
     public function getId()
     {
@@ -64,17 +56,21 @@ class Anestesia
     /**
      * Set tipo
      *
-     * @ORM\param string $tipo
+     * @param string $tipo
+     *
+     * @return Anestesia
      */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
+
+        return $this;
     }
 
     /**
      * Get tipo
      *
-     * @ORM\return string
+     * @return string
      */
     public function getTipo()
     {
@@ -82,20 +78,47 @@ class Anestesia
     }
 
     /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     *
+     * @return Anestesia
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
      * Set baja
      *
-     * @ORM\param $baja
+     * @param boolean $baja
+     *
+     * @return Anestesia
      */
     public function setBaja($baja)
     {
         $this->baja = $baja;
+
+        return $this;
     }
 
     /**
      * Get baja
      *
-     * @ORM\return boolean
-     *
+     * @return boolean
      */
     public function getBaja()
     {
@@ -103,22 +126,36 @@ class Anestesia
     }
 
     /**
-     * Set descripcion
+     * Add operacione
      *
-     * @ORM\param string $descripcion
+     * @param \AppBundle\Entity\Operacion $operacione
+     *
+     * @return Anestesia
      */
-    public function setDescripcion($descripcion)
+    public function addOperacione(\AppBundle\Entity\Operacion $operacione)
     {
-        $this->descripcion = $descripcion;
+        $this->operaciones[] = $operacione;
+
+        return $this;
     }
 
     /**
-     * Get descripcion
+     * Remove operacione
      *
-     * @ORM\return string
+     * @param \AppBundle\Entity\Operacion $operacione
      */
-    public function getDescripcion()
+    public function removeOperacione(\AppBundle\Entity\Operacion $operacione)
     {
-        return $this->descripcion;
+        $this->operaciones->removeElement($operacione);
+    }
+
+    /**
+     * Get operaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOperaciones()
+    {
+        return $this->operaciones;
     }
 }

@@ -33,21 +33,23 @@ class Persona
     protected $edad;
 
 
-
     /**
      * Set nombre
      *
-     * @ORM\param string $nombre
+     * @param string $nombre
+     * @return Persona
+     *
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
+        return $this;
     }
 
     /**
      * Get nombre
      *
-     * @ORM\return string
+     * @return string
      */
     public function getNombre()
     {
@@ -57,17 +59,20 @@ class Persona
     /**
      * Set apellido
      *
-     * @ORM\param string $apellido
+     * @param string $apellido
+     *
+     * @return Persona
      */
     public function setApellido($apellido)
     {
         $this->apellido = $apellido;
+        return $this;
     }
 
     /**
      * Get apellido
      *
-     * @ORM\return string
+     * @return string
      */
     public function getApellido()
     {
@@ -77,17 +82,19 @@ class Persona
     /**
      * Set dni
      *
-     * @ORM\param string $dni
+     * @param integer $dni
+     * @return Persona
      */
     public function setDni($dni)
     {
-        $this->documento = $dni;
+        $this->dni = $dni;
+        return $this;
     }
 
     /**
      * Get dni
      *
-     * @ORM\return string
+     * @return integer
      */
     public function getDni()
     {
@@ -97,17 +104,20 @@ class Persona
     /**
      * Set genero
      *
-     * @ORM\param string $genero
+     * @param string $genero
+     * @return Persona
      */
     public function setGenero($genero)
     {
         $this->genero = $genero;
+        return $this;
     }
 
     /**
      * Get genero
      *
-     * @ORM\return string
+     * @return string
+     *
      */
     public function getGenero()
     {
@@ -117,21 +127,25 @@ class Persona
     /**
      * Set edad
      *
-     * @ORM\param integer $edad
+     * @param integer $edad
+     * @return Persona
      */
     public function setEdad($edad)
     {
         $this->edad = $edad;
+        return $this;
     }
 
     /**
      * Get edad
      *
-     * @ORM\return integer
+     * @return integer
      */
     public function getEdad()
     {
         return $this->edad;
     }
+
+
 
 }
