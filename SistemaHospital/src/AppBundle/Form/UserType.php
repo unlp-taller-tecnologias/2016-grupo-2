@@ -23,12 +23,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder
-            ->add('personal', EntityType::class, [
-                'placeholder' => "- Seleccione una opción -",
-                'class'=>"AppBundle:Personal",
-                'choice_label' => 'getNombre',
-            ]);
+//        $builder
+//            ->add('personal', EntityType::class, [
+//                'placeholder' => "- Seleccione una opción -",
+//                'class'=>"AppBundle:Personal",
+//                'choice_label' => 'getNombre',
+//            ]);
         //$builder->add('personal');
     }
     

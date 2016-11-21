@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Paciente</h1>
+
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ paciente.id }}</td>
+            </tr>
+            <tr>
+                <th>Mutual</th>
+                <td>{{ paciente.mutual }}</td>
+            </tr>
+            <tr>
+                <th>Baja</th>
+                <td>{% if paciente.baja %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ paciente.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ paciente.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Genero</th>
+                <td>{{ paciente.genero }}</td>
+            </tr>
+            <tr>
+                <th>Dni</th>
+                <td>{{ paciente.dni }}</td>
+            </tr>
+            <tr>
+                <th>Edad</th>
+                <td>{{ paciente.edad }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('paciente_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('paciente_edit', { 'id': paciente.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

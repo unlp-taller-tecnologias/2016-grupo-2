@@ -1,0 +1,40 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block main %}
+    <h1>Anestesium</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ anestesium.id }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ anestesium.tipo }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ anestesium.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Baja</th>
+                <td>{% if anestesium.baja %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_anestesia_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_anestesia_edit', { 'id': anestesium.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

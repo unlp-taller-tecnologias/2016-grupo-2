@@ -1,0 +1,40 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block main %}
+    <h1>Estado</h1>
+
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ estado.id }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ estado.tipo }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ estado.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Baja</th>
+                <td>{% if estado.baja %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_estado_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_estado_edit', { 'id': estado.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

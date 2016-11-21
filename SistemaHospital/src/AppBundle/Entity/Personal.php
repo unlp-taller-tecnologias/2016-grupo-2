@@ -23,8 +23,8 @@ class Personal extends Persona
     protected $id;
 
     /**
+     *
      * @ORM\OneToOne(targetEntity="User", mappedBy="personal")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 

@@ -1,0 +1,42 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block main %}
+    <h1>Asas list</h1>
+
+
+{% if asas is not empty %}
+<table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Grado</th>
+                <th>Descripcion</th>
+                <th>Baja</th>
+                <th>Ver</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for asa in asas %}
+            <tr>
+                <td><a href="{{ path('admin_asa_show', { 'id': asa.id }) }}">{{ asa.id }}</a></td>
+                <td>{{ asa.grado }}</td>
+                <td>{{ asa.descripcion }}</td>
+                <td>{% if asa.baja %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <a href="{{ path('admin_asa_show', { 'id': asa.id }) }}">show</a>
+                </td>
+                <td>
+                    <a href="{{ path('admin_asa_edit', { 'id': asa.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h2>No hay Asa incorporadas</h2>
+{% endif %}
+
+  <a href="{{ path('admin_asa_new') }}">Create a new asa</a>
+
+{% endblock %}

@@ -3,11 +3,18 @@
 {% block main %}
     <h1>User</h1>
 
-    <table>
+    <table  class="table table-striped table-hover ">
         <tbody>
             <tr>
                 <th>Id</th>
+                <th>Datos personal</th>
+                
+            </tr>
+            <tr>
                 <td>{{ user.id }}</td>
+                {% if user.personal != null  %}
+                <td>{{ user.personal.nombre }} {{ user.personal.apellido }} </td>
+                {% endif %}
             </tr>
         </tbody>
     </table>

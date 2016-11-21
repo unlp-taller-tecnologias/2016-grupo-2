@@ -13,7 +13,7 @@ class ServicioType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('tipo')->add('descripcion')->add('baja')->add('personal')        ;
+        $builder->add('tipo')->add('descripcion')->add('baja');
     }
     
     /**

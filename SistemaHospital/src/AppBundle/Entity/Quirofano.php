@@ -34,48 +34,73 @@ class Quirofano
         $this->reservas =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Get Reservas
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
-     */
-    public function getReservas()
-    {
-        return $this->reservas;
-    }
-
+  
 
     /**
      * Get id
      *
-     * @ORM\return integer
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
 
-
-
     /**
      * Set nombre
      *
-     * @ORM\param string $nombre
+     * @param string $nombre
+     *
+     * @return Quirofano
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
+
+        return $this;
     }
 
     /**
      * Get nombre
      *
-     * @ORM\return string
+     * @return string
      */
-    public function nombre()
+    public function getNombre()
     {
         return $this->nombre;
     }
 
-  
+    /**
+     * Add reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return Quirofano
+     */
+    public function addReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas[] = $reserva;
+
+        return $this;
+    }
+
+    /**
+     * Remove reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     */
+    public function removeReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas->removeElement($reserva);
+    }
+
+    /**
+     * Get reservas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
+    }
 }

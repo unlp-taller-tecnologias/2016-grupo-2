@@ -18,7 +18,10 @@ class User extends BaseUser{
     protected $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Personal", inversedBy="user")
+     *
+     *
+     *
+     * @ORM\OneToOne(targetEntity="Personal",inversedBy="user")
      * @ORM\JoinColumn(name="personal_id", referencedColumnName="id", nullable=true)
      */
     private $personal;
@@ -42,9 +45,9 @@ class User extends BaseUser{
     }
 
     /**
-     * Get tipo
+     * Get personal
      *
-     * @return string
+     * @return Personal
      */
     public function getPersonal()
     {

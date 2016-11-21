@@ -3,7 +3,7 @@
 {% block main %}
     <h1>Personal</h1>
 
-    <table>
+    <table class="table table-striped table-hover">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -33,6 +33,13 @@
                 <th>Edad</th>
                 <td>{{ personal.edad }}</td>
             </tr>
+            {% if personal.user is not empty %}
+                <tr>
+                    <th>Nombre Usuario</th>
+                    <td>{{ personal.user.username }}</td>
+                </tr>
+            {% endif %}
+
         </tbody>
     </table>
 
@@ -49,4 +56,8 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    {% if personal.user is empty %}
+      <a href="{{ path('user_new', { 'id_personal': personal.id }) }}" class="btn btn-primary" >Create a new user</a>
+    {% endif %}
 {% endblock %}

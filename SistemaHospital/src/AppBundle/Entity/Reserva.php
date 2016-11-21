@@ -68,124 +68,61 @@ class Reserva
      */
     protected $quirofano;
 
-    public function __construct() {
+    
 
-    }
 
     /**
-     * Get Operacion
+     * Get id
      *
-     *@ORM\return Operacion
+     * @return integer
      */
-    public function getOperacion()
+    public function getId()
     {
-        return $this->operacion;
+        return $this->id;
     }
 
     /**
-     * Set Operacion
+     * Set numeroReserva
      *
-     * @ORM\param Operacion $operacion
+     * @param string $numeroReserva
+     *
+     * @return Reserva
      */
-    public function setOperacion($operacion)
+    public function setNumeroReserva($numeroReserva)
     {
-        return $this->operacion=$operacion;
+        $this->numeroReserva = $numeroReserva;
+
+        return $this;
     }
 
     /**
-     * Set Quirofano
+     * Get numeroReserva
      *
-     * @ORM\param Quirofano $quirofano
+     * @return string
      */
-    public function setQuirofano($quirofano)
+    public function getNumeroReserva()
     {
-        $this->quirofano = $quirofano;
+        return $this->numeroReserva;
     }
 
     /**
-     * Get Quirofano
+     * Set baja
      *
-     * @ORM\return Quirofano
-     */
-    public function getQuirofano()
-    {
-        return $this->quirofano;
-    }
-
-    /**
-     * Set Estado
+     * @param boolean $baja
      *
-     * @ORM\param Estado $estado
-     */
-    public function setEstado($estado)
-    {
-        $this->estado = $estado;
-    }
-
-    /**
-     * Get Estado
-     *
-     * @ORM\return Estado
-     */
-    public function getEstado()
-    {
-        return $this->servicio;
-    }
-
-    /**
-     * Set Servicio
-     *
-     * @ORM\param Servicio $servicio
-     */
-    public function setServicio($servicio)
-    {
-        $this->servicio = $servicio;
-    }
-
-    /**
-     * Get Servicio
-     *
-     * @ORM\return Servicio
-     */
-    public function getServicio()
-    {
-        return $this->servicio;
-    }
-
-    /**
-     * Set Paciente
-     *
-     * @ORM\param Paciente $paciente
-     */
-    public function setPaciente($paciente)
-    {
-        $this->paciente = $paciente;
-    }
-
-    /**
-     * Get Paciente
-     *
-     * @ORM\return Paciente
-     */
-    public function getPaciente()
-    {
-        return $this->paciente;
-    }
-
-    /**
-     * Set Baja
-     *
-     * @ORM\param boolean
+     * @return Reserva
      */
     public function setBaja($baja)
     {
         $this->baja = $baja;
+
+        return $this;
     }
 
     /**
-     * Get Baja
+     * Get baja
      *
-     * @ORM\return boolean
+     * @return boolean
      */
     public function getBaja()
     {
@@ -193,44 +130,170 @@ class Reserva
     }
 
     /**
-     * Set fecha_inicio
+     * Set fechaInicio
      *
-     * @ORM\param DateTime
+     * @param \DateTime $fechaInicio
+     *
+     * @return Reserva
      */
-    public function setFechaInicio($fecha)
+    public function setFechaInicio($fechaInicio)
     {
-        $this->fecha_inicio = $fecha;
+        $this->fecha_inicio = $fechaInicio;
+
+        return $this;
     }
 
     /**
-     * Get fecha_inicio
+     * Get fechaInicio
      *
-     * @ORM\return DateTime
+     * @return \DateTime
      */
     public function getFechaInicio()
     {
         return $this->fecha_inicio;
     }
 
-
     /**
-     * Set fecha_fin
+     * Set fechaFin
      *
-     * @ORM\param DateTime
+     * @param \DateTime $fechaFin
+     *
+     * @return Reserva
      */
-    public function setFechaFin($fecha)
+    public function setFechaFin($fechaFin)
     {
-        $this->fecha_fin = $fecha;
+        $this->fecha_fin = $fechaFin;
+
+        return $this;
     }
 
     /**
-     * Get fecha_fin
+     * Get fechaFin
      *
-     * @ORM\return DateTime
+     * @return \DateTime
      */
     public function getFechaFin()
     {
         return $this->fecha_fin;
     }
 
+    /**
+     * Set operacion
+     *
+     * @param \AppBundle\Entity\Operacion $operacion
+     *
+     * @return Reserva
+     */
+    public function setOperacion(\AppBundle\Entity\Operacion $operacion = null)
+    {
+        $this->operacion = $operacion;
+
+        return $this;
+    }
+
+    /**
+     * Get operacion
+     *
+     * @return \AppBundle\Entity\Operacion
+     */
+    public function getOperacion()
+    {
+        return $this->operacion;
+    }
+
+    /**
+     * Set paciente
+     *
+     * @param \AppBundle\Entity\Paciente $paciente
+     *
+     * @return Reserva
+     */
+    public function setPaciente(\AppBundle\Entity\Paciente $paciente)
+    {
+        $this->paciente = $paciente;
+
+        return $this;
+    }
+
+    /**
+     * Get paciente
+     *
+     * @return \AppBundle\Entity\Paciente
+     */
+    public function getPaciente()
+    {
+        return $this->paciente;
+    }
+
+    /**
+     * Set servicio
+     *
+     * @param \AppBundle\Entity\Servicio $servicio
+     *
+     * @return Reserva
+     */
+    public function setServicio(\AppBundle\Entity\Servicio $servicio)
+    {
+        $this->servicio = $servicio;
+
+        return $this;
+    }
+
+    /**
+     * Get servicio
+     *
+     * @return \AppBundle\Entity\Servicio
+     */
+    public function getServicio()
+    {
+        return $this->servicio;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param \AppBundle\Entity\Estado $estado
+     *
+     * @return Reserva
+     */
+    public function setEstado(\AppBundle\Entity\Estado $estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return \AppBundle\Entity\Estado
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set quirofano
+     *
+     * @param \AppBundle\Entity\Quirofano $quirofano
+     *
+     * @return Reserva
+     */
+    public function setQuirofano(\AppBundle\Entity\Quirofano $quirofano = null)
+    {
+        $this->quirofano = $quirofano;
+
+        return $this;
+    }
+
+    /**
+     * Get quirofano
+     *
+     * @return \AppBundle\Entity\Quirofano
+     */
+    public function getQuirofano()
+    {
+        return $this->quirofano;
+    }
 }

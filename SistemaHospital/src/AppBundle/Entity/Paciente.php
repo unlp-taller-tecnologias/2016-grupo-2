@@ -33,26 +33,21 @@ class Paciente extends Persona
     protected $reservas;
 
 
-    public function __construct()
-    {
-        $this->reservas =  new \Doctrine\Common\Collections\ArrayCollection();
-    }
+   
 
 
     /**
-     * Get Reservas
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * Constructor
      */
-    public function getReservas()
+    public function __construct()
     {
-        return $this->reservas;
+        $this->reservas = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @ORM\return integer
+     * @return integer
      */
     public function getId()
     {
@@ -62,17 +57,21 @@ class Paciente extends Persona
     /**
      * Set mutual
      *
-     * @ORM\param string $mutual
+     * @param string $mutual
+     *
+     * @return Paciente
      */
     public function setMutual($mutual)
     {
         $this->mutual = $mutual;
+
+        return $this;
     }
 
     /**
      * Get mutual
      *
-     * @ORM\return string
+     * @return string
      */
     public function getMutual()
     {
@@ -82,23 +81,61 @@ class Paciente extends Persona
     /**
      * Set baja
      *
-     * @ORM\param $baja
+     * @param boolean $baja
+     *
+     * @return Paciente
      */
     public function setBaja($baja)
     {
         $this->baja = $baja;
+
+        return $this;
     }
 
     /**
      * Get baja
      *
-     * @ORM\return boolean
-     *
+     * @return boolean
      */
     public function getBaja()
     {
         return $this->baja;
     }
 
+    /**
+     * Add reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return Paciente
+     */
+    public function addReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas[] = $reserva;
 
+        return $this;
+    }
+
+    /**
+     * Remove reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     */
+    public function removeReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas->removeElement($reserva);
+    }
+
+    /**
+     * Get reservas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
+    }
+    public function __toString() {
+          return $this->nombre;
+    }
 }

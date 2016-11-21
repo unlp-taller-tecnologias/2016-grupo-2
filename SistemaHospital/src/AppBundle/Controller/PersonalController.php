@@ -3,9 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Personal;
+use AppBundle\Form\PersonalType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Personal controller.
@@ -22,13 +25,25 @@ class PersonalController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
+        $em = $this->getDoctrine()->getManager();
         $personals = $em->getRepository('AppBundle:Personal')->findAll();
 
         return $this->render('Admin/partials/personal/index.html.twig', array(
             'personals' => $personals,
         ));
+    }
+
+
+    /**
+     * Lists all personal entities.
+     *
+     * @Route("/perfil", name="personal_miperfil")
+     * @Method("GET")
+     */
+    public function miPerfilAction()
+    {
+        return $this->render('Admin/partials/personal/perfil.html.twig');
     }
 
     /**
@@ -40,13 +55,13 @@ class PersonalController extends Controller
     public function newAction(Request $request)
     {
         $personal = new Personal();
-        $form = $this->createForm('AppBundle\Form\PersonalType', $personal);
+        $form = $this->createForm(new PersonalType($this->getDoctrine()), $personal);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($personal);
-            $em->flush($personal);
+        $em->persist($personal);
+         $em->flush($personal);
 
             return $this->redirectToRoute('personal_show', array('id' => $personal->getId()));
         }
