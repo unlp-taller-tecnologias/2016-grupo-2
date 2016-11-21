@@ -119,6 +119,29 @@ class ReservaController extends Controller
         return $this->redirectToRoute('reserva_index');
     }
 
+     /**
+     * Lista las reservas entre dos fechas .
+     *
+     * @Route("/", name="reserva_entre")
+     * @Method("GET")
+     */
+    public function reservasEntre($fechadesde, $fechahasta)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query_string = "
+          SELECT p
+          FROM AppBundle\Entity\Reserva r
+          where r.fecha_inicio BETWEEN :fechaDesde and :fechaHasta";
+
+        $query= $em->createQuery($query_string);
+        $query->setParameter('fechaDesde',$fechadesde);
+        $query->setParameter('fechaHasta',$fechahasta);
+
+        return $this->render('reserva/index.html.twig', array(
+            'reservas' => $reservas,
+        ));
+    }
+
     /**
      * Deletes a reserva entity.
      *
