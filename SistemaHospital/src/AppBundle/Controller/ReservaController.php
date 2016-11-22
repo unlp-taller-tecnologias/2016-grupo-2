@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Type\DateTimePickerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Reserva controller.
@@ -27,8 +29,29 @@ class ReservaController extends Controller
 
         $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
 
+        $form = $this->createFormBuilder()
+            ->add("fechaIni", "text",[
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add("fechaFin", "text",[
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add('save', SubmitType::class, array(
+                'label' => 'Buscar reservas',
+                "attr" => [
+                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                ]
+            ))
+            ->getForm();
+
+
         return $this->render('reserva/index.html.twig', array(
             'reservas' => $reservas,
+            'form' => $form->createView(),
         ));
     }
 
