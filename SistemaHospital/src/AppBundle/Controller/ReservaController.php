@@ -23,7 +23,7 @@ class ReservaController extends Controller
      * @Route("/", name="reserva_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -47,6 +47,21 @@ class ReservaController extends Controller
                 ]
             ))
             ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $datos = $form->getData();
+            //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
+            echo ($datos["fechaIni"]."  hasta: ". $datos["fechaFin"]);
+
+
+            return $this->render('reserva/index.html.twig', array(
+                'reservas' => $reservas,
+                'form' => $form->createView(),
+            ));
+        }
 
 
         return $this->render('reserva/index.html.twig', array(
