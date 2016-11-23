@@ -1,14 +1,16 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
-    <h1>Asas list</h1>
+    <h1>Lista de Asas</h1>
 
 
 {% if asas is not empty %}
 <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Id</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Id</th>
+                {% endif %}
                 <th>Grado</th>
                 <th>Descripcion</th>
                 <th>Baja</th>
@@ -19,7 +21,10 @@
         <tbody>
         {% for asa in asas %}
             <tr>
-                <td><a href="{{ path('admin_asa_show', { 'id': asa.id }) }}">{{ asa.id }}</a></td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td><a href="{{ path('admin_asa_show', { 'id': asa.id }) }}">{{ asa.id }}</a></td>
+                {% endif %}
+
                 <td>{{ asa.grado }}</td>
                 <td>{{ asa.descripcion }}</td>
                 <td>{% if asa.baja %}Yes{% else %}No{% endif %}</td>

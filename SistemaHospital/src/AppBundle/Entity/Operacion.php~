@@ -285,7 +285,7 @@ class Operacion
     /**
      * Get tq
      *
-     * @ORM\return string
+     * @ORM\return integer
      */
     public function getTq()
     {
