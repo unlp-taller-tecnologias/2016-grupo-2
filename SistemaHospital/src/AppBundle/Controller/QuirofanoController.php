@@ -118,6 +118,7 @@ class QuirofanoController extends Controller
         return $this->redirectToRoute('admin_quirofano_index');
     }
 
+
     /**
      * Creates a form to delete a quirofano entity.
      *
@@ -133,4 +134,6 @@ class QuirofanoController extends Controller
             ->getForm()
         ;
     }
+
+
 }

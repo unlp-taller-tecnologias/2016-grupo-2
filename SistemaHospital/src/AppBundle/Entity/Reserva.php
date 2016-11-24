@@ -296,4 +296,7 @@ class Reserva
     {
         return $this->quirofano;
     }
+    public function __toString() {
+          return $this->numeroReserva;
+    }
 }

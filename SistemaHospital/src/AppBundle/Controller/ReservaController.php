@@ -23,9 +23,14 @@ class ReservaController extends Controller
      */
     public function indexAction()
     {
+
+
         $em = $this->getDoctrine()->getManager();
 
         $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
+
+
+        
 
         return $this->render('reserva/index.html.twig', array(
             'reservas' => $reservas,
@@ -137,6 +142,7 @@ class ReservaController extends Controller
         $query->setParameter('fechaDesde',$fechadesde);
         $query->setParameter('fechaHasta',$fechahasta);
 
+        $reservas= $query->getResult();
         return $this->render('reserva/index.html.twig', array(
             'reservas' => $reservas,
         ));
