@@ -13,7 +13,46 @@ class PacienteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('mutual')->add('baja')->add('nombre')->add('apellido')->add('genero')->add('dni')->add('edad')        ;
+        $builder
+            ->add("mutual", "text",[
+                'label' => 'Mutual',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("nombre", "text",[
+                'label' => 'Nombre',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("apellido", "text",[
+                'label' => 'Apellido',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])->add("genero", "choice",[
+                'label' => 'Género',
+                'choices' => [
+                    'Masculino' => 'Masculino',
+                    'Femenino' => 'Femenino'
+                ],
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("dni", "integer",[
+                'label' => 'DNI',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("edad", "integer",[
+                'label' => 'Edad',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ]);
     }
     
     /**

@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Pacientes list</h1>
+    <h1>Listado de Pacientes</h1>
 
-    <a href="{{ path('paciente_new') }}" class="btn btn-primary col-md-offset-10">Registrar nuevo paciente </a>
+    <a href="{{ path('paciente_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+        Nuevo Paciente </a>
 
     <table class="table table-striped table-hover">
         <thead>
@@ -36,11 +37,12 @@
                 <td>{{ paciente.dni }}</td>
                 <td>{{ paciente.edad }}</td>
                 <td>
-
-                            <a href="{{ path('paciente_show', { 'id': paciente.id }) }}">show</a>
+                            <a href="{{ path('paciente_show', { 'id': paciente.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                            </a>
                 </td>
                 <td>
-                            <a href="{{ path('paciente_edit', { 'id': paciente.id }) }}">edit</a>
+                            <a href="{{ path('paciente_edit', { 'id': paciente.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
 
                 </td>
             </tr>

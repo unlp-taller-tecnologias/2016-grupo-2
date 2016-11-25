@@ -33,7 +33,7 @@
             $(this).parent().siblings().removeAttr("class");
         });
 
-        $( ".datepicker" ).datetimepicker({});
+        $( ".datepicker" ).datetimepicker();
 
 
         //ADMIN BOTONES!!!

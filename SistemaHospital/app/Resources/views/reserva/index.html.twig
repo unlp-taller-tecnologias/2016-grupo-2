@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Reservas list</h1>
+    <h1>Listado de Reservas</h1>
 
 
     {{ form_start(form) }}
@@ -19,48 +19,58 @@
 
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('reserva_new') }}">Create a new reserva</a>
-        </li>
-    </ul>
+    <a href="{{ path('reserva_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+        Nueva Reserva </a>
+
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Numeroreserva</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Id</th>
+                {% endif %}
+                <th>Nº Reserva</th>
+                <th>Servicio</th>
                 <th>Paciente</th>
-                <th>Estado de la reserva</th>
-                <th>Baja</th>
-                <th>Fecha_inicio</th>
-                <th>Fecha_fin</th>
-                <th>Actions</th>
+                <th>Estado</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Baja</th>
+                {% endif %}
+                <th>Fecha y Hora Inicio</th>
+                <th>Fecha y Hora Fin</th>
+                <th>Ver</th>
+                <th>Editar</th>
+                <th>Cancelar</th>
             </tr>
         </thead>
         <tbody>
         {% for reserva in reservas %}
             <tr>
-                <td><a href="{{ path('reserva_show', { 'id': reserva.id }) }}">{{ reserva.id }}</a></td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td><a href="{{ path('reserva_show', { 'id': reserva.id }) }}">{{ reserva.id }}</a></td>
+                {% endif %}
                 <td>{{ reserva.numeroReserva }}</td>
+                <td>{{ reserva.servicio.tipo }}</td>
                 <td>{{ reserva.paciente.nombre }} {{ reserva.paciente.apellido }}</td>
                 <td>{{ reserva.estado.tipo }}</td>
-                <td>{% if reserva.baja %}Yes{% else %}No{% endif %}</td>
-                <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('Y-m-d H:i:s') }}{% endif %}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td>{% if reserva.baja %}Yes{% else %}No{% endif %}</td>
+                {% endif %}
+                <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('d/m/Y H:i:s') }}{% endif %}</td>
+                <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('d/m/Y H:i:s') }}{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('reserva_show', { 'id': reserva.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('reserva_edit', { 'id': reserva.id }) }}">edit</a>
-                        </li>
-                        {% if reserva.estado.tipo != 'Cancelada' and reserva.estado.tipo != 'Finalizada' %}
-                        <li>
-                            <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}">cancelar</a>
-                        </li>
-                        {% endif %}
-                    </ul>
+                    <a href="{{ path('reserva_show', { 'id': reserva.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('reserva_edit', { 'id': reserva.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                </td>
+                <td>
+                    {% if reserva.estado.tipo != "CANCELADA" and reserva.estado.tipo != "FINALIZADA" %}
+                        <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                    {% else %}
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{% block title %}HospitalRossi{% endblock %}</title>
+    <title>{% block title %}Sistema de Gestión de Quirófano - Hospital Rossi{% endblock %}</title>
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/bootstrap-flatly-3.3.7.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/font-awesome-4.6.3.min.css') }}">
@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     {% endblock %}
     {#poner un icono del hospital rossi#}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('rr.png') }}" />
 
 </head>
 
@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{ path('homepage') }}">
-                        Hospital Rossi
+                        <img src="{{ asset('rr-banner.png') }}" alt="Hospital Rodolfo Rossi" width="25%" class="img-circle">
                     </a>
 
                     <button type="button" class="navbar-toggle"
@@ -72,9 +72,10 @@
                             {% endif %}
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" class="form-control" placeholder="Buscar">
                                 </div>
-                                <button type="submit" class="btn btn-default">Buscar</button>
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
                             </form>
                         {% endblock %}
                     </ul>
