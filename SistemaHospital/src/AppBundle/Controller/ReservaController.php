@@ -7,6 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Reserva controller.
@@ -21,14 +26,48 @@ class ReservaController extends Controller
      * @Route("/", name="reserva_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
         $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
+
+        //prueba de form
+        $form = $this->createFormBuilder()
+            ->add("fechaini", "text", array(
+                'attr' => array(
+                    'class' => 'datepicker',
+                    'placeholder' => 'Seleccionar fecha inicio'
+                )
+            ))
+            ->add("fechafin", "text", array(
+                'attr' => array(
+                    'class' => 'datepicker',
+                    'placeholder' => 'Seleccionar fecha inicio'
+                )
+            ))
+
+            ->add('Buscar', SubmitType::class, array('label' => 'enviarfecha'))
+            ->getForm();
+
+        //$form->handleRequest($request);
+
+
+       /* if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+
+            print_r($data);
+
+            return $this->render('reserva/index.html.twig', array(
+                'reservas' => $reservas,
+                'form' => $form->createView(),
+            ));
+        }*/
+
 
         return $this->render('reserva/index.html.twig', array(
             'reservas' => $reservas,
+            'form' => $form->createView(),
         ));
     }
 

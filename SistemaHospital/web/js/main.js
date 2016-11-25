@@ -33,6 +33,8 @@
             $(this).parent().siblings().removeAttr("class");
         });
 
+        $( ".datepicker" ).datetimepicker({});
+
 
         //ADMIN BOTONES!!!
         // btnperfil=$("#btn-perfil");
