@@ -7,10 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
-
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use AppBundle\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
@@ -29,40 +26,42 @@ class ReservaController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
         $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
 
-        //prueba de form
         $form = $this->createFormBuilder()
-            ->add("fechaini", "text", array(
-                'attr' => array(
-                    'class' => 'datepicker',
-                    'placeholder' => 'Seleccionar fecha inicio'
-                )
+            ->add("fechaIni", "text",[
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add("fechaFin", "text",[
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add('save', SubmitType::class, array(
+                'label' => 'Buscar reservas',
+                "attr" => [
+                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                ]
             ))
-            ->add("fechafin", "text", array(
-                'attr' => array(
-                    'class' => 'datepicker',
-                    'placeholder' => 'Seleccionar fecha inicio'
-                )
-            ))
-
-            ->add('Buscar', SubmitType::class, array('label' => 'enviarfecha'))
             ->getForm();
 
-        //$form->handleRequest($request);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
 
-       /* if ($form->isSubmitted() && $form->isValid()) {
+            $datos = $form->getData();
+            //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
+            echo ($datos["fechaIni"]."  hasta: ". $datos["fechaFin"]);
 
-            $data = $form->getData();
-
-            print_r($data);
 
             return $this->render('reserva/index.html.twig', array(
                 'reservas' => $reservas,
                 'form' => $form->createView(),
             ));
-        }*/
+        }
 
 
         return $this->render('reserva/index.html.twig', array(
@@ -156,6 +155,29 @@ class ReservaController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('reserva_index');
+    }
+
+     /**
+     * Lista las reservas entre dos fechas .
+     *
+     * @Route("/", name="reserva_entre")
+     * @Method("GET")
+     */
+    public function reservasEntre($fechadesde, $fechahasta)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query_string = "
+          SELECT p
+          FROM AppBundle\Entity\Reserva r
+          where r.fecha_inicio BETWEEN :fechaDesde and :fechaHasta";
+
+        $query= $em->createQuery($query_string);
+        $query->setParameter('fechaDesde',$fechadesde);
+        $query->setParameter('fechaHasta',$fechahasta);
+
+        return $this->render('reserva/index.html.twig', array(
+            'reservas' => $reservas,
+        ));
     }
 
     /**

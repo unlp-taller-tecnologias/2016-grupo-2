@@ -2,32 +2,22 @@
 
 {% block body %}
     <h1>Reservas list</h1>
-    <!--
-    <form action="#" target="rightframe" method="post">
-                <label>Filtrar reservas</label>
-                <input type="date" name="fechadesde" />
-                <input type="date" name="fechahasta" />
 
-                 <button type="submit">Buscar</button><br>
-
-    </form>
-
-    -->
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
-
-     <div class="form-group">
-    <div id="datetime1" class="input-append date">
-    {{ form_row(form.fechaini)}}
+    <div class="row">
+        <div class='col-sm-6'>
+        {{ form_row(form.fechaIni) }}
+        </div>
+        <div class='col-sm-6'>
+            {{ form_row(form.fechaFin) }}
+        </div>
+        <div class="col-md-12 espacio"></div>
+        {{ form_row(form.save) }}
     </div>
-     <div id="datetime2" class="input-append date">
-    {{ form_row(form.fechafin)}}
-     </div>
-    </div>
 
-
-    {{ form_end(form)}}
+    {{ form_end(form) }}
 
     <ul>
         <li>
@@ -78,13 +68,4 @@
     </table>
 
     
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="application/javascript">
-        $(document).ready(function(){
-
-        })
-    </script>
-
 {% endblock %}
