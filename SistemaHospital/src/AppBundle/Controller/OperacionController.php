@@ -32,6 +32,56 @@ class OperacionController extends Controller
     }
 
     /**
+     * Muestra la estadistica.
+     
+     */
+        /*
+     public function estadisticaIndex()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+
+        $query_string = "
+          SELECT r as nombre, count (r) as suma
+          FROM AppBundle\Entity\Reserva r 
+          WHERE r.estado  = (SELECT e.id FROM AppBundle\Entity\Estado e WHERE e.tipo = 'FINALIZADA')
+                
+          GROUP BY r.servicio  
+          ORDER BY r.servicio
+          ";
+        // agregar a la consulta:    
+        // and r.operacion = (SELECT o.guardia FROM AppBundle\Entity\Operacion o WHERE o.guardia = 1)
+        $query = $em->createQuery($query_string);
+        $reservas= $query->getResult();
+
+         $query_string = "
+          SELECT r 
+          FROM AppBundle\Entity\Reserva r
+          WHERE r.estado  = (SELECT e.id FROM AppBundle\Entity\Estado e WHERE e.tipo = 'FINALIZADA')
+          ORDER BY r.servicio
+          ";
+
+        $query = $em->createQuery($query_string);
+        $res= $query->getResult();
+
+        $anestesia=0;
+        $sinanestesia=0;
+        $arreglo = array();
+        foreach ($res as $r) {
+
+            if (is_null($r->getOperacion()->getAnestesia())) {
+                $sinanestesia= $sinanestesia + 1;
+            }
+            else {
+                $anestesia= $anestesia + 1;
+            }
+
+        }
+
+        return $this->render('operacion/estadistica.html.twig', array('reservas' => $reservas, 'anestesia' => $anestesia, 'sinanestesia' => $sinanestesia));
+    }*/
+
+    /**
      * Creates a new operacion entity.
      *
      * @Route("/new", name="operacion_new")

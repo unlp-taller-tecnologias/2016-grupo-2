@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\Type\DateTimePickerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Reserva controller.
@@ -21,7 +23,7 @@ class ReservaController extends Controller
      * @Route("/", name="reserva_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)//
     {
 
 
@@ -30,12 +32,76 @@ class ReservaController extends Controller
         $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
 
 
-        
+        $form = $this->createFormBuilder()
+            ->add("fechaIni", "text",[
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add("fechaFin", "text",[
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add('save', SubmitType::class, array(
+                'label' => 'Buscar reservas',
+                "attr" => [
+                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                ]
+            ))
+            ->getForm();
 
-        return $this->render('reserva/index.html.twig', array(
-            'reservas' => $reservas,
-        ));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $datos = $form->getData();
+            //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
+            echo ($datos["fechaIni"]."  hasta: ". $datos["fechaFin"]);
+
+            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
+
+                $reservasEntre = $this->reservasEntre($datos["fechaIni"], $datos["fechaFin"]);
+                echo (count($reservas));
+
+                return $this->render('reserva/index.html.twig', array(
+                    'reservas' => $reservasEntre,
+                    'form' => $form->createView(),
+                ));
+            }
+            else {
+                echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
+                return $this->render('reserva/index.html.twig', array(
+                'reservas' => $reservas,
+                'form' => $form->createView(),
+            ));
+            }
+
+        }
+
+    return $this->render('reserva/index.html.twig', array(
+                'reservas' => $reservas,
+                'form' => $form->createView(),
+            ));
+
     }
+
+    public function reservasEntre($fechadesde, $fechahasta)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $query_string = "
+          SELECT r
+          FROM AppBundle\Entity\Reserva r
+          where r.fecha_inicio BETWEEN :fechaDesde and :fechaHasta";
+
+        $query= $em->createQuery($query_string);
+        $query->setParameter('fechaDesde', new \DateTime($fechadesde));
+        $query->setParameter('fechaHasta', new \DateTime($fechahasta));
+
+        return $query->getResult();
+        
+    }
+
 
     /**
      * Creates a new reserva entity.
@@ -124,30 +190,7 @@ class ReservaController extends Controller
         return $this->redirectToRoute('reserva_index');
     }
 
-     /**
-     * Lista las reservas entre dos fechas .
-     *
-     * @Route("/", name="reserva_entre")
-     * @Method("GET")
-     */
-    public function reservasEntre($fechadesde, $fechahasta)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query_string = "
-          SELECT p
-          FROM AppBundle\Entity\Reserva r
-          where r.fecha_inicio BETWEEN :fechaDesde and :fechaHasta";
-
-        $query= $em->createQuery($query_string);
-        $query->setParameter('fechaDesde',$fechadesde);
-        $query->setParameter('fechaHasta',$fechahasta);
-
-        $reservas= $query->getResult();
-        return $this->render('reserva/index.html.twig', array(
-            'reservas' => $reservas,
-        ));
-    }
-
+   
     /**
      * Deletes a reserva entity.
      *

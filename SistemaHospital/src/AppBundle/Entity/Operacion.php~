@@ -30,10 +30,19 @@ class Operacion
     /** @ORM\Column(type="string", length=255,nullable=true) **/
     protected $observaciones;
 
+
     /** @ORM\Column(type="boolean") **/
     protected $internado=true;
 
-    /** @ORM\Column(type="integer") **/
+
+    /** @ORM\Column(type="string", length=255,nullable=true) **/
+    protected $cirujia;
+
+    /** @ORM\Column(type="boolean") **/
+    protected $internado=true;
+
+    /** @ORM\Column(type="string", length=30) **/
+
     protected $tq;
 
     /** @ORM\Column(type="boolean") **/
@@ -68,5 +77,285 @@ class Operacion
      */
     protected $personal;
 
-    
+
+
+    public function __construct() {
+        $this->personal = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Get Reserva
+     *
+     * @ORM\return Reserva
+     */
+    public function getReserva()
+    {
+        return $this->reserva;
+    }
+
+    /**
+     * Set Anestesia
+     *
+     * @ORM\param Anestesia $anestesia
+     */
+    public function setAnestesia($anestesia)
+    {
+        $this->anestesia = $anestesia;
+    }
+
+    /**
+     * Get Anestesia
+     *
+     * @ORM\return Anestesia
+     */
+    public function getAnestesia()
+    {
+        return $this->anestesia;
+    }
+
+    /**
+     * Set Asa
+     *
+     * @ORM\param Asa $asa
+     */
+    public function setAsa($asa)
+    {
+        $this->asa = $asa;
+    }
+
+    /**
+     * Get Asa
+     *
+     * @ORM\return Asa
+     */
+    public function getAsa()
+    {
+        return $this->asa;
+    }
+
+    /**
+     * Set Sangre
+     *
+     * @ORM\param Sangre $sangre
+     */
+    public function setSangre($sangre)
+    {
+        $this->sangre = $sangre;
+    }
+
+    /**
+     * Get Sangre
+     *
+     * @ORM\return Sangre
+     */
+    public function getSangre()
+    {
+        return $this->sangre;
+    }
+
+
+    /**
+     * Get id
+     *
+     * @ORM\return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set Diagnostico
+     *
+     * @ORM\param string $diagnostico
+     */
+    public function setDiagnostico($diagnostico)
+    {
+        $this->diagnostico = $diagnostico;
+    }
+
+    /**
+     * Get Diagnostico
+     *
+     * @ORM\return string
+     */
+    public function getDiagnostico()
+    {
+        return $this->diagnostico;
+    }
+
+
+    /**
+     * Set Cirujia
+     *
+     * @ORM\param string $cirujia
+     */
+    public function setCirujia($cirujia)
+    {
+        $this->cirujia = $cirujia;
+    }
+
+    /**
+     * Get Cirujia
+     *
+     * @ORM\return string
+     */
+    public function getCirujia()
+    {
+        return $this->diagnostico;
+    }
+
+    /**
+     * Set Habitacion
+     *
+     * @ORM\param string $habitacion
+     */
+    public function setHabitacion($habitacion)
+    {
+        $this->habitacion = $habitacion;
+    }
+
+    /**
+     * Get Habitacion
+     *
+     * @ORM\return string
+     */
+    public function getHabitacion()
+    {
+        return $this->habitacion;
+    }
+
+    /**
+     * Set baja
+     *
+     * @ORM\param $baja
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+    }
+
+    /**
+     * Get baja
+     *
+     * @ORM\return boolean
+     *
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
+
+    /**
+     * Set observaciones
+     *
+     * @ORM\param string $observaciones
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @ORM\return string
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
+    }
+
+
+    /**
+     * Set internado
+     *
+     * @ORM\param boolean $internado
+     */
+    public function setInternado($internado)
+    {
+        $this->internado = $internado;
+    }
+
+    /**
+     * Get internado
+     *
+     * @ORM\return boolean
+     *
+     */
+    public function getInternado()
+    {
+        return $this->internado;
+    }
+
+
+    /**
+     * Get tq
+     *
+     * @ORM\return integer
+     */
+    public function getTq()
+    {
+        return $this->tq;
+    }
+
+    /**
+     * Get tq
+     *
+     * @ORM\param string
+     */
+    public function setTq($tq)
+    {
+        $this->tq = $tq;
+    }
+
+    /**
+     * Set reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return Operacion
+     */
+    public function setReserva(\AppBundle\Entity\Reserva $reserva = null)
+    {
+        $this->reserva = $reserva;
+
+        return $this;
+    }
+
+    /**
+     * Add personal
+     *
+     * @param \AppBundle\Entity\Personal $personal
+     *
+     * @return Operacion
+     */
+    public function addPersonal(\AppBundle\Entity\Personal $personal)
+    {
+        $this->personal[] = $personal;
+
+        return $this;
+    }
+
+    /**
+     * Remove personal
+     *
+     * @param \AppBundle\Entity\Personal $personal
+     */
+    public function removePersonal(\AppBundle\Entity\Personal $personal)
+    {
+        $this->personal->removeElement($personal);
+    }
+
+    /**
+     * Get personal
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPersonal()
+    {
+        return $this->personal;
+    }
 }
+

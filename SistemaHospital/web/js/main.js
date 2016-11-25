@@ -13,7 +13,7 @@
 
         // Datetime picker initialization.
         // See http://eonasdan.github.io/bootstrap-datetimepicker/
-        $('[data-toggle="datetimepicker"]').datetimepicker({
+        $('.datetimepicker').datetimepicker({
             icons: {
                 time: 'fa fa-clock-o',
                 date: 'fa fa-calendar',

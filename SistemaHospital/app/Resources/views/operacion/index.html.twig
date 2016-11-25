@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Operacions list</h1>
+    <h1>Estadisticas </h1>
+    <a href="{{ path('estadistica_index') }}">Realizar estadísticas</a>
+
+    <h2>Operacions list</h2>
 
     <table class="table table-striped table-hover">
         <thead>
@@ -24,7 +27,7 @@
                 <td>{{ operacion.habitacion }}</td>
                 <td>{{ operacion.observaciones }}</td>
                 <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
-                <td>{{ operacion.tq|date('H:i') }}hs</td>
+                <td>{{ operacion.tq }}</td>
                 <td>{% if operacion.baja %}Yes{% else %}No{% endif %}</td>
                 <td>
                     <ul>

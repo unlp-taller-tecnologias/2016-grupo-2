@@ -30,10 +30,15 @@ class Operacion
     /** @ORM\Column(type="string", length=255,nullable=true) **/
     protected $observaciones;
 
+    /** @ORM\Column(type="string", length=255,nullable=true) **/
+    protected $cirujia;
+
     /** @ORM\Column(type="boolean") **/
     protected $internado=true;
 
-    /** @ORM\Column(type="time") **/
+
+    /** @ORM\Column(type="string", length=30) **/
+
     protected $tq;
 
     /** @ORM\Column(type="boolean") **/
@@ -183,6 +188,27 @@ class Operacion
         return $this->internado;
     }
 
+
+    /**
+     * Set Cirujia
+     *
+     * @ORM\param string $cirujia
+     */
+    public function setCirujia($cirujia)
+    {
+        $this->cirujia = $cirujia;
+    }
+
+    /**
+     * Get Cirujia
+     *
+     * @ORM\return string
+     */
+    public function getCirujia()
+    {
+        return $this->diagnostico;
+    }
+
     /**
      * Set tq
      *
@@ -303,31 +329,21 @@ class Operacion
         return $this->anestesia;
     }
 
-    /**
-     * Set reserva
-     *
-     * @param \AppBundle\Entity\Reserva $reserva
-     *
-     * @return Operacion
-     */
-    public function setReserva(\AppBundle\Entity\Reserva $reserva = null)
-    {
-        $this->reserva = $reserva;
-
-        return $this;
-    }
 
     /**
      * Get reserva
      *
+
      * @return \AppBundle\Entity\Reserva
+     * @ORM\return string
+
      */
     public function getReserva()
     {
         return $this->reserva;
     }
 
-    /**
+ /**
      * Add personal
      *
      * @param \AppBundle\Entity\Personal $personal
@@ -341,7 +357,7 @@ class Operacion
         return $this;
     }
 
-    /**
+     /**
      * Remove personal
      *
      * @param \AppBundle\Entity\Personal $personal
@@ -360,4 +376,21 @@ class Operacion
     {
         return $this->personal;
     }
+
+    /**
+     * Set reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return Operacion
+     */
+
+    public function setReserva(\AppBundle\Entity\Reserva $reserva = null)
+    {
+        $this->reserva = $reserva;
+
+        return $this;
+    }
+
+
 }
