@@ -39,7 +39,7 @@ class AnestesiaController extends Controller
      */
     public function newAction(Request $request)
     {
-        $anestesium = new Anestesium();
+        $anestesium = new Anestesia();
         $form = $this->createForm('AppBundle\Form\AnestesiaType', $anestesium);
         $form->handleRequest($request);
 

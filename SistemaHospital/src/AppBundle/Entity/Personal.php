@@ -207,4 +207,5 @@ class Personal extends Persona
     {
         return $this->rol;
     }
+    
 }

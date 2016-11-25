@@ -13,7 +13,19 @@ class ReservaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('numeroReserva')->add('baja')->add('fecha_inicio')->add('fecha_fin')->add('operacion')->add('paciente')->add('servicio')->add('estado')->add('quirofano')        ;
+        $builder->add('numeroReserva')
+        ->add('baja')
+        ->add('fecha_inicio')
+        ->add('fecha_fin')
+        ->add('paciente')
+        ->add('servicio')
+        ->add('estado')
+        ->add('quirofano', 'entity', array(
+                'multiple' => false,   // Multiple selection allowed
+                'expanded' => false,   // Render as checkboxes
+                'class' => 'AppBundle:Quirofano',
+                'property'     => 'getNombre'
+            ))        ;
     }
     
     /**

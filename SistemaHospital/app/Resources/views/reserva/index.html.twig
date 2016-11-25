@@ -31,6 +31,11 @@
                 <th>Nº Reserva</th>
                 <th>Servicio</th>
                 <th>Paciente</th>
+                <th>Estado de la reserva</th>
+                <th>Baja</th>
+                <th>Quirofano</th>
+                <th>Fecha_inicio</th>
+                <th>Fecha_fin</th>
                 <th>Estado</th>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <th>Baja</th>
@@ -52,26 +57,34 @@
                 <td>{{ reserva.servicio.tipo }}</td>
                 <td>{{ reserva.paciente.nombre }} {{ reserva.paciente.apellido }}</td>
                 <td>{{ reserva.estado.tipo }}</td>
+                <td>{{ reserva.quirofano.nombre }}</td>
+                <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('Y-m-d H:i:s') }}{% endif %}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <td>{% if reserva.baja %}Yes{% else %}No{% endif %}</td>
                 {% endif %}
                 <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('d/m/Y H:i:s') }}{% endif %}</td>
                 <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('d/m/Y H:i:s') }}{% endif %}</td>
                 <td>
-                    <a href="{{ path('reserva_show', { 'id': reserva.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
-                    </a>
+                <a href="{{ path('reserva_show', { 'id': reserva.id }) }}">show</a>
                 </td>
                 <td>
-                    <a href="{{ path('reserva_edit', { 'id': reserva.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
+                <a href="{{ path('reserva_edit', { 'id': reserva.id }) }}">edit</a>
                 </td>
                 <td>
-                    {% if reserva.estado.tipo != "CANCELADA" and reserva.estado.tipo != "FINALIZADA" %}
-                        <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}"><i class="fa fa-ban" aria-hidden="true"></i></a>
-                    {% else %}
-                        <i class="fa fa-ban" aria-hidden="true"></i>
+                    {% if reserva.estado.tipo != 'Cancelada' and reserva.estado.tipo != 'Finalizada' %}
+
+                    <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}">cancelar</a>
+
+                    {% endif %}
+
+                    {% if reserva.estado.tipo == 'Pendiente' %}
+
+                    <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}">Concluir operacion</a>
+
                     {% endif %}
                 </td>
+
             </tr>
         {% endfor %}
         </tbody>

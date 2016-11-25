@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Doctrine\Bundle\FixturesBundle;
 
 class AppKernel extends Kernel
 {
@@ -34,4 +35,6 @@ class AppKernel extends Kernel
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+
 }
