@@ -13,7 +13,9 @@
                     <th>Id</th>
                 {% endif %}
                 <th>Mutual</th>
-                <th>Baja</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <th>Baja</th>
+                {% endif %}
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Genero</th>
@@ -30,7 +32,9 @@
                     <td><a href="{{ path('paciente_show', { 'id': paciente.id }) }}">{{ paciente.id }}</a></td>
                 {% endif %}
                 <td>{{ paciente.mutual }}</td>
-                <td>{% if paciente.baja %}Yes{% else %}No{% endif %}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td>{% if paciente.baja %}Yes{% else %}No{% endif %}</td>
+                {% endif %}
                 <td>{{ paciente.nombre }}</td>
                 <td>{{ paciente.apellido }}</td>
                 <td>{{ paciente.genero }}</td>
@@ -52,3 +56,4 @@
 
 
 {% endblock %}
+
