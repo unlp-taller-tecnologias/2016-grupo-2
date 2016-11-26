@@ -42,10 +42,10 @@
         $('.datatable').DataTable({
             "processing": true,
             "serverSide": true,
-            "ajax":path/*{
+            "ajax":{
                 "type": "GET",
                 "url": path
-            }*/
+            }
         });
 
                 // alert(path);

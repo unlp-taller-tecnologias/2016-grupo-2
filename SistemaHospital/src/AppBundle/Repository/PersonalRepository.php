@@ -90,8 +90,17 @@ class ReservaRepository extends EntityRepository
     }
     public function getFilteredCount(array $get)
     {
+        /* Indexed column (used for fast and accurate table cardinality) */
+        $alias = 'a';
         /* DB table to use */
         $tableObjectName = 'AppBundle:Personal';
+        /**
+         * Set to default
+         */
+        if(!isset($get['columns']) || empty($get['columns']))
+            $get['columns'] = array('id');
+        $aColumns = array();
+        foreach($get['columns'] as $value) $aColumns[] = $alias .'.'. $value;
 
         $cb = $this->getEntityManager()
             ->getRepository($tableObjectName)
