@@ -26,39 +26,35 @@
                 close: 'fa fa-remove'
             }
         });
-
         //esto es para el nav del sidevar darles estilos
         $("#sidebar ul li a").click(function () {
             $(this).parent().attr("class","active");
             $(this).parent().siblings().removeAttr("class");
         });
 
+        path = $("#ejemplo").attr("data-path");
+        //alert(path);
 
-        //ADMIN BOTONES!!!
-        // btnperfil=$("#btn-perfil");
-        // btnpersonal=$("#btn-personal");
-        // btnusuarios=$("#btn-usuarios");
-        // btnservicios=$("#btn-servicios");
-        // btnroles=$("#btn-roles");
-        // btnanestesias=$("#btn-anestesias");
-        // btnasa=$("#btn-asa");
-        // btnquirofano=$("#btn-quirofano");
-        //
-        //
-        // btnusuarios.click(function(){
-        //     actualizarVista("usuarios");
+        //$.fn.dataTable.ext.errMode = 'throw';
+
+        $('.datatable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax":path/*{
+                "type": "GET",
+                "url": path
+            }*/
+        });
+
+                // alert(path);
+        // $.ajax({
+        //     type: "POST",
+        //     url: path,
+        //     dataType: 'text',
+        //     success: function(data){
+        //         alert(data);
+        //     }
         // });
-        //
-        //
-        // function actualizarVista(vista){
-        //
-        // }
-
-
-
-
-        //
-        
         
         
     });

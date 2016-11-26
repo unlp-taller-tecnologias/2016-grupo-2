@@ -2,53 +2,53 @@
 
 {% block main %}
     <h1>Lista del Personal</h1>
+    <div class="col-md-12 espacio"></div>
 {% if personals is not empty %}
-    <table class="table table-striped table-hover">
+    <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
-                <th>Baja</th>
+                {#{% if is_granted('ROLE_SUPER_ADMIN') %}#}
+
+                {#{% endif %}#}
+
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Genero</th>
                 <th>Dni</th>
                 <th>Edad</th>
-                <th>Es administrador</th>
-                <th>Ver</th>
-                <th>Editar</th>
+                <th>Baja</th>
+                {#<th>Es administrador</th>#}
+                {#<th>Ver</th>#}
+                {#<th>Editar</th>#}
             </tr>
         </thead>
-        <tbody>
-        {% for personal in personals %}
-            <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('personal_show', { 'id': personal.id }) }}">{{ personal.id }}</a></td>
-                {% endif %}
+        {#{% for personal in personals %}#}
+            {#<tr>#}
+                {#{% if is_granted('ROLE_SUPER_ADMIN') %}#}
+                    {#<td><a href="{{ path('personal_show', { 'id': personal.id }) }}">{{ personal.id }}</a></td>#}
+                {#{% endif %}#}
 
-                <td>{% if personal.baja %}Yes{% else %}No{% endif %}</td>
-                <td>{{ personal.nombre }}</td>
-                <td>{{ personal.apellido }}</td>
-                <td>{{ personal.genero }}</td>
-                <td>{{ personal.dni }}</td>
-                <td>{{ personal.edad }}</td>
+                {#<td>{% if personal.baja %}Yes{% else %}No{% endif %}</td>#}
+                {#<td>{{ personal.nombre }}</td>#}
+                {#<td>{{ personal.apellido }}</td>#}
+                {#<td>{{ personal.genero }}</td>#}
+                {#<td>{{ personal.dni }}</td>#}
+                {#<td>{{ personal.edad }}</td>#}
 
-                <td>{% if personal.user is not empty %}
-                        Si
-                        {% else %}
-                        No
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ path('personal_show', { 'id': personal.id }) }}">show</a>
-                </td>
-                <td>
-                    <a href="{{ path('personal_edit', { 'id': personal.id }) }}">edit</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
+                {#<td>{% if personal.user is not empty %}#}
+                        {#Si#}
+                        {#{% else %}#}
+                        {#No#}
+                    {#{% endif %}#}
+                {#</td>#}
+                {#<td>#}
+                    {#<a href="{{ path('personal_show', { 'id': personal.id }) }}">show</a>#}
+                {#</td>#}
+                {#<td>#}
+                    {#<a href="{{ path('personal_edit', { 'id': personal.id }) }}">edit</a>#}
+                {#</td>#}
+            {#</tr>#}
+        {#{% endfor %}#}
     </table>
     {% else %}
     <h2>No hay personal incorporado</h2>
