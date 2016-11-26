@@ -146,6 +146,18 @@ class Persona
         return $this->edad;
     }
 
+    /**
+     * Get nombre y apellido
+     *
+     * @return string
+     */
+    public function getNombreyApellido()
+    {
+        $nombre = $this -> getNombre();
+        $apellido = $this -> getApellido();
+        return $nombre." ".$apellido;
+    }
+
 
 
 }

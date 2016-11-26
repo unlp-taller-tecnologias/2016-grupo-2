@@ -30,6 +30,11 @@ class Operacion
     /** @ORM\Column(type="string", length=255,nullable=true) **/
     protected $observaciones;
 
+
+    /** @ORM\Column(type="boolean") **/
+    protected $internado=true;
+
+
     /** @ORM\Column(type="string", length=255,nullable=true) **/
     protected $cirujia;
 
@@ -37,6 +42,7 @@ class Operacion
     protected $internado=true;
 
     /** @ORM\Column(type="string", length=30) **/
+
     protected $tq;
 
     /** @ORM\Column(type="boolean") **/
@@ -70,6 +76,8 @@ class Operacion
      * @ORM\ManyToMany(targetEntity="Personal", mappedBy="operaciones")
      */
     protected $personal;
+
+
 
     public function __construct() {
         $this->personal = new \Doctrine\Common\Collections\ArrayCollection();
@@ -350,3 +358,4 @@ class Operacion
         return $this->personal;
     }
 }
+

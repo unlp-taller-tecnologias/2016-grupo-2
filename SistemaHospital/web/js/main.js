@@ -32,6 +32,8 @@
             $(this).parent().siblings().removeAttr("class");
         });
 
+        $( ".datepicker" ).datetimepicker();
+
         path = $("#ejemplo").attr("data-path");
         //alert(path);
 

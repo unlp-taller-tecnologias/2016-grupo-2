@@ -14,7 +14,6 @@ class DefaultController extends Controller
     public function indexAction()
     {
         //replace this example code with whatever you need
-        //return $this->render('default/index.html.twig');
         $response = $this->forward('AppBundle:Reserva:index');
         return $response;
     }

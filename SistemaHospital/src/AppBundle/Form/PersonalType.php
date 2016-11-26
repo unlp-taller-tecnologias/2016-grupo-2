@@ -9,7 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
 
-class PersonalType extends AbstractType
+class PersonalType extends AbstractType 
 {
 
     public $em;

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Estadisticas </h1>
+    <a href="{{ path('estadistica_index') }}">Realizar estadísticas</a>
+
+    <h2>Operacions list</h2>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Diagnostico</th>
+                <th>Habitacion</th>
+                <th>Observaciones</th>
+                <th>Internado</th>
+                <th>Tq</th>
+                <th>Baja</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for operacion in operacions %}
+            <tr>
+                <td><a href="{{ path('operacion_show', { 'id': operacion.id }) }}">{{ operacion.id }}</a></td>
+                <td>{{ operacion.diagnostico }}</td>
+                <td>{{ operacion.habitacion }}</td>
+                <td>{{ operacion.observaciones }}</td>
+                <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
+                <td>{{ operacion.tq }}</td>
+                <td>{% if operacion.baja %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('operacion_show', { 'id': operacion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('operacion_edit', { 'id': operacion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('operacion_new') }}">Create a new operacion</a>
+        </li>
+    </ul>
+{% endblock %}
