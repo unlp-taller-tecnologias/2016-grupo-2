@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * Reserva controller.
  *
- * @Route("reserva")
+ * @Route("/reserva")
  */
 class ReservaController extends Controller 
 {

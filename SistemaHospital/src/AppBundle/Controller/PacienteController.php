@@ -6,6 +6,7 @@ use AppBundle\Entity\Paciente;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Paciente controller.
@@ -49,6 +50,7 @@ class PacienteController extends Controller
             $em->flush($paciente);
 
             return $this->redirectToRoute('paciente_show', array('id' => $paciente->getId()));
+
         }
 
         return $this->render('paciente/new.html.twig', array(
