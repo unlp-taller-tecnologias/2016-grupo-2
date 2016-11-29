@@ -22,14 +22,34 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-//        $builder
-//            ->add('personal', EntityType::class, [
-//                'placeholder' => "- Seleccione una opción -",
-//                'class'=>"AppBundle:Personal",
-//                'choice_label' => 'getNombre',
-//            ]);
-        //$builder->add('personal');
+        $builder
+            ->add("username", "text",[
+            'label' => 'Nombre de Usuario',
+            "attr" => [
+                "class" => "form-control"
+            ]
+            ])
+            ->add("email", "email",[
+                'label' => 'E-Mail',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("plainPassword", "repeated", [
+                "type" => "password",
+                "invalid_message" => "Las contraseñas no coinciden.",
+                "required" => true,
+                "first_options" => [
+                    "label" => 'Contraseña',
+                    "attr" => [
+                        "class" => "form-control"
+                    ]],
+                "second_options" => [
+                    "label" => 'Confirmar Contraseña',
+                    "attr" => [
+                        "class" => "form-control"
+                    ]]
+            ]);
     }
     
     /**
