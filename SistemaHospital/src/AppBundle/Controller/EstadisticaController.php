@@ -48,11 +48,13 @@ class EstadisticaController extends Controller
 
         $form = $this->createFormBuilder()
             ->add("fechaIni", "text",[
+                "label" => 'Generar estadística Desde',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
             ])
             ->add("fechaFin", "text",[
+                "label" => 'Hasta',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
