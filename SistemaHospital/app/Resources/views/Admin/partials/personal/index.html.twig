@@ -1,7 +1,11 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
-    <h1>Lista del Personal</h1>
+    <h1>Listado del Personal</h1>
+
+    <a href="{{ path('personal_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+        Nuevo Personal </a>
+
     <div class="col-md-12 espacio"></div>
 {% if personals is not empty %}
     <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
@@ -51,8 +55,8 @@
         {#{% endfor %}#}
     </table>
     {% else %}
-    <h2>No hay personal incorporado</h2>
+    <h2>¡Lo sentimos! No hay personal cargado en el sistema.</h2>
     {% endif %}
-            <a href="{{ path('personal_new') }}">Create a new personal</a>
 
 {% endblock %}
+
