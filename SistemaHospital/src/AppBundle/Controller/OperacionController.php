@@ -6,11 +6,12 @@ use AppBundle\Entity\Operacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
-
+use AppBundle\Form\Type\DateTimePickerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 /**
  * Operacion controller.
  *
- * @Route("operacion")
+ * @Route("/operacion")
  */
 class OperacionController extends Controller
 {
@@ -18,17 +19,102 @@ class OperacionController extends Controller
      * Lists all operacion entities.
      *
      * @Route("/", name="operacion_index")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $operacions = $em->getRepository('AppBundle:Operacion')->findAll();
 
+        $form = $this->createFormBuilder()
+            ->add("fechaIni", "text",[
+                'label' => 'Filtrar operaciones Desde',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add("fechaFin", "text",[
+                'label' => 'Hasta',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add('save', SubmitType::class, array(
+                'label' => 'Buscar operaciones',
+                "attr" => [
+                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                ]
+            ))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+       
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $datos = $form->getData();
+            //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
+            echo ($datos["fechaIni"]."  hasta: ". $datos["fechaFin"]);
+
+            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
+
+                $operacionesEntre = $this->operacionesEntre($datos["fechaIni"], $datos["fechaFin"]);
+                
+                return $this->render('operacion/index.html.twig', array(
+                    'operacions' => $operacionesEntre,
+                    'form' => $form->createView(),
+                ));
+            }
+            else {
+                echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
+                return $this->render('operacion/index.html.twig', array(
+                'operacions' => $operacions,
+                'form' => $form->createView(),
+            ));
+            }
+
+        }
+
         return $this->render('operacion/index.html.twig', array(
             'operacions' => $operacions,
+            'form' => $form->createView()
         ));
+    }
+
+
+      public function operacionesEntre($fechadesde, $fechahasta)
+    {
+        $resultado = array();  
+
+        $em = $this->getDoctrine()->getManager();
+        $operacions = $em->getRepository('AppBundle:Operacion')->findAll();
+        $aux = $em->getRepository('AppBundle:Operacion')->find(1);
+        echo($aux->getReserva()->getPaciente()->getId());
+        $inicio = new \DateTime($fechadesde);
+        $fin = new \DateTime($fechahasta);
+        foreach ($operacions as $ope) {
+            
+            if (($ope->getReserva()->getFechaInicio() > $inicio) and
+                ($ope->getReserva()->getFechaFin() < $fin)){
+                array_push($resultado, $ope);
+          }
+        }
+
+        return $resultado;
+    }
+
+    public function buscarReserva ($operacion){
+
+       
+        $em = $this->getDoctrine()->getManager();
+        $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
+        foreach ($reservas as $r) {
+            if ($r->getOperacion()->getId() == $id){
+                return $r;
+            }
+        }
     }
 
     /**

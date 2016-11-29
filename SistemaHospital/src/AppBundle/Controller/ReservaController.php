@@ -21,7 +21,7 @@ class ReservaController extends Controller
      * Lists all reserva entities.
      *
      * @Route("/", name="reserva_index")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      */
     public function indexAction(Request $request)//
     {
