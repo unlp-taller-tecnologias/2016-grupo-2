@@ -13,7 +13,20 @@ class AsaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('grado')->add('descripcion')->add('baja');
+        $builder
+            ->add("grado", "text",[
+                'label' => 'Nombre del ASAs',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("descripcion", "text",[
+                'label' => 'Descripción',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+        ;
     }
     
     /**

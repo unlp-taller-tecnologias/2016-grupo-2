@@ -1,19 +1,25 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
-    <h1>Lista de Anestesias </h1>
+    <h1>Listado de Anestesias</h1>
 
-{% if anestesias is not empty %}
-<table class="table table-striped table-hover">
+    <a href="{{ path('admin_anestesia_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+        Nuevo Estado </a>
+
+    {% if anestesias is not empty %}
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <th>Id</th>
                 {% endif %}
                 <th>Tipo</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <th>Baja</th>
-                <th>Actions</th>
+                {% endif %}
+                <th>Ver</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -24,19 +30,22 @@
                 {% endif %}
                 <td>{{ anestesium.tipo }}</td>
                 <td>{{ anestesium.descripcion }}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <td>{% if anestesium.baja %}Yes{% else %}No{% endif %}</td>
+                {% endif %}
                 <td>
-                   <a href="{{ path('admin_anestesia_show', { 'id': anestesium.id }) }}">show</a>
+                    <a href="{{ path('admin_anestesia_show', { 'id': anestesium.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </a>
                 </td>
                 <td>
-                <a href="{{ path('admin_anestesia_edit', { 'id': anestesium.id }) }}">edit</a>
+                    <a href="{{ path('admin_anestesia_edit', { 'id': anestesium.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 {% else %}
-    <h2>No hay anestesias incorporadas</h2>
+    <h2>¡Lo sentimos! No hay anestesias cargadas en el sistema.</h2>
 {% endif %}
-        <a href="{{ path('admin_anestesia_new') }}">Create a new anestesium</a>
 {% endblock %}

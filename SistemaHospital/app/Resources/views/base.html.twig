@@ -64,13 +64,13 @@
                             {#ESto es lo que va a ver el admin#}
                             <li>
                                 <a href="{{ path('personal_index') }}">
-                                    <i class="fa fa-wrench" aria-hidden="true"></i> Configuracion
+                                    <i class="fa fa-wrench" aria-hidden="true"></i> Configuración
                                 </a>
                             </li>
                             {% if is_granted('ROLE_USER') %}
                                 <li>
                                     <a href="{{ path('fos_user_security_logout') }}">
-                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesion
+                                        <i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar Sesión
                                     </a>
                                 </li>
                             {% endif %}
@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <div id="ejemplo" data-path="{{path('ajax_personal_list')}}"></div>
+        <div id="ejemplo" data-path="{{path('ajax_personal')}}"></div>
     </header>
 {% endblock %}
 

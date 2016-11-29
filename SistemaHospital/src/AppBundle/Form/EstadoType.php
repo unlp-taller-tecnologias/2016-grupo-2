@@ -13,7 +13,20 @@ class EstadoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('tipo')->add('descripcion')->add('baja')        ;
+        $builder
+            ->add("tipo", "text",[
+                'label' => 'Nombre del Estado de Reserva',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("descripcion", "text",[
+                'label' => 'Descripción',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+        ;
     }
     
     /**

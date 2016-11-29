@@ -22,28 +22,66 @@ class PersonalType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('baja')
-            ->add('nombre')
-            ->add('apellido')
-            ->add('genero')
-            ->add('dni')
-            ->add('edad')
+        $builder
+            ->add("nombre", "text",[
+                'label' => 'Nombre',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("apellido", "text",[
+                'label' => 'Apellido',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("genero", "choice",[
+                'label' => 'Género',
+                'choices' => [
+                    'Masculino' => 'Masculino',
+                    'Femenino' => 'Femenino'
+                ],
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("dni", "integer",[
+                'label' => 'DNI',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("edad", "integer",[
+                'label' => 'Edad',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
             ->add('servicios', 'entity', array(
                 'multiple' => true,   // Multiple selection allowed
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Servicio',
-                'property'     => 'getTipo'
+                'property'     => 'getTipo',
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ))
 //            ->add('servicios', EntityType::class, [
 //                'placeholder' => "Seleccione una opción..",
 //                'class'=>"AppBundle:Servicio",
 //                'choice_label' => 'getTipo',
+//                "attr" => [
+//                     "class" => "form-control"
+//                 ]
 //
 //            ])
             ->add('rol', EntityType::class, [
                 'placeholder' => "- Seleccione una opción..",
                 'class'=>"AppBundle:Rol",
                 'choice_label' => 'getNombre',
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ]);
     }
     

@@ -20,14 +20,19 @@ class PersonalController extends Controller
     /**
      * Lists all personal entities.
      *
-     * @Route("/", name="personal_index")
+     * @Route("/",defaults={"page": 1},name="personal_index")
+     * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="personal_index_paginated")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($page)
     {
 
         $em = $this->getDoctrine()->getManager();
-        $personals = $em->getRepository('AppBundle:Personal')->findAll();
+        //$personals = $em->getRepository('AppBundle:Personal')->findAll();
+        $personals = $em->getRepository('AppBundle:Personal')->findLatest($page);
+        //$personals = $em->getRepository(Personal::class)->findLatest($page);
+
+
 
         return $this->render('Admin/partials/personal/index.html.twig', array(
             'personals' => $personals,

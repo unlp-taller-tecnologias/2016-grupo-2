@@ -1,16 +1,26 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
-    <h1>Asa creation</h1>
+    <h1>Nueva ASAs</h1>
 
     {{ form_start(form) }}
+    <div class="form-group">
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success col-sm-offset-10"> <i class="fa fa-check" aria-hidden="true"></i>
+            Confirmar </button>
+    </div>
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_asa_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>
+                <a href="{{ path('admin_asa_index') }}" class="btn btn-primary"> <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Volver al Listado </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 {% endblock %}

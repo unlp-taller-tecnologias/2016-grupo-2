@@ -28,4 +28,62 @@ class Rol
     protected $baja=false;
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     *
+     * @return Rol
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set baja
+     *
+     * @param boolean $baja
+     *
+     * @return Rol
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+
+        return $this;
+    }
+
+    /**
+     * Get baja
+     *
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
 }

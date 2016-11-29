@@ -47,7 +47,156 @@ class Servicio
         $this->reservas =  new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set tipo
+     *
+     * @param string $tipo
+     *
+     * @return Servicio
+     */
+    public function setTipo($tipo)
+    {
+        $this->tipo = $tipo;
 
+        return $this;
+    }
 
+    /**
+     * Get tipo
+     *
+     * @return string
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     *
+     * @return Servicio
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set baja
+     *
+     * @param boolean $baja
+     *
+     * @return Servicio
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+
+        return $this;
+    }
+
+    /**
+     * Get baja
+     *
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
+
+    /**
+     * Add personal
+     *
+     * @param \AppBundle\Entity\Personal $personal
+     *
+     * @return Servicio
+     */
+    public function addPersonal(\AppBundle\Entity\Personal $personal)
+    {
+        $this->personal[] = $personal;
+
+        return $this;
+    }
+
+    /**
+     * Remove personal
+     *
+     * @param \AppBundle\Entity\Personal $personal
+     */
+    public function removePersonal(\AppBundle\Entity\Personal $personal)
+    {
+        $this->personal->removeElement($personal);
+    }
+
+    /**
+     * Get personal
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPersonal()
+    {
+        return $this->personal;
+    }
+
+    /**
+     * Add reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return Servicio
+     */
+    public function addReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas[] = $reserva;
+
+        return $this;
+    }
+
+    /**
+     * Remove reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     */
+    public function removeReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas->removeElement($reserva);
+    }
+
+    /**
+     * Get reservas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
+    }
+     public function __toString() {
+          return $this->tipo;
+    }
 }

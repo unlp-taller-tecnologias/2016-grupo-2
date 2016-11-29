@@ -1,27 +1,24 @@
 <?php
-
-
-
 namespace AppBundle\Repository;
 
 use AppBundle\Controller\AjaxController;
-use AppBundle\Entity\Reserva;
+use AppBundle\Entity\Personal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
-class ReservaRepository extends EntityRepository
+class PersonalRepository  extends EntityRepository
 {
-
     /**
      * @param array $get
      * @param bool $flag
      * @return array|\Doctrine\ORM\Query
      */
     public function ajaxTable(array $get, $flag = false){
-        echo("lalala");
+
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $alias = 'a';
@@ -131,5 +128,31 @@ class ReservaRepository extends EntityRepository
         $query = $cb->getQuery();
         $aResultTotal = $query->getResult();
         return $aResultTotal[0][1];
+    }
+
+
+    /**
+     * @return Query
+     */
+    public function queryLatest()
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT p
+                FROM AppBundle:Personal p     
+            ');
+    }
+
+    /**
+     * @param int $page
+     * @return Pagerfanta
+     */
+    public function findLatest($page = 1)
+    {
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest(), false));
+        $paginator->setMaxPerPage(50);// llama a global en personal para cantidad de paginas Personal::NUM_ITEMS
+        $paginator->setCurrentPage($page);
+
+        return $paginator;
     }
 }
