@@ -41,11 +41,14 @@
 
         $('.datatable').DataTable({
             "processing": true,
-            "serverSide": true,
-            "ajax":{
-                "type": "GET",
-                "url": path
-            }
+            "paging":   false,
+            "ordering": false,
+            "info":     false
+            // "serverSide": true,
+            // "ajax":{
+            //     "type": "GET",
+            //     "url": path
+            // }
         });
 
                 // alert(path);
