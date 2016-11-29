@@ -10,12 +10,11 @@
                 <h3>Apellido</h3>
                 <p>{{ app.user.personal.apellido }}</p>
 
-                <h3>Genero</h3>
+                <h3>Género</h3>
                 <p>{{ app.user.personal.genero }}</p>
-
             </div>
              <div class="col-md-6">
-                 <h3>Dni</h3>
+                 <h3>DNI</h3>
                  <p>{{ app.user.personal.dni }}</p>
 
                  <h3>Edad</h3>
@@ -32,11 +31,12 @@
                  <b>{{servicio.tipo}}</b><p>{{servicio.descripcion}}</p>
                 {% endfor %}
             {% else %}
-                <p>No tengo ningun servicio... Falta agregar algun servicio al usuario?</p>
+                <p><i>Usuario sin servicios asociados.</i></p>
             {% endif %}
-
             </div>
-        <a class="btn btn-primary" href="{{ path('personal_edit', { 'id': app.user.personal.id }) }}">Editar</a>
+        <a href="{{ path('personal_edit', { 'id': app.user.personal.id }) }}" class="btn btn-warning"> <i class="fa fa-pencil" aria-hidden="true"></i>
+            Editar </a>
+
     </div>
 
 
