@@ -1,7 +1,11 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
-    <h1>Lista de Quirofanos</h1>
+    <h1>Listado de Quirófanos</h1>
+
+    <a href="{{ path('admin_quirofano_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+        Nuevo Quirófano </a>
+
     {% if quirofanos is not empty %}
     <table class="table table-striped table-hover">
         <thead>
@@ -23,17 +27,18 @@
 
                 <td>{{ quirofano.nombre }}</td>
                 <td>
-                    <a href="{{ path('admin_quirofano_show', { 'id': quirofano.id }) }}">show</a>
+                    <a href="{{ path('admin_quirofano_show', { 'id': quirofano.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </a>
                 </td>
                 <td>
-                    <a href="{{ path('admin_quirofano_edit', { 'id': quirofano.id }) }}">edit</a>
+                    <a href="{{ path('admin_quirofano_edit', { 'id': quirofano.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     {% else %}
-        <h2>No hay quirofanos incorporados</h2>
+        <h2>¡Lo sentimos! No hay quirófanos cargados en el sistema.</h2>
     {% endif %}
-        <a href="{{ path('admin_quirofano_new') }}">Create a new quirofano</a>
 {% endblock %}

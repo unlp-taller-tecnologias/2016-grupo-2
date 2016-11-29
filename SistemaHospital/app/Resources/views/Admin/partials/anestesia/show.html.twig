@@ -1,40 +1,52 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
-    <h1>Anestesium</h1>
+    <h1>Anestesia</h1>
 
-    <table>
+    <table class="table table-striped table-hover">
         <tbody>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
             <tr>
                 <th>Id</th>
                 <td>{{ anestesium.id }}</td>
             </tr>
+            {% endif %}
             <tr>
                 <th>Tipo</th>
                 <td>{{ anestesium.tipo }}</td>
             </tr>
             <tr>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <td>{{ anestesium.descripcion }}</td>
             </tr>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
             <tr>
                 <th>Baja</th>
                 <td>{% if anestesium.baja %}Yes{% else %}No{% endif %}</td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_anestesia_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_anestesia_edit', { 'id': anestesium.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>
+                <a href="{{ path('admin_anestesia_index') }}" class="btn btn-primary"> <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Volver al Listado </a>
+            </td>
+            <td>
+                <a href="{{ path('admin_anestesia_edit', { 'id': anestesium.id }) }}" class="btn btn-warning"> <i class="fa fa-pencil" aria-hidden="true"></i>
+                    Editar </a>
+            </td>
+            <td>
+                {{ form_start(delete_form) }}
+                <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+                    Eliminar </button>
+                {{ form_end(delete_form) }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 {% endblock %}
