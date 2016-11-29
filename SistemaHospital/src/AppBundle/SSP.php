@@ -14,13 +14,15 @@
  * @license MIT - http://datatables.net/license_mit
  */
 
-// REMOVE THIS BLOCK - used for DataTables test environment only!
-$file = $_SERVER['DOCUMENT_ROOT'].'/datatables/mysql.php';
-if ( is_file( $file ) ) {
-    include( $file );
-}
+//// REMOVE THIS BLOCK - used for DataTables test environment only!
+//$file = $_SERVER['DOCUMENT_ROOT'].'/datatables/mysql.php';
+//if ( is_file( $file ) ) {
+//    include( $file );
+//}
 
-class SSP {
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+ class SSP extends Bundle{
     /**
      * Create the data output array for the DataTables rows
      *

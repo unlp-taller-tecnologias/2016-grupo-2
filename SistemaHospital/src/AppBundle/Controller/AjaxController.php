@@ -7,8 +7,10 @@ use AppBundle\Entity\Anestesia;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use SSP;
 
 /**
  * Ajax controller.
@@ -46,17 +48,15 @@ class AjaxController extends Controller
             'host' => '127.0.0.1'
         );
 
+        try{
+            $lala=0;
+            $resulta= SSP::simple($_GET, $sql_details, $table, $primaryKey, $columns ) ;
+        }catch (Exception $e){
+            echo ($e->getMessage());
+        }
 
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-         * If you just want to use the basic configuration for DataTables with PHP
-         * server-side, there is no need to edit below this line.
-         */
 
-        require( '../SSP.php' );
-
-        new Response (json_encode(
-            \SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
-        ));
+        return new Response(json_encode($resulta));
 
     }
 

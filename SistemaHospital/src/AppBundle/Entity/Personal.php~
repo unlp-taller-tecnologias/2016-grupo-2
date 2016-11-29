@@ -23,6 +23,7 @@ class Personal extends Persona
     protected $id;
 
     /**
+     *
      * @ORM\OneToOne(targetEntity="User", mappedBy="personal")
      */
     private $user;
@@ -56,4 +57,155 @@ class Personal extends Persona
     }
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set baja
+     *
+     * @param boolean $baja
+     *
+     * @return Personal
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+
+        return $this;
+    }
+
+    /**
+     * Get baja
+     *
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Personal
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add servicio
+     *
+     * @param \AppBundle\Entity\Servicio $servicio
+     *
+     * @return Personal
+     */
+    public function addServicio(\AppBundle\Entity\Servicio $servicio)
+    {
+        $this->servicios[] = $servicio;
+
+        return $this;
+    }
+
+    /**
+     * Remove servicio
+     *
+     * @param \AppBundle\Entity\Servicio $servicio
+     */
+    public function removeServicio(\AppBundle\Entity\Servicio $servicio)
+    {
+        $this->servicios->removeElement($servicio);
+    }
+
+    /**
+     * Get servicios
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getServicios()
+    {
+        return $this->servicios;
+    }
+
+    /**
+     * Add operacione
+     *
+     * @param \AppBundle\Entity\Operacion $operacione
+     *
+     * @return Personal
+     */
+    public function addOperacione(\AppBundle\Entity\Operacion $operacione)
+    {
+        $this->operaciones[] = $operacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove operacione
+     *
+     * @param \AppBundle\Entity\Operacion $operacione
+     */
+    public function removeOperacione(\AppBundle\Entity\Operacion $operacione)
+    {
+        $this->operaciones->removeElement($operacione);
+    }
+
+    /**
+     * Get operaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOperaciones()
+    {
+        return $this->operaciones;
+    }
+
+    /**
+     * Set rol
+     *
+     * @param \AppBundle\Entity\Rol $rol
+     *
+     * @return Personal
+     */
+    public function setRol(\AppBundle\Entity\Rol $rol)
+    {
+        $this->rol = $rol;
+
+        return $this;
+    }
+
+    /**
+     * Get rol
+     *
+     * @return \AppBundle\Entity\Rol
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
+    
 }

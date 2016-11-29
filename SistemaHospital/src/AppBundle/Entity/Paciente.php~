@@ -36,4 +36,106 @@ class Paciente extends Persona
    
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reservas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set mutual
+     *
+     * @param string $mutual
+     *
+     * @return Paciente
+     */
+    public function setMutual($mutual)
+    {
+        $this->mutual = $mutual;
+
+        return $this;
+    }
+
+    /**
+     * Get mutual
+     *
+     * @return string
+     */
+    public function getMutual()
+    {
+        return $this->mutual;
+    }
+
+    /**
+     * Set baja
+     *
+     * @param boolean $baja
+     *
+     * @return Paciente
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+
+        return $this;
+    }
+
+    /**
+     * Get baja
+     *
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
+    }
+
+    /**
+     * Add reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     *
+     * @return Paciente
+     */
+    public function addReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas[] = $reserva;
+
+        return $this;
+    }
+
+    /**
+     * Remove reserva
+     *
+     * @param \AppBundle\Entity\Reserva $reserva
+     */
+    public function removeReserva(\AppBundle\Entity\Reserva $reserva)
+    {
+        $this->reservas->removeElement($reserva);
+    }
+
+    /**
+     * Get reservas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservas()
+    {
+        return $this->reservas;
+    }
+    public function __toString() {
+          return $this->nombre;
+    }
 }

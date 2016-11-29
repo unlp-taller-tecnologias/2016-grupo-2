@@ -1,27 +1,22 @@
 <?php
-
-
-
 namespace AppBundle\Repository;
 
 use AppBundle\Controller\AjaxController;
-use AppBundle\Entity\Reserva;
+use AppBundle\Entity\Personal;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\Pagerfanta;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
-class ReservaRepository extends EntityRepository
+class PersonalRepository  extends EntityRepository
 {
-
     /**
      * @param array $get
      * @param bool $flag
      * @return array|\Doctrine\ORM\Query
      */
     public function ajaxTable(array $get, $flag = false){
-        echo("lalala");
+
 
         /* Indexed column (used for fast and accurate table cardinality) */
         $alias = 'a';

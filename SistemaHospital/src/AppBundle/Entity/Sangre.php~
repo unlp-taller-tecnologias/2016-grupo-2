@@ -36,4 +36,73 @@ class Sangre
 
    
   
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     *
+     * @return Sangre
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Add operacione
+     *
+     * @param \AppBundle\Entity\Operacion $operacione
+     *
+     * @return Sangre
+     */
+    public function addOperacione(\AppBundle\Entity\Operacion $operacione)
+    {
+        $this->operaciones[] = $operacione;
+
+        return $this;
+    }
+
+    /**
+     * Remove operacione
+     *
+     * @param \AppBundle\Entity\Operacion $operacione
+     */
+    public function removeOperacione(\AppBundle\Entity\Operacion $operacione)
+    {
+        $this->operaciones->removeElement($operacione);
+    }
+
+    /**
+     * Get operaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOperaciones()
+    {
+        return $this->operaciones;
+    }
+   
 }

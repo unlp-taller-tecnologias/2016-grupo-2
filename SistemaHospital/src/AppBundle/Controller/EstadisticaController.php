@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use AppBundle\Entity\Operacion;
