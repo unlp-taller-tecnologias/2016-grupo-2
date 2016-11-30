@@ -15,16 +15,15 @@ use Symfony\Component\Security\Acl\Exception\Exception;
  * Reserva controller.
  *
  * @Route("/reserva")
- *
  */
 class ReservaController extends Controller 
 {
     /**
      * Lists all reserva entities.
-     *
+     *     
      * @Route("/",defaults={"page": 1},name="reserva_index")
      * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="reserva_index_paginated")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      */
     public function indexAction( Request $request)
     {

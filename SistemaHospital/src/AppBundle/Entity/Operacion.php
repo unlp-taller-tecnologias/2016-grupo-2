@@ -333,7 +333,6 @@ class Operacion
     /**
      * Get reserva
      *
-
      * @return \AppBundle\Entity\Reserva
 
      */
