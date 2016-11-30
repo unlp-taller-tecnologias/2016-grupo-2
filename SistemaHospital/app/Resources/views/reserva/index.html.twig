@@ -80,10 +80,10 @@
         {% endfor %}
         </tbody>
     </table>
-{#
+{#{% if paginacion %}#}
     <div class="navigation text-center">
         {{ pagerfanta(reservas, 'twitter_bootstrap3_translated', { routeName: 'reserva_index_paginated' }) }}
     </div>
-#}
+{#{% endif %}#}
     
 {% endblock %}

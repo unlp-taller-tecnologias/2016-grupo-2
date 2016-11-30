@@ -6,105 +6,88 @@ use AppBundle\Entity\Reserva;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Acl\Exception\Exception;
 
 /**
  * Reserva controller.
  *
- * @Route("/reserva")
+ *
  */
-class ReservaController extends Controller 
+class ReservaController extends Controller
 {
     /**
      * Lists all reserva entities.
-     *     
+     *
      * @Route("/",defaults={"page": 1},name="reserva_index")
      * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="reserva_index_paginated")
-     * @Method({"GET","POST"})
+     * @Method({"GET", "POST"})
      */
-    public function indexAction( Request $request)
+    public function indexAction(Request $request, $page)
+
     {
+
         $em = $this->getDoctrine()->getManager();
-        $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
-        //$reservas = $em->getRepository('AppBundle:Reserva')->findLatest($page);
+        $form = $this->createFormBuilder()
+            ->add("fechaIni", "text", [
+                'label' => 'Filtrar reservas Desde',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add("fechaFin", "text", [
+                'label' => 'Hasta',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add('save', SubmitType::class, array(
+                'label' => 'Buscar reservas',
+                "attr" => [
+                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                ]
+            ))
+            ->getForm();
 
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
+            $datos = $form->getData();
 
+            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
 
-               $form = $this->createFormBuilder()
-                    ->add("fechaIni", "text",[
-                        'label' => 'Filtrar reservas Desde',
-                        "attr" => [
-                            "class" => "form-control datetimepicker"
-                        ]
-                    ])
-                    ->add("fechaFin", "text",[
-                        'label' => 'Hasta',
-                        "attr" => [
-                            "class" => "form-control datetimepicker"
-                        ]
-                    ])
-                    ->add('save', SubmitType::class, array(
-                        'label' => 'Buscar reservas',
-                        "attr" => [
-                            "class" => "btn btn-primary col-md-2 col-md-offset-5"
-                        ]
-                    ))
-                    ->getForm();
+                //$reservasEntre = $this->reservasEntre($datos["fechaIni"], $datos["fechaFin"]);
 
-                        $form->handleRequest($request);
-       
-                        if ($form->isSubmitted() && $form->isValid()) {
+                $reservas = $em->getRepository(Reserva::class)->findLatest($page,$datos);
 
-                            $datos = $form->getData();
-                            //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
-                            echo ($datos["fechaIni"]."  hasta: ". $datos["fechaFin"]);
+                return $this->render('reserva/index.html.twig', array(
+                    'reservas' => $reservas,
+                    'form' => $form->createView(),
+                    //'paginacion' => false
+                ));
+            } else {
+                echo("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
+                $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);
+                return $this->render('reserva/index.html.twig', array(
+                    'reservas' => $reservas,
+                    'form' => $form->createView(),
+                ));
+            }
 
-                            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
+        }
+        $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);
 
-                                $reservasEntre = $this->reservasEntre($datos["fechaIni"], $datos["fechaFin"]);
-                                echo (count($reservas));
-
-                                return $this->render('reserva/index.html.twig', array(
-                                    'reservas' => $reservasEntre,
-                                    'form' => $form->createView(),
-                                ));
-                            }
-                            else {
-                                echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
-                                return $this->render('reserva/index.html.twig', array(
-                                'reservas' => $reservas,
-                                'form' => $form->createView(),
-                            ));
-                            }
-
-                        }
-
-    return $this->render('reserva/index.html.twig', array(
-                'reservas' => $reservas,
-                 'form' => $form->createView(),
-            ));
+        return $this->render('reserva/index.html.twig', array(
+            'reservas' => $reservas,
+            'form' => $form->createView(),
+            //'paginacion' => true
+        ));
 
     }
 
-    public function reservasEntre($fechadesde, $fechahasta)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query_string = "
-          SELECT r
-          FROM AppBundle\Entity\Reserva r
-          where r.fecha_inicio BETWEEN :fechaDesde and :fechaHasta";
 
-        $query= $em->createQuery($query_string);
-        $query->setParameter('fechaDesde', new \DateTime($fechadesde));
-        $query->setParameter('fechaHasta', new \DateTime($fechahasta));
-
-        return $query->getResult();
-        
-    }
 
 
     /**
@@ -166,7 +149,7 @@ class ReservaController extends Controller
 
             return $this->redirectToRoute('reserva_edit', array('id' => $reserva->getId()));
         }
-        
+
         return $this->render('reserva/edit.html.twig', array(
             'reserva' => $reserva,
             'edit_form' => $editForm->createView(),
@@ -178,13 +161,13 @@ class ReservaController extends Controller
      * Cancela una reserva .
      *
      * @Route("/{id}/cancel", name="reserva_cancel")
-     * 
+     *
      */
     public function cancelAction(Reserva $reserva)
-    {   
+    {
 
         $em = $this->getDoctrine()->getManager();
-        
+
         $estado = $this->getDoctrine()->getRepository('AppBundle:Estado')->findOneBytipo('cancelada');
         $reserva->setEstado($estado);
         $reserva->setBaja(true);
@@ -194,7 +177,7 @@ class ReservaController extends Controller
         return $this->redirectToRoute('reserva_index');
     }
 
-   
+
     /**
      * Deletes a reserva entity.
      *
@@ -227,7 +210,6 @@ class ReservaController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('reserva_delete', array('id' => $reserva->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

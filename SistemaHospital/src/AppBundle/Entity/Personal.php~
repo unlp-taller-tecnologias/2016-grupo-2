@@ -10,7 +10,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonalRepository")
  * @ORM\Table(name="personal")
  */
 class Personal extends Persona
