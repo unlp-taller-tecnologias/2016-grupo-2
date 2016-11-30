@@ -47,10 +47,10 @@
                     {% endif %}
                 </td>
                 <td>
-                    <a href="{{ path('personal_show', { 'id': personal.id }) }}">show</a>
+                    <a href="{{ path('personal_show', { 'id': personal.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                 </td>
                 <td>
-                    <a href="{{ path('personal_edit', { 'id': personal.id }) }}">edit</a>
+                    <a href="{{ path('personal_edit', { 'id': personal.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 </td>
             </tr>
         {% endfor %}

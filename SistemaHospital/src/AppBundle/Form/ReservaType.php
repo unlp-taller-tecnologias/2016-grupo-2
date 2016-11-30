@@ -5,6 +5,8 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Form\Type\DateTimePickerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ReservaType extends AbstractType
 {
@@ -14,16 +16,16 @@ class ReservaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("fecha_inicio", "datetime",[
+            ->add("fecha_inicio", "text",[
                 'label' => 'Fecha y Hora de Inicio',
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "form-control datetimepicker"
                 ]
             ])
-            ->add("fecha_fin", "datetime",[
+            ->add("fecha_fin", "text",[
                 'label' => 'Fecha y Hora de Finalización',
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "form-control datetimepicker"
                 ]
             ])
             ->add("paciente", "choice",[

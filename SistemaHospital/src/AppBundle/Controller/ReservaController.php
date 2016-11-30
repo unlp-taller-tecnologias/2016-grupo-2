@@ -7,8 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 /**
  * Reserva controller.
@@ -19,71 +20,72 @@ class ReservaController extends Controller
 {
     /**
      * Lists all reserva entities.
-     *
-     * @Route("/", name="reserva_index")
-     * @Method("GET")
+     *     
+     * @Route("/",defaults={"page": 1},name="reserva_index")
+     * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="reserva_index_paginated")
+     * @Method({"GET","POST"})
      */
-    public function indexAction(Request $request)//
+    public function indexAction( Request $request)
     {
-
-
         $em = $this->getDoctrine()->getManager();
-
         $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
+        //$reservas = $em->getRepository('AppBundle:Reserva')->findLatest($page);
 
 
-        $form = $this->createFormBuilder()
-            ->add("fechaIni", "text",[
-                'label' => 'Filtrar reservas Desde',
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add("fechaFin", "text",[
-                'label' => 'Hasta',
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add('save', SubmitType::class, array(
-                'label' => 'Buscar reservas',
-                "attr" => [
-                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
-                ]
-            ))
-            ->getForm();
 
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+               $form = $this->createFormBuilder()
+                    ->add("fechaIni", "text",[
+                        'label' => 'Filtrar reservas Desde',
+                        "attr" => [
+                            "class" => "form-control datetimepicker"
+                        ]
+                    ])
+                    ->add("fechaFin", "text",[
+                        'label' => 'Hasta',
+                        "attr" => [
+                            "class" => "form-control datetimepicker"
+                        ]
+                    ])
+                    ->add('save', SubmitType::class, array(
+                        'label' => 'Buscar reservas',
+                        "attr" => [
+                            "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                        ]
+                    ))
+                    ->getForm();
 
-            $datos = $form->getData();
-            //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
-            echo ($datos["fechaIni"]."  hasta: ". $datos["fechaFin"]);
+                        $form->handleRequest($request);
+       
+                        if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
+                            $datos = $form->getData();
+                            //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
+                            echo ($datos["fechaIni"]."  hasta: ". $datos["fechaFin"]);
 
-                $reservasEntre = $this->reservasEntre($datos["fechaIni"], $datos["fechaFin"]);
-                echo (count($reservas));
+                            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
 
-                return $this->render('reserva/index.html.twig', array(
-                    'reservas' => $reservasEntre,
-                    'form' => $form->createView(),
-                ));
-            }
-            else {
-                echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
-                return $this->render('reserva/index.html.twig', array(
-                'reservas' => $reservas,
-                'form' => $form->createView(),
-            ));
-            }
+                                $reservasEntre = $this->reservasEntre($datos["fechaIni"], $datos["fechaFin"]);
+                                echo (count($reservas));
 
-        }
+                                return $this->render('reserva/index.html.twig', array(
+                                    'reservas' => $reservasEntre,
+                                    'form' => $form->createView(),
+                                ));
+                            }
+                            else {
+                                echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
+                                return $this->render('reserva/index.html.twig', array(
+                                'reservas' => $reservas,
+                                'form' => $form->createView(),
+                            ));
+                            }
+
+                        }
 
     return $this->render('reserva/index.html.twig', array(
                 'reservas' => $reservas,
-                'form' => $form->createView(),
+                 'form' => $form->createView(),
             ));
 
     }

@@ -139,7 +139,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
         $manager->persist($estado3);
 
         $estado4 = new Estado();
-        $estado4->setTipo("OPERANDO");
+        $estado4->setTipo("ESPERANDO CONFIRMACION");
         $estado4->setDescripcion("Una reserva se encuentra en operacion");
         $estado4->setBaja(0);
         $manager->persist($estado4);
