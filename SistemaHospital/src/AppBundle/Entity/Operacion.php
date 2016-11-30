@@ -335,7 +335,6 @@ class Operacion
      *
 
      * @return \AppBundle\Entity\Reserva
-     * @ORM\return string
 
      */
     public function getReserva()

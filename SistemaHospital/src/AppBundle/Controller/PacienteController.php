@@ -18,14 +18,14 @@ class PacienteController extends Controller
     /**
      * Lists all paciente entities.
      *
-     * @Route("/", name="paciente_index")
+     * @Route("/",defaults={"page": 1}, name="paciente_index")
+     * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="paciente_index_paginated")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $pacientes = $em->getRepository('AppBundle:Paciente')->findAll();
+        $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page);
 
         return $this->render('paciente/index.html.twig', array(
             'pacientes' => $pacientes,

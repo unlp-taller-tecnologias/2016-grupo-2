@@ -11,10 +11,11 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Controller\RerservaController;
+use AppBundle\Controller\ReservaController;
 use AppBundle\Entity\Reserva;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 
@@ -29,11 +30,27 @@ use Pagerfanta\Pagerfanta;
 class ReservaRepository extends EntityRepository
 {
 
-    const numPaginas=10;
+    const NUM_ITEMS = 100;
     /**
      * @return Query
      */
     public function queryLatest()
+    {
+
+        //esto es en realidad mayor
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT r
+                FROM AppBundle:Reserva r
+                WHERE r.fecha_inicio <= :now
+                ORDER BY r.fecha_inicio ASC
+            ')
+            ->setParameter('now', new \DateTime())
+        ;
+    }
+
+
+   /* public function queryHistorical()
     {
         return $this->getEntityManager()
             ->createQuery('
@@ -43,8 +60,8 @@ class ReservaRepository extends EntityRepository
                 ORDER BY r.fecha_inicio DESC
             ')
             ->setParameter('now', new \DateTime())
-        ;
-    }
+            ;
+    }*/
 
     /**
      * @param int $page
@@ -54,9 +71,18 @@ class ReservaRepository extends EntityRepository
     public function findLatest($page = 1)
     {
         $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest(), false));
-        $paginator->setMaxPerPage(self::numPaginas);
+        $paginator->setMaxPerPage(40);
         $paginator->setCurrentPage($page);
 
         return $paginator;
     }
+
+    /*public function findHistorical($page = 1)
+    {
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryHistorical(), false));
+        $paginator->setMaxPerPage(self::numPaginas);
+        $paginator->setCurrentPage($page);
+
+        return $paginator;
+    }*/
 }

@@ -1,30 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{#{% block body %}#}
-    {#<h1>Listado de Reservas</h1>#}
-
-
-    {#{{ form_start(form) }}#}
-    {#{{ form_errors(form) }}#}
-    {#<div class="row">#}
-        {#<div class='col-sm-6'>#}
-            {#{{ form_row(form.fechaIni) }}#}
-        {#</div>#}
-        {#<div class='col-sm-6'>#}
-            {#{{ form_row(form.fechaFin) }}#}
-        {#</div>#}
-        {#<div class="col-md-12 espacio"></div>#}
-        {#{{ form_row(form.save) }}#}
-    {#</div>#}
-
-    {#{{ form_end(form) }}#}
-
-    {#<a href="{{ path('reserva_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>#}
-        {#Nueva Reserva </a>#}
-
-    {#<table class="table table-striped table-hover">#}
-{#{% extends 'base.html.twig' %}#}
-
 {% block body %}
     <h1>Listado de Reservas</h1>
 
@@ -47,7 +22,8 @@
     <a href="{{ path('reserva_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva Reserva </a>
 
-    <table class="table table-striped table-hover">
+    <div class="col-md-12 espacio"></div>
+    <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
             <tr>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -104,6 +80,10 @@
         {% endfor %}
         </tbody>
     </table>
-
+{#
+    <div class="navigation text-center">
+        {{ pagerfanta(reservas, 'twitter_bootstrap3_translated', { routeName: 'reserva_index_paginated' }) }}
+    </div>
+#}
     
 {% endblock %}

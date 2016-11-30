@@ -9,7 +9,8 @@
     <a href="{{ path('operacion_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva Operación </a>
 
-    <table class="table table-striped table-hover">
+    <div class="col-md-12 espacio"></div>
+    <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
             <tr>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
