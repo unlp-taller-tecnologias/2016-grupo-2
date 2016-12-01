@@ -92,8 +92,23 @@ class EstadisticaController extends Controller
                   array_push($arregloserviciosEntreFechas, $arregloServicio);
 
               }
+              $totalprogramadas=0;
+              $totalguardia=0;
+              $totalanestesia=0;
+              $total=0;
+              foreach ($arregloserviciosEntreFechas as $a) {
+                  $totalprogramadas = $totalprogramadas + $a[1];
+                  $totalguardia = $totalguardia + $a[2];
+                  $totalanestesia = $totalanestesia + $a[3];
+                  $total = $total + $a[4];
+                
+              }
                 return $this->render('estadistica/index.html.twig', array(
                     'servicios' => $arregloserviciosEntreFechas,
+                     'totalprogramadas' => $totalprogramadas,
+                     'totalguardia' => $totalguardia,
+                     'totalanestesia' => $totalanestesia,
+                     'total' => $total,
                     'form' => $form->createView(),
                 ));
             
@@ -107,8 +122,22 @@ class EstadisticaController extends Controller
             }
           
         }
-        
-        return $this->render('estadistica/index.html.twig', array('servicios' => $arregloservicios, 'form' => $form->createView()));
+        $totalprogramadas=0;
+        $totalguardia=0;
+        $totalanestesia=0;
+        $total=0;
+         foreach ($arregloservicios as $a) {
+                  $totalprogramadas = $totalprogramadas + $a[1];
+                  $totalguardia = $totalguardia + $a[2];
+                  $totalanestesia = $totalanestesia + $a[3];
+                  $total = $total + $a[4];
+                
+              }
+
+        return $this->render('estadistica/index.html.twig', array('servicios' => $arregloservicios,'totalprogramadas' => $totalprogramadas,
+                     'totalguardia' => $totalguardia,
+                     'totalanestesia' => $totalanestesia,
+                     'total' => $total, 'form' => $form->createView()));
         
     }
 

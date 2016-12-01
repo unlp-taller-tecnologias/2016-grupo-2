@@ -35,6 +35,13 @@
 	<td id="total[{{ counter }}]">{{ servicio[4] }}</td>
 </tr>
 {% endfor %}
+<tr>
+    <th></th>
+    <th>Total programadas:{{ totalprogramadas }}</th>
+    <th>Total por guardia: {{ totalguardia }} </th>
+    <th>Total con anestesia: {{ totalanestesia }}</th>
+    <th>Total {{ total }}</th>
+</tr>
 </table>
 
 <form><input type="hidden" id="cantidadservicios" value="{{ counter }}"></form>
