@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="col-sm-6 col-md-4 col-md-offset-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="text-center">Iniciar Sesión</h2>
+        </div>
+    {% block fos_user_content %}
+
+        <div class="panel-body">
+
+            {% if error %}
+                <div class="alert alert-danger">Nombre de Usuario o Contraseña incorrectos</div>
+            {% endif %}
+
+            <form action="{{ path("fos_user_security_check") }}" method="post">
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% endif %}
+
+                <div class="form-group">
+                    <input class="form-control" type="text" id="username" name="_username" placeholder="Nombre de Usuario" required="required" />
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="password" id="password" name="_password" placeholder="Contraseña" required="required" />
+                </div>
+
+                <div class="text-right form-group">
+                    <label for="remember_me">Recordarme</label>
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                </div>
+
+                <div class="text-center form-group">
+                    <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="Entrar" />
+                </div>
+
+            </form>
+
+        </div>
+    {% endblock fos_user_content %}
+    </div>
+</div>
+{% endblock body %}

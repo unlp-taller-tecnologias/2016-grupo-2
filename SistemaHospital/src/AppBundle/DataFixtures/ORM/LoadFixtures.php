@@ -458,8 +458,8 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
             //VER COMO HACER EL RANDON DE FECHAS
             //$reservas[$i]->setFechaInicio($this->randomDate(20150101000000,20161123115959));
 
-            $reservas[$i]->setFechaInicio(new \DateTime('now - '.$i.'days'));
-            $reservas[$i]->setFechaFin(new \DateTime('now - '.$i.'days'));
+            $reservas[$i]->setFechaInicio(new \DateTime('now + 1 month - '.$i.'days'));
+            $reservas[$i]->setFechaFin(new \DateTime('now +1 month -'.$i.'days'));
 
             $rand= rand(1,self::PACIENTESCANT);
             $reservas[$i]->setPaciente($this->getReference("paciente-$rand"));

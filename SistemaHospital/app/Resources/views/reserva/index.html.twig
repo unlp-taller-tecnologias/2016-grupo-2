@@ -1,9 +1,87 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Listado de Reservas</h1>
+
+    <h1>Lista de Reservas</h1>
+    <a href="{{ path('reserva_new') }}" class="btn btn-success col-md-offset-10 block"> <i class="fa fa-plus" aria-hidden="true"></i>
+        Nueva Reserva </a>
+
+    {#<div class="col-md-12 espacio">&nbsp</div>#}
+    {#<div class="col-md-12">#}
+    <br>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Listado de proximas reservas</h3>
+        </div>
+        <div class="panel-body">
+    <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <th>Id</th>
+            {% endif %}
+            <th>Nº Reserva</th>
+            <th>Servicio</th>
+            <th>Paciente</th>
+            <th>Estado</th>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <th>Baja</th>
+            {% endif %}
+            <th>Fecha y Hora Inicio</th>
+            <th>Fecha y Hora Fin</th>
+            <th>Ver</th>
+            <th>Editar</th>
+            <th>Cancelar</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for reserva in reservasPen %}
+            <tr>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td><a href="{{ path('reserva_show', { 'id': reserva.id }) }}">{{ reserva.id }}</a></td>
+                {% endif %}
+                <td>{{ reserva.numeroReserva }}</td>
+                <td>{{ reserva.servicio.tipo }}</td>
+                <td>{{ reserva.paciente.nombre }} {{ reserva.paciente.apellido }}</td>
+                <td>{{ reserva.estado.tipo }}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td>{% if reserva.baja %}Yes{% else %}No{% endif %}</td>
+                {% endif %}
+                <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('d/m/Y H:i:s') }}{% endif %}</td>
+                <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('d/m/Y H:i:s') }}{% endif %}</td>
+                <td>
+                    <a href="{{ path('reserva_show', { 'id': reserva.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                </td>
+                {% if reserva.estado.tipo != 'CANCELADA' and reserva.estado.tipo != 'FINALIZADA' %}
+                    <td>
+                        <a href="{{ path('reserva_edit', { 'id': reserva.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    </td>
+                    <td>
+                        <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                    </td>
+                {% else %}
+                    <td>
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    </div>
+    {#</div>#}
 
 
+    {#A PARTIR DE ACA es la tabla de historicos#}
+
+    <br>
+    <br><br>
+
+    <div class="espacio h3 text-center">Resarvas totales</div>
     {{ form_start(form) }}
     {{ form_errors(form) }}
     <div class="row">
@@ -19,8 +97,6 @@
 
     {{ form_end(form) }}
 
-    <a href="{{ path('reserva_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
-        Nueva Reserva </a>
 
     <div class="col-md-12 espacio"></div>
     <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
@@ -80,10 +156,10 @@
         {% endfor %}
         </tbody>
     </table>
-{#
+{#{% if paginacion %}#}
     <div class="navigation text-center">
         {{ pagerfanta(reservas, 'twitter_bootstrap3_translated', { routeName: 'reserva_index_paginated' }) }}
     </div>
-#}
+{#{% endif %}#}
     
 {% endblock %}

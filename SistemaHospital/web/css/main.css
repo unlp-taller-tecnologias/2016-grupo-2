@@ -21,7 +21,10 @@ code {
 
 .espacio {
     width:100%;
-    padding:10px 0 10px 0;
+    margin:20px 0 20px 0;
+}
+.block{
+    display: block;
 }
 
 .text-danger, .text-danger:hover {
