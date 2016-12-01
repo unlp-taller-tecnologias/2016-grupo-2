@@ -60,6 +60,18 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
 
         return $paginator;
     }
+
+    public function findPendientes()
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT p
+                FROM AppBundle:Reserva p
+                WHERE p.fecha_inicio > :now
+                ORDER BY p.fecha_inicio ASC 
+            ')
+            ->setParameter('now', new \DateTime());
+    }
 }
 
 

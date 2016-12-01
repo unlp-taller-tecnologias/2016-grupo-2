@@ -52,6 +52,8 @@ class ReservaController extends Controller
 
         $form->handleRequest($request);
 
+        $reservasPen = $em->getRepository(Reserva::class)->findPendientes();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
             $datos = $form->getData();
@@ -65,7 +67,7 @@ class ReservaController extends Controller
                 return $this->render('reserva/index.html.twig', array(
                     'reservas' => $reservas,
                     'form' => $form->createView(),
-                    //'paginacion' => false
+                    'reservasPen' => $reservasPen,
                 ));
             } else {
                 echo("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
@@ -73,16 +75,18 @@ class ReservaController extends Controller
                 return $this->render('reserva/index.html.twig', array(
                     'reservas' => $reservas,
                     'form' => $form->createView(),
+                    'reservasPen' => $reservasPen,
                 ));
             }
 
         }
         $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);
 
+
         return $this->render('reserva/index.html.twig', array(
             'reservas' => $reservas,
             'form' => $form->createView(),
-            //'paginacion' => true
+            'reservasPen' => $reservasPen,
         ));
 
     }
