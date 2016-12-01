@@ -69,4 +69,8 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="navigation text-center">
+        {{ pagerfanta(operacions, 'twitter_bootstrap3_translated', { routeName: 'operacion_index_paginated' }) }}
+    </div>
 {% endblock %}

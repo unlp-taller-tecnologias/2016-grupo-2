@@ -18,15 +18,16 @@ class OperacionController extends Controller
     /**
      * Lists all operacion entities.
      *
-     * @Route("/", name="operacion_index")
+     * @Route("/",defaults={"page": 1}, name="operacion_index")
+     * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="operacion_index_paginated")
      * @Method({"GET","POST"})
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,$page)
     {
 
         $em = $this->getDoctrine()->getManager();
 
-        $operacions = $em->getRepository('AppBundle:Operacion')->findAll();
+
 
         $form = $this->createFormBuilder()
             ->add("fechaIni", "text",[
@@ -55,55 +56,54 @@ class OperacionController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $datos = $form->getData();
-            //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
-            echo ($datos["fechaIni"]."  hasta: ". $datos["fechaFin"]);
+            $page=1;
 
             if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
 
-                $operacionesEntre = $this->operacionesEntre($datos["fechaIni"], $datos["fechaFin"]);
-                
+                //$operacionesEntre = $this->operacionesEntre($datos["fechaIni"], $datos["fechaFin"]);
+                $operaciones = $em->getRepository(Operacion::class)->findLatest($page,$datos);
                 return $this->render('operacion/index.html.twig', array(
-                    'operacions' => $operacionesEntre,
+                    'operacions' => $operaciones,
                     'form' => $form->createView(),
                 ));
             }
             else {
+                $operaciones = $em->getRepository(Operacion::class)->findLatest($page,null);
                 echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
                 return $this->render('operacion/index.html.twig', array(
-                'operacions' => $operacions,
+                'operacions' => $operaciones,
                 'form' => $form->createView(),
             ));
             }
 
         }
 
+        $operaciones = $em->getRepository(Operacion::class)->findLatest($page,null);
         return $this->render('operacion/index.html.twig', array(
-            'operacions' => $operacions,
+            'operacions' => $operaciones,
             'form' => $form->createView()
         ));
     }
 
 
-      public function operacionesEntre($fechadesde, $fechahasta)
-    {
-        $resultado = array();  
-
-        $em = $this->getDoctrine()->getManager();
-        $operacions = $em->getRepository('AppBundle:Operacion')->findAll();
-        $aux = $em->getRepository('AppBundle:Operacion')->find(1);
-        echo($aux->getReserva()->getPaciente()->getId());
-        $inicio = new \DateTime($fechadesde);
-        $fin = new \DateTime($fechahasta);
-        foreach ($operacions as $ope) {
-            
-            if (($ope->getReserva()->getFechaInicio() > $inicio) and
-                ($ope->getReserva()->getFechaFin() < $fin)){
-                array_push($resultado, $ope);
-          }
-        }
-
-        return $resultado;
-    }
+//      public function operacionesEntre($fechadesde, $fechahasta)
+//    {
+//        $resultado = array();
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $operacions = $em->getRepository('AppBundle:Operacion')->findAll();
+//        $inicio = new \DateTime($fechadesde);
+//        $fin = new \DateTime($fechahasta);
+//        foreach ($operacions as $ope) {
+//
+//            if (($ope->getReserva()->getFechaInicio() > $inicio) and
+//                ($ope->getReserva()->getFechaFin() < $fin)){
+//                array_push($resultado, $ope);
+//          }
+//        }
+//
+//        return $resultado;
+//    }
 
     public function buscarReserva ($operacion){
 
