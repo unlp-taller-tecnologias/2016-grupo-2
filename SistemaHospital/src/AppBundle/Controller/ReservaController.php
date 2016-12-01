@@ -52,8 +52,8 @@ class ReservaController extends Controller
 
         $form->handleRequest($request);
 
-        $reservasPen = $em->getRepository(Reserva::class)->findPendientes();
-
+        //$reservasPen = $em->getRepository(Reserva::class)->findPendientes();
+        $reservasPen="lal";
         if ($form->isSubmitted() && $form->isValid()) {
             $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
             $datos = $form->getData();

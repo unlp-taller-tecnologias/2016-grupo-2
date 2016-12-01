@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\AppBundle;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -61,17 +62,15 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
         return $paginator;
     }
 
-    public function findPendientes()
+   /* public function findPendientes()
     {
         return $this->getEntityManager()
-            ->createQuery('
-                SELECT p
-                FROM AppBundle:Reserva p
-                WHERE p.fecha_inicio > :now
-                ORDER BY p.fecha_inicio ASC 
-            ')
+            ->getRepository(Reserva::class)
+            ->where('YEAR(p.postDate) = :year')
+            ->andWhere('MONTH(p.postDate) = :month')
+            ->andWhere('DAY(p.postDate) = :day');
             ->setParameter('now', new \DateTime());
-    }
+    }*/
 }
 
 
