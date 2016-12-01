@@ -32,6 +32,6 @@ function demoFromHTML() {
             theme: 'striped',
             startY: 110,
         });
-        pdf.save('table.pdf');
+        pdf.save('Hospital Rodolfo Rossi - Sistema de Gestión de Quirófano.pdf');
     }
 }
