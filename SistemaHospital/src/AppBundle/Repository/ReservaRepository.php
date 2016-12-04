@@ -3,9 +3,14 @@
 namespace AppBundle\Repository;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\Reserva;
 use Doctrine\ORM\Query;
+use Doctrine\Common\Collections\Criteria;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToTimestampTransformer;
+use Symfony\Component\Validator\Constraints\DateTime;
+
 /**
  * ReservaRepository
  *
@@ -44,6 +49,39 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
             ;
     }
 
+
+    public function filtrarReservas($datos){
+        /*$expr = Criteria::expr();
+        $criteria = Criteria::create();
+        $reservas =$this->getEntityManager()->getRepository(Reserva::class)->findAll();
+        */
+        echo ($datos["servicios"]);
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        if(isset($datos["fechaIni"] ) && isset($datos["fechaFin"])){
+            $qb ->select('r')
+            ->from('AppBundle:Reserva', 'r')
+            ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
+            ->setParameter('firstDate', new \DateTime($datos["fechaIni"]))
+            ->setParameter('lastDate', new \DateTime($datos["fechaFin"]));
+        }
+
+        if(isset($datos["servicios"])){
+            /*$qb->andWhere('r.servicio.getId() = :servicio')
+            ->setParameter('servicio', $datos["servicios"]);
+            echo ("entreeee");*/
+            //->innerJoin('u', 'phonenumbers', 'p', 'u.id = p.user_id')
+
+            $servicio= $this->getEntityManager()->getRepository("AppBundle:Servicio")->find(4);
+            $qb ->andWhere("r.servicio = :servicio")
+                ->setParameter("servicio", $servicio);
+        }
+
+
+        return $qb->getQuery();
+
+    }
+
     /**
      * @param int $page
      * @return Pagerfanta
@@ -52,25 +90,46 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
     {
         if($datos !== null)
         {
+
             $paginator = new Pagerfanta(new DoctrineORMAdapter($this->reservasEntre($datos["fechaIni"], $datos["fechaFin"]), false));
+           // $paginator = new Pagerfanta(new DoctrineORMAdapter($this->filtrarReservas($datos), false));
         }else{
             $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest(), false));
         }
         $paginator->setMaxPerPage(self::NUMPAG);// llama a global en personal para cantidad de paginas Personal::NUM_ITEMS
         $paginator->setCurrentPage($page);
 
+      //  echo("llegue");
+       // echo(count($paginator));
         return $paginator;
     }
 
-   /* public function findPendientes()
+    public function findPendientes($fecha,$fecha2)
     {
-        return $this->getEntityManager()
-            ->getRepository(Reserva::class)
-            ->where('YEAR(p.postDate) = :year')
-            ->andWhere('MONTH(p.postDate) = :month')
-            ->andWhere('DAY(p.postDate) = :day');
-            ->setParameter('now', new \DateTime());
-    }*/
+        /*
+
+            $group          = $entityManager->find('Group', $groupId);
+            $userCollection = $group->getUsers();
+
+            $criteria = Criteria::create()
+                ->where(Criteria::expr()->eq("birthday", "1982-02-17"))
+                ->orderBy(array("username" => Criteria::ASC))
+                ->setFirstResult(0)
+                ->setMaxResults(20)
+            ;
+
+            $birthdayUsers = $userCollection->matching($criteria);
+        */
+
+        /*echo( $lista = $this->reservasEntre($fecha, $fecha2)->getQuery());
+        echo($lista);*/
+        
+
+
+        $lista = $this->reservasEntre($fecha, $fecha2)->execute();
+        return $lista;
+
+    }
 }
 
 

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Reserva controller.
@@ -32,33 +33,57 @@ class ReservaController extends Controller
         $form = $this->createFormBuilder()
             ->add("fechaIni", "text", [
                 'label' => 'Filtrar reservas Desde',
+                'required' => false,
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
             ])
             ->add("fechaFin", "text", [
                 'label' => 'Hasta',
+                'required' => false,
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
             ])
+            ->add('servicios', 'entity', array(
+                'multiple' => false,   // Multiple selection allowed
+                'expanded' => false,   // Render as checkboxes
+                'class' => 'AppBundle:Servicio',
+                'property'     => 'getTipo',
+                "placeholder" =>"elige un servicio..",
+                'required' => false,
+                "attr" => [
+                    "class" => "form-control",
+                ]
+            ))
             ->add('save', SubmitType::class, array(
                 'label' => 'Buscar reservas',
                 "attr" => [
                     "class" => "btn btn-primary col-md-2 col-md-offset-5"
                 ]
             ))
+
             ->getForm();
 
         $form->handleRequest($request);
 
-        //$reservasPen = $em->getRepository(Reserva::class)->findPendientes();
-        $reservasPen="lal";
+
+        $hoy = new \DateTime ("now");
+        $year=$hoy->format("Y");
+        $month=$hoy->format("m");
+        $day=$hoy->format("d");
+        $fecha1= $year."-".$month."-".$day." 00:00:00";
+        $fecha2= $year."-".$month."-".$day." 23:59:50";
+        $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
+        //    $reservasPen="LALA";
+        //  echo("cantidad en reservas pendientes   ". count($reservasPen));
+
+
         if ($form->isSubmitted() && $form->isValid()) {
             $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
             $datos = $form->getData();
 
-            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
+            if ($datos ["fechaIni"] <= $datos ["fechaFin"]) {
 
                 //$reservasEntre = $this->reservasEntre($datos["fechaIni"], $datos["fechaFin"]);
 
