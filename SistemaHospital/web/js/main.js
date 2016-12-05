@@ -36,7 +36,7 @@
 
         $( ".datepicker" ).datetimepicker();
 
-        path = $("#ejemplo").attr("data-path");
+        //path = $("#ejemplo").attr("data-path");
         //alert(path);
 
         //$.fn.dataTable.ext.errMode = 'throw';
@@ -51,16 +51,20 @@
             }
 
         });
+        $('.datatableWithoutSearch').DataTable({
+            "processing": true,
+            "paging":   false,
+            "ordering": false,
+            "searching": false,
+            "info":     false
+        });
 
-         path = $("#ejemplo").attr("data-path");
-         $.ajax({
-             type: "POST",
-             url: path,
-             dataType: 'text',
-             success: function(data){
-                 alert(data);
-             }
+        $("#ocultarFiltrosReserva").hide();
+         $("#verFiltrosReservas").click(function(e){
+             $("#ocultarFiltrosReserva").show();
+             $("#verFiltrosReservas").hide();
          });
+
         
         
     });

@@ -6,8 +6,6 @@
     <a href="{{ path('reserva_new') }}" class="btn btn-success col-md-offset-10 block"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva Reserva </a>
 
-    {#<div class="col-md-12 espacio">&nbsp</div>#}
-    {#<div class="col-md-12">#}
 
 
     <br>
@@ -32,7 +30,7 @@
             </div>
             {{ form_end(form2) }}
 
-    <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
+    <table class="datatableWithoutSearch table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
         <tr>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -102,7 +100,7 @@
     <br>
     <br><br>
 
-    <div class="espacio h3 text-center">Resarvas totales</div>
+    <div class="espacio h3 text-center">Busqueda de RESERVAS</div>
     <h4><strong>Filtros de Busqueda:</strong></h4>
 
     {{ form_start(form) }}
@@ -114,15 +112,21 @@
         <div class='col-sm-6'>
             {{ form_row(form.fechaFin) }}
         </div>
-        <div class='col-sm-6'>
-            {{ form_row(form.servicios) }}
+        <div class="col-md-12">
+            <a id="verFiltrosReservas">mas filtros...</a>
         </div>
-        <div class='col-sm-6'>
-            {{ form_row(form.numeroReserva) }}
+        <div id="ocultarFiltrosReserva">
+            <div class='col-sm-6'>
+                {{ form_row(form.servicios) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form.numeroReserva) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form.paciente) }}
+            </div>
         </div>
-        <div class='col-sm-6'>
-            {{ form_row(form.paciente) }}
-        </div>
+
         <div class="col-md-12 espacio"></div>
         {{ form_row(form.save) }}
     </div>
