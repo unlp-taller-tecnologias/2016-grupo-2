@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -100,7 +101,7 @@ class ReservaController extends Controller
                     "class" => "btn btn-primary col-md-2 col-md-offset-5"
                 ]
             ))
-
+ 
             ->getForm();
 
         //$form2->handleRequest($request);
@@ -175,13 +176,13 @@ class ReservaController extends Controller
                     "class" => "form-control"
                 ]
             ])
-            ->add("fecha_inicio", "datetime",[
+            ->add("fecha_inicio", "text",[
                 'label' => 'Fecha y Hora de Inicio',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
             ])
-            ->add("fecha_fin", "datetime",[
+            ->add("fecha_fin", "text",[
                 'label' => 'Fecha y Hora de Finalización',
                 "attr" => [
                     "class" => "form-control datetimepicker"
@@ -193,6 +194,13 @@ class ReservaController extends Controller
                     "class" => "form-control"
                 ]
             ])
+            /*->add('agregarpaciente', ButtonType::class, array(
+                 'label' => 'Agregar un nuevo paciente',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))*/
+
             ->add('estado', 'entity', array(
                 'class' => 'AppBundle:Estado',
                 'property'     => 'getTipo',
@@ -319,8 +327,12 @@ class ReservaController extends Controller
                 $reserva = new Reserva();
                 $reserva->setNumeroReserva($datos['numero_reserva']);
                 $reserva->setBaja(0);
-                $reserva->setFechaInicio($datos['fecha_inicio']);
-                $reserva->setFechaFin($datos['fecha_fin']);
+
+                $inicio = new \DateTime($datos['fecha_inicio']);
+                 $fin = new \DateTime($datos['fecha_fin']);
+
+                $reserva->setFechaInicio($inicio);
+                $reserva->setFechaFin($fin);
                 $reserva->setPaciente($datos['paciente']);
                 $reserva->setServicio($datos['servicio']);
                 $reserva->setEstado($datos['estado']);

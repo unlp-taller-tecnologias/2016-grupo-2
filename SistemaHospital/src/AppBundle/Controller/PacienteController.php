@@ -61,6 +61,36 @@ class PacienteController extends Controller
     }
 
     /**
+     * Creates a new paciente entity.
+     *
+     * @Route("/newParaReserva", name="paciente_agregarpaciente_reserva")
+     * @Method({"GET", "POST"})
+     */
+    public function newActionInReserva(Request $request)
+    {
+        $paciente = new Paciente();
+        $form = $this->createForm('AppBundle\Form\PacienteType', $paciente);
+        $form->handleRequest($request);
+
+       
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($paciente);
+            $em->flush($paciente);
+
+            return $this->redirectToRoute('reserva_new');
+
+        }
+
+        return $this->render('paciente/new.html.twig', array(
+            'paciente' => $paciente,
+            'form' => $form->createView(),
+        ));
+    }
+
+
+    /**
      * Finds and displays a paciente entity.
      *
      * @Route("/{id}", name="paciente_show")
