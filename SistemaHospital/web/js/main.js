@@ -43,7 +43,10 @@
             "processing": true,
             "paging":   false,
             "ordering": false,
-            "info":     false
+            "info":     false,
+            "language": {
+                "search": "Busqueda por pagina:"
+            }
             // "serverSide": true,
             // "ajax":{
             //     "type": "GET",
