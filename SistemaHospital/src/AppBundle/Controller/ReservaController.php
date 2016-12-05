@@ -30,80 +30,12 @@ class ReservaController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-//        $form2=$this->createFormBuilder()
-//           ->add("fechaPend", "text", [
-//                'label' => 'Reservas en el dia: ',
-//                'required' => false,
-//                "attr" => [
-//                    "class" => "form-control datetimepicker"
-//                ]
-//            ])
-//            ->add('save', SubmitType::class, array(
-//                'label' => 'ver reservas',
-//                "attr" => [
-//                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
-//                ]
-//            ))
-//        ;
 
+        $form2 = $this->createForm('AppBundle\Form\FechaPendientesType');
+        $form = $this->createForm('AppBundle\Form\FiltroReservaType');
 
-        $form = $this->createFormBuilder()
-            ->add("fechaIni", "text", [
-                'label' => 'Filtrar reservas Desde',
-                'required' => false,
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add("fechaFin", "text", [
-                'label' => 'Hasta',
-                'required' => false,
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add('servicios', 'entity', array(
-                'multiple' => false,   // Multiple selection allowed
-                'expanded' => false,   // Render as checkboxes
-                'class' => 'AppBundle:Servicio',
-                'property'     => 'getTipo',
-                "placeholder" =>"Elige un servicio..",
-                'required' => false,
-                "attr" => [
-                    "class" => "form-control",
-                ]
-            ))
-            ->add("numeroReserva", "text", [
-                'label' => 'Numero Reserva',
-                'required' => false,
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            ->add('paciente', 'entity', array(
-                'multiple' => false,   // Multiple selection allowed
-                'expanded' => false,   // Render as checkboxes
-                'class' => 'AppBundle:Paciente',
-                'property'     => 'getDni',
-                "placeholder" =>"Elige un Paciente...",
-                'required' => false,
-                "attr" => [
-                    "class" => "form-control",
-                ]
-            ))
-            ->add('save', SubmitType::class, array(
-                'label' => 'Buscar reservas',
-                "attr" => [
-                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
-                ]
-            ))
-
-            ->getForm();
-
-        //$form2->handleRequest($request);
         $form->handleRequest($request);
-
-
+        $form2->handleRequest($request);
 
         $hoy = new \DateTime ("now");
         $year=$hoy->format("Y");
@@ -112,23 +44,18 @@ class ReservaController extends Controller
         $fecha1= $year."-".$month."-".$day." 00:00:00";
         $fecha2= $year."-".$month."-".$day." 23:59:50";
         $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
-        //    $reservasPen="LALA";
-        //  echo("cantidad en reservas pendientes   ". count($reservasPen));
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
             $datos = $form->getData();
 
             if ($datos ["fechaIni"] <= $datos ["fechaFin"]) {
-
-                //$reservasEntre = $this->reservasEntre($datos["fechaIni"], $datos["fechaFin"]);
-
                 $reservas = $em->getRepository(Reserva::class)->findLatest($page,$datos);
 
                 return $this->render('reserva/index.html.twig', array(
                     'reservas' => $reservas,
                     'form' => $form->createView(),
+                    'form2'=> $form2->createView(),
                     'reservasPen' => $reservasPen,
                 ));
             } else {
@@ -137,17 +64,32 @@ class ReservaController extends Controller
                 return $this->render('reserva/index.html.twig', array(
                     'reservas' => $reservas,
                     'form' => $form->createView(),
+                    'form2'=> $form2->createView(),
                     'reservasPen' => $reservasPen,
                 ));
             }
 
+        }else if($form2->isSubmitted() && $form2->isValid()){
+            $dataPendientes= $form2->getData();
+            if(isset($dataPendientes["fechaPend"])){
+
+                $hoy = new \DateTime ($dataPendientes["fechaPend"]);
+                $year=$hoy->format("Y");
+                $month=$hoy->format("m");
+                $day=$hoy->format("d");
+                $fecha1= $year."-".$month."-".$day." 00:00:00";
+                $fecha2= $year."-".$month."-".$day." 23:59:50";
+                $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
+            }
         }
+
+        
+
         $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);
-
-
         return $this->render('reserva/index.html.twig', array(
             'reservas' => $reservas,
             'form' => $form->createView(),
+            'form2'=> $form2->createView(),
             'reservasPen' => $reservasPen,
         ));
 
