@@ -24,7 +24,9 @@
                 today: 'fa fa-check-circle-o',
                 clear: 'fa fa-trash',
                 close: 'fa fa-remove'
-            }
+            },
+            format: "DD/MM/YYYY",
+            locale: 'es'
         });
         //esto es para el nav del sidevar darles estilos
         $("#sidebar ul li a").click(function () {
@@ -47,22 +49,18 @@
             "language": {
                 "search": "Busqueda por pagina:"
             }
-            // "serverSide": true,
-            // "ajax":{
-            //     "type": "GET",
-            //     "url": path
-            // }
+
         });
 
-                // alert(path);
-        // $.ajax({
-        //     type: "POST",
-        //     url: path,
-        //     dataType: 'text',
-        //     success: function(data){
-        //         alert(data);
-        //     }
-        // });
+         path = $("#ejemplo").attr("data-path");
+         $.ajax({
+             type: "POST",
+             url: path,
+             dataType: 'text',
+             success: function(data){
+                 alert(data);
+             }
+         });
         
         
     });

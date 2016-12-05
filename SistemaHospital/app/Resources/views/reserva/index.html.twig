@@ -16,6 +16,22 @@
             <h3 class="panel-title">Listado de proximas reservas</h3>
         </div>
         <div class="panel-body">
+
+            {{ form_start(form2) }}
+            {{ form_errors(form2) }}
+            <div class="col-md-12 espacio">
+                <div class="col-md-2">
+                    {{ form_label(form2.fechaPend, 'Buscar en el dia: ') }}
+                </div>
+                <div class='col-md-6'>
+                    {{ form_row(form2.fechaPend) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form2.save) }}
+                </div>
+            </div>
+            {{ form_end(form2) }}
+
     <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
         <tr>
