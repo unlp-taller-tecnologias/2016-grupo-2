@@ -30,6 +30,23 @@ class ReservaController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
+//        $form2=$this->createFormBuilder()
+//           ->add("fechaPend", "text", [
+//                'label' => 'Reservas en el dia: ',
+//                'required' => false,
+//                "attr" => [
+//                    "class" => "form-control datetimepicker"
+//                ]
+//            ])
+//            ->add('save', SubmitType::class, array(
+//                'label' => 'ver reservas',
+//                "attr" => [
+//                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+//                ]
+//            ))
+//        ;
+
+
         $form = $this->createFormBuilder()
             ->add("fechaIni", "text", [
                 'label' => 'Filtrar reservas Desde',
@@ -83,7 +100,9 @@ class ReservaController extends Controller
 
             ->getForm();
 
+        //$form2->handleRequest($request);
         $form->handleRequest($request);
+
 
 
         $hoy = new \DateTime ("now");
