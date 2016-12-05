@@ -50,7 +50,25 @@ class ReservaController extends Controller
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Servicio',
                 'property'     => 'getTipo',
-                "placeholder" =>"elige un servicio..",
+                "placeholder" =>"Elige un servicio..",
+                'required' => false,
+                "attr" => [
+                    "class" => "form-control",
+                ]
+            ))
+            ->add("numeroReserva", "text", [
+                'label' => 'Numero Reserva',
+                'required' => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('paciente', 'entity', array(
+                'multiple' => false,   // Multiple selection allowed
+                'expanded' => false,   // Render as checkboxes
+                'class' => 'AppBundle:Paciente',
+                'property'     => 'getDni',
+                "placeholder" =>"Elige un Paciente...",
                 'required' => false,
                 "attr" => [
                     "class" => "form-control",
