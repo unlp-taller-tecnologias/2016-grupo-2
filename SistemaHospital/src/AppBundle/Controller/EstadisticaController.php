@@ -44,7 +44,7 @@ class EstadisticaController extends Controller
           array_push($arregloservicios, $arregloServicio);
 
         }
-
+        
         $form = $this->createFormBuilder()
             ->add("fechaIni", "text",[
                 "label" => 'Generar estadística Desde',

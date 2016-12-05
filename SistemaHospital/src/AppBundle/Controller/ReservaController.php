@@ -3,10 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Reserva;
+use AppBundle\Entity\Operacion;
+use AppBundle\Entity\Sangre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -102,21 +105,175 @@ class ReservaController extends Controller
      */
     public function newAction(Request $request)
     {
-        $reserva = new Reserva();
-        $form = $this->createForm('AppBundle\Form\ReservaType', $reserva);
-        $form->handleRequest($request);
+        
+         $form2 = $this->createFormBuilder()
+            ->add("numero_reserva", "number",[
+                'label' => 'Numero reserva',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("fecha_inicio", "datetime",[
+                'label' => 'Fecha y Hora de Inicio',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add("fecha_fin", "datetime",[
+                'label' => 'Fecha y Hora de Finalización',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->add("paciente", "choice",[
+                'label' => 'Paciente',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('estado', 'entity', array(
+                'class' => 'AppBundle:Estado',
+                'property'     => 'getTipo',
+                'label' => 'Estado de la reserva',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            ->add('paciente', 'entity', array(
+                'class' => 'AppBundle:Paciente',
+                'property'     => 'getNombreyApellido',
+                'label' => 'Paciente',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            ->add('servicio', 'entity', array(
+                'class' => 'AppBundle:Servicio',
+                'property'     => 'getTipo',
+                'label' => 'Servicio',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            ->add('quirofano', 'entity', array(
+                'class' => 'AppBundle:Quirofano',
+                'property'     => 'getNombre',
+                'label' => 'Quirófano',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+           ->add('sangre', 'entity', array(
+                'class' => 'AppBundle:Sangre',
+                'property'     => 'getNombre',
+                'label' => 'Sangre',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+           ->add('asa', 'entity', array(
+                'class' => 'AppBundle:Asa',
+                'property'     => 'getGrado',
+                'label' => 'Asa',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+           ->add('Anestesia', 'entity', array(
+                'class' => 'AppBundle:Anestesia',
+                'property'     => 'getTipo',
+                'label' => 'Anestesia',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            ->add("diagnostico", "text",[
+                'label' => 'Diagnostico',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+             ->add("habitacion", "text",[
+                'label' => 'Habitacion',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+              ->add("observaciones", "text",[
+                'label' => 'Observaciones',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("cirugia", "text",[
+                'label' => 'Cirugia',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+             ->add('Internado', ChoiceType::class, array(
+                'choices'  => array(
+                    1 => 'Si',
+                    0 => 'No',
+                ),
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            ->add('TiempoQuirurgico', ChoiceType::class, array(
+                'choices'  => array(
+                   "Corto" => 'Corto',
+                    "Medio" => 'Medio',
+                    "Largo" => 'Largo',
+                    "Muy Largo" => 'Muy Largo',
+                ),
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            ->getForm();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($reserva);
-            $em->flush($reserva);
+        $form2->handleRequest($request);
+      
+        if ($form2->isSubmitted() && $form2->isValid()){
+                
+                $datos = $form2->getData();
 
-            return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId()));
+                $operacion = new Operacion();
+                $operacion->setDiagnostico($datos["diagnostico"]);
+                $operacion->setHabitacion($datos["habitacion"]);
+                $operacion->setObservaciones($datos["observaciones"]);
+                $operacion->setInternado($datos["Internado"]);
+                $operacion->setCirujia($datos["cirugia"]);
+                $operacion->setTq($datos["TiempoQuirurgico"]);
+                $operacion->setBaja(0); //Se setea en 0 por defecto siempre.
+                $operacion->setSangre($datos["sangre"]);
+                $operacion->setAsa($datos["asa"]);
+                $operacion->setAnestesia($datos["Anestesia"]);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($operacion);
+                $em->flush($operacion);
+
+                $reserva = new Reserva();
+                $reserva->setNumeroReserva($datos['numero_reserva']);
+                $reserva->setBaja(0);
+                $reserva->setFechaInicio($datos['fecha_inicio']);
+                $reserva->setFechaFin($datos['fecha_fin']);
+                $reserva->setPaciente($datos['paciente']);
+                $reserva->setServicio($datos['servicio']);
+                $reserva->setEstado($datos['estado']);
+                $reserva->setQuirofano($datos['quirofano']);
+                $reserva->setOperacion($operacion);
+                $em->persist($reserva);
+                $em->flush($reserva);
+
+
+              return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId()));
         }
 
-        return $this->render('reserva/new.html.twig', array(
-            'reserva' => $reserva,
-            'form' => $form->createView(),
+       return $this->render('reserva/new.html.twig', array(
+            'form2' => $form2->createView(),
+        
         ));
     }
 

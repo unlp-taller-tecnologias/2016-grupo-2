@@ -190,9 +190,11 @@ class Operacion
 
 
     /**
-     * Set Cirujia
+     * Set cirujia
      *
-     * @ORM\param string $cirujia
+     * @param string $cirujia
+     *
+     * @return Operacion
      */
     public function setCirujia($cirujia)
     {
@@ -202,7 +204,7 @@ class Operacion
     /**
      * Get Cirujia
      *
-     * @ORM\return string
+     * @return string
      */
     public function getCirujia()
     {

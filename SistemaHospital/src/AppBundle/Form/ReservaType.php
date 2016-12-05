@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+use AppBundle\Entity\Sangre;
+
 class ReservaType extends AbstractType
 {
     /**
@@ -16,13 +18,19 @@ class ReservaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("fecha_inicio", "text",[
+            ->add("numero_reserva", "number",[
+                'label' => 'Numero reserva',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("fecha_inicio", "date",[
                 'label' => 'Fecha y Hora de Inicio',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
             ])
-            ->add("fecha_fin", "text",[
+            ->add("fecha_fin", "date",[
                 'label' => 'Fecha y Hora de Finalización',
                 "attr" => [
                     "class" => "form-control datetimepicker"
@@ -34,12 +42,14 @@ class ReservaType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add("servicio", "choice",[
-                'label' => 'Servicio',
+            ->add('estado', 'entity', array(
+                'class' => 'AppBundle:Estado',
+                'property'     => 'getTipo',
+                'label' => 'Estado de la reserva',
                 "attr" => [
                     "class" => "form-control"
                 ]
-            ])
+            ))
             ->add('paciente', 'entity', array(
                 'class' => 'AppBundle:Paciente',
                 'property'     => 'getNombreyApellido',
@@ -63,7 +73,8 @@ class ReservaType extends AbstractType
                 "attr" => [
                     "class" => "form-control"
                 ]
-            ));
+            ))
+            ;
     }
     
     /**
