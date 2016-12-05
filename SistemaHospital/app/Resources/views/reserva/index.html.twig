@@ -8,6 +8,8 @@
 
     {#<div class="col-md-12 espacio">&nbsp</div>#}
     {#<div class="col-md-12">#}
+
+
     <br>
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -35,6 +37,7 @@
         </tr>
         </thead>
         <tbody>
+
         {% for reserva in reservasPen %}
             <tr>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -69,10 +72,12 @@
                 {% endif %}
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
         </div>
     </div>
+
     {#</div>#}
 
 
@@ -82,6 +87,8 @@
     <br><br>
 
     <div class="espacio h3 text-center">Resarvas totales</div>
+    <h4><strong>Filtros de Busqueda:</strong></h4>
+
     {{ form_start(form) }}
     {{ form_errors(form) }}
     <div class="row">
@@ -90,6 +97,15 @@
         </div>
         <div class='col-sm-6'>
             {{ form_row(form.fechaFin) }}
+        </div>
+        <div class='col-sm-6'>
+            {{ form_row(form.servicios) }}
+        </div>
+        <div class='col-sm-6'>
+            {{ form_row(form.numeroReserva) }}
+        </div>
+        <div class='col-sm-6'>
+            {{ form_row(form.paciente) }}
         </div>
         <div class="col-md-12 espacio"></div>
         {{ form_row(form.save) }}
