@@ -72,7 +72,12 @@ class EstadisticaController extends Controller
 
             $datos = $form->getData();
             //aca tenes los datos que te llegan desde el form hay q hacer el filtrado
-           
+
+            $datos["fechaIni"] = str_replace('/', '-', $datos["fechaIni"]);
+            $datos["fechaIni"]= date('Y-m-d H:i', strtotime($datos["fechaIni"]));
+
+            $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
+            $datos["fechaFin"]= date('Y-m-d H:i', strtotime($datos["fechaFin"]));
 
             if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
 
