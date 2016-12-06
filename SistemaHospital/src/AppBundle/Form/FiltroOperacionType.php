@@ -76,7 +76,10 @@ class FiltroOperacionType extends AbstractType
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Paciente',
                 'property'     => 'getDni',
-                "placeholder" =>"Elige una opcion...",
+                'choice_label'  => function ($paciente) {
+                    return (string)($paciente->getNombre()." ".$paciente->getApellido()." ".$paciente->getDni());
+                },
+                "placeholder" =>"Elige un Paciente...",
                 'required' => false,
                 "attr" => [
                     "class" => "form-control",
@@ -107,17 +110,17 @@ class FiltroOperacionType extends AbstractType
                 ]
             ))
 
-            ->add('personal', 'entity', array(
-                'multiple' => false,   // Multiple selection allowed
-                'expanded' => false,   // Render as checkboxes
-                'class' => 'AppBundle:Personal',
-                'property'    => 'getDni',
-                "placeholder" =>"Elige una opcion...",
-                'required' => false,
-                "attr" => [
-                    "class" => "form-control",
-                ]
-            ))
+//            ->add('personal', 'entity', array(
+//                'multiple' => false,   // Multiple selection allowed
+//                'expanded' => false,   // Render as checkboxes
+//                'class' => 'AppBundle:Personal',
+//                'property'    => 'getDni',
+//                "placeholder" =>"Elige una opcion...",
+//                'required' => false,
+//                "attr" => [
+//                    "class" => "form-control",
+//                ]
+//            ))
 
             ->add('save', SubmitType::class, array(
                 'label' => 'Buscar Operacion',

@@ -28,37 +28,49 @@
             format: "DD/MM/YYYY LT",
             locale: 'es'
         });
+
+        $('.datetimepickerWithoutTime').datetimepicker({
+            icons: {
+                time: 'fa fa-clock-o',
+                date: 'fa fa-calendar',
+                up: 'fa fa-chevron-up',
+                down: 'fa fa-chevron-down',
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-check-circle-o',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            },
+            format: "DD/MM/YYYY",
+            locale: 'es'
+        });
+
+        $('.datetimepickerWithoutDate').datetimepicker({
+            icons: {
+                time: 'fa fa-clock-o',
+                date: 'fa fa-calendar',
+                up: 'fa fa-chevron-up',
+                down: 'fa fa-chevron-down',
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-check-circle-o',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            },
+            format: "LT",
+            locale: 'es'
+        });
+
         //esto es para el nav del sidevar darles estilos
         $("#sidebar ul li a").click(function () {
             $(this).parent().attr("class","active");
             $(this).parent().siblings().removeAttr("class");
         });
 
-        $( ".datepicker" ).datetimepicker();
-
         //path = $("#ejemplo").attr("data-path");
         //alert(path);
 
         //$.fn.dataTable.ext.errMode = 'throw';
-
-        $('.datatable').DataTable({
-            "processing": true,
-            "paging":   false,
-            "ordering": false,
-            "info":     false,
-            "responsive": true,
-            "language": {
-                "search": "Busqueda por pagina:"
-            }
-
-        });
-        $('.datatableWithoutSearch').DataTable({
-            "processing": true,
-            "paging":   false,
-            "ordering": false,
-            "searching": false,
-            "info":     false
-        });
 
         $("#ocultarFiltrosReserva").hide();
          $("#verFiltrosReservas").click(function(e){

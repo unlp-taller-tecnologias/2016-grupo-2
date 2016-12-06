@@ -135,4 +135,15 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
 
         return $paginator;
     }
+
+
+    public function findNoFinalizada(){
+         $qb = $this->getEntityManager()->createQueryBuilder();
+          return  $qb ->select('o')
+                ->from('AppBundle:Operacion', 'o')
+                ->join('o.reserva', 'r')
+                ->where('r.estado = 4')
+                ->getQuery()->execute()
+              ;
+    }
 }

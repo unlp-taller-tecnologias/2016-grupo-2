@@ -52,6 +52,9 @@ class FiltroReservaType extends AbstractType
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Paciente',
                 'property'     => 'getDni',
+                'choice_label'  => function ($paciente) {
+                                        return (string)($paciente->getNombre()." ".$paciente->getApellido()." ".$paciente->getDni());
+                                    },
                 "placeholder" =>"Elige un Paciente...",
                 'required' => false,
                 "attr" => [

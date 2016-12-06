@@ -4,95 +4,38 @@
 
     <h1>Listado de Operaciones</h1>
 
-    <a href="{{ path('operacion_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
-        Nueva Operación </a>
+        <a href="{{ path('operacion_new') }}" class="btn btn-success"> <i class="fa fa-plus" aria-hidden="true"></i>
+            Nueva Operación </a>
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-    <div class="row">
-        <div class='col-sm-6'>
-            {{ form_row(form.fechaIni) }}
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form.fechaFin) }}
-        </div>
-        <div class="col-md-12">
-            <a id="verFiltrosOperaciones">mas filtros...</a>
-        </div>
-        <div id="ocultarFiltrosOperaciones">
-            <div class='col-sm-6'>
-                {{ form_row(form.servicios) }}
-            </div>
-            <div class='col-sm-6'>
-                {{ form_row(form.numeroReserva) }}
-            </div>
-            <div class='col-sm-6'>
-                {{ form_row(form.paciente) }}
-            </div>
-            <div class='col-sm-6'>
-                {{ form_label(form.tq, 'Internado') }}
-                {{ form_row(form.esInternado) }}
-            </div>
-            <div class='col-sm-6'>
-                {{ form_label(form.esInternado, 'Tiempo Quirurgico (TQ)') }}
-                {{ form_row(form.tq) }}
-            </div>
-            <div class='col-sm-6'>
-                {{ form_row(form.anestesia) }}
-            </div>
-            <div class='col-sm-6'>
-                {{ form_row(form.asa) }}
-            </div>
-            <div class='col-sm-6'>
-                {{ form_row(form.personal) }}
-            </div>
-        </div>
 
-        <div class="col-md-12 espacio"></div>
-        {{ form_row(form.save) }}
+<br class="espacio">
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Listado de operaciones NO FINALIZADAS</h3>
     </div>
-
-    {{ form_end(form) }}
-
-    <div class="col-md-12 espacio"></div>
-    <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
+    <div class="panel-body">
+    <table id="datatableOpeNoFinalizada" class="table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
-            <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
-                <th>Diagnóstico</th>
-                <th>Habitación</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
-                <th>Habitación</th>
-                <th>Observaciones</th>
-                <th>Internado</th>
-                <th>TQ</th>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Baja</th>
-                {% endif %}
-                <th>Ver</th>
-                <th>Editar</th>
-            </tr>
+        <tr>
+            <th>Paciente</th>
+            <th>Habitación</th>
+            <th>Fecha</th>
+            <th>Observaciones</th>
+            <th>Internado</th>
+            <th>TQ</th>
+            <th>Ver</th>
+            <th>Editar</th>
+        </tr>
         </thead>
         <tbody>
-        {% for operacion in operacions %}
+        {% for operacion in opeSinFinalizar %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('operacion_show', { 'id': operacion.id }) }}">{{ operacion.id }}</a></td>
-                {% endif %}
-                <td>{{ operacion.diagnostico }}</td>
+                <td>{{ operacion.reserva.paciente.nombre }} {{ operacion.reserva.paciente.apellido }}</td>
                 <td>{{ operacion.habitacion }}</td>
-                <td>{{ operacion.reserva.fechainicio|date('d/m/Y H:i:s')  }}</td>
-                <td>{{ operacion.reserva.fechafin|date('d/m/Y H:i:s')  }}</td>
-                <td>{{ operacion.habitacion }}</td>
+                <td>{{ operacion.reserva.fechainicio|date('d/m/Y')  }}</td>
                 <td>{{ operacion.observaciones }}</td>
                 <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
                 <td>{{ operacion.tq }}</td>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td>{% if operacion.baja %}Yes{% else %}No{% endif %}</td>
-                {% endif %}
                 <td>
                     <a href="{{ path('operacion_show', { 'id': operacion.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                     </a>
@@ -105,8 +48,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <div class="navigation text-center">
-        {{ pagerfanta(operacions, 'twitter_bootstrap3_translated', { routeName: 'operacion_index_paginated' }) }}
     </div>
+</div>
 {% endblock %}

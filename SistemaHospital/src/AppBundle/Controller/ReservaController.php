@@ -84,7 +84,6 @@ class ReservaController extends Controller
                 $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
             }
         }
-
         
 
         $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);

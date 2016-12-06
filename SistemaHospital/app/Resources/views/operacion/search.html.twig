@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Busqueda de Operaciones</h1>
+
+    <div class="col-md-12 espacio">
+        <a href="{{ path('operacion_new') }}" class="btn btn-primary pull-right"> <i class="fa fa-plus" aria-hidden="true"></i>
+            Nueva Operación </a>
+        <a href="{{ path('operacion_index') }}" class="btn btn-primary pull-left"> <i class="fa fa-angle-left " aria-hidden="true"></i>
+            Volver</a>
+    </div>
+
+
+    <div class="well">
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class='col-sm-6'>
+            {{ form_row(form.fechaIni) }}
+        </div>
+        <div class='col-sm-6'>
+            {{ form_row(form.fechaFin) }}
+        </div>
+        <div class="col-md-12">
+            <a id="verFiltrosOperaciones">mas filtros...</a>
+        </div>
+        <div id="ocultarFiltrosOperaciones">
+            <div class='col-sm-6'>
+                {{ form_row(form.servicios) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form.numeroReserva) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form.paciente) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_label(form.tq, 'Internado') }}
+                {{ form_row(form.esInternado) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_label(form.esInternado, 'Tiempo Quirurgico (TQ)') }}
+                {{ form_row(form.tq) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form.anestesia) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form.asa) }}
+            </div>
+            {#<div class='col-sm-6'>#}
+                {#{{ form_row(form.personal) }}#}
+            {#</div>#}
+        </div>
+
+        <div class="col-md-12 espacio"></div>
+        {{ form_row(form.save) }}
+    </div>
+
+    {{ form_end(form) }}
+
+    </div>
+
+    <div class="col-md-12 espacio"></div>
+    <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <th>Id</th>
+            {% endif %}
+
+            <th>Paciente</th>
+            <th>Servicio</th>
+            <th>Quirofano</th>
+            <th>Habitación</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Habitación</th>
+            <th>Observaciones</th>
+            <th>Internado</th>
+            <th>TQ</th>
+            <th>Diagnóstico</th>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <th>Baja</th>
+            {% endif %}
+            <th>Ver</th>
+            <th>Editar</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for operacion in operacions %}
+            <tr>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td><a href="{{ path('operacion_show', { 'id': operacion.id }) }}">{{ operacion.id }}</a></td>
+                {% endif %}
+                <td>{{ operacion.reserva.paciente.nombre }} {{ operacion.reserva.paciente.apellido }}</td>
+                <td>{{ operacion.reserva.servicio.tipo }}</td>
+                <td>{{ operacion.reserva.quirofano.nombre }}</td>
+                <td>{{ operacion.habitacion }}</td>
+                <td>{{ operacion.reserva.fechainicio|date('d/m/Y H:i:s')  }}</td>
+                <td>{{ operacion.reserva.fechafin|date('d/m/Y H:i:s')  }}</td>
+                <td>{{ operacion.habitacion }}</td>
+                <td>{{ operacion.observaciones }}</td>
+                <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
+                <td>{{ operacion.tq }}</td>
+                <td>{{ operacion.diagnostico|slice(0, 50) }}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td>{% if operacion.baja %}Yes{% else %}No{% endif %}</td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('operacion_show', { 'id': operacion.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('operacion_edit', { 'id': operacion.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation text-center">
+        {{ pagerfanta(operacions, 'twitter_bootstrap3_translated', { routeName: 'operacion_search_paginated' }) }}
+    </div>
+{% endblock %}
