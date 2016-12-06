@@ -294,7 +294,7 @@ class ReservaController extends Controller
     /**
      * Finds and displays a reserva entity.
      *
-     * @Route("/{id}", name="reserva_show")
+     * @Route("/{id}/show", name="reserva_show")
      * @Method("GET")
      */
     public function showAction(Reserva $reserva)
