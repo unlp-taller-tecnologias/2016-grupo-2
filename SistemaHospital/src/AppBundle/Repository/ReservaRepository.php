@@ -50,15 +50,12 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
 
 
     public function filtrarReservas($datos){
-        /*$expr = Criteria::expr();
-        $criteria = Criteria::create();
-        $reservas =$this->getEntityManager()->getRepository(Reserva::class)->findAll();
-        */
-        echo ($datos["servicios"]);
+
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb ->select('r')
             ->from('AppBundle:Reserva', 'r');
         if(isset($datos["fechaIni"] ) && isset($datos["fechaFin"])){
+
             $qb
             ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
             ->setParameter('firstDate', new \DateTime($datos["fechaIni"]))

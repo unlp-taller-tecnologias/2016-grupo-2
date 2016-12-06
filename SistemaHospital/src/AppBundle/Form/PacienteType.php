@@ -38,7 +38,7 @@ class PacienteType extends AbstractType
                     'Femenino' => 'Femenino'
                 ],
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "chosen-select form-control"
                 ]
             ])
             ->add("dni", "integer",[

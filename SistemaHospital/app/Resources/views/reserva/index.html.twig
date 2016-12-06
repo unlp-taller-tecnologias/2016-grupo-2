@@ -30,7 +30,7 @@
             </div>
             {{ form_end(form2) }}
 
-    <table class="datatableWithoutSearch table table-striped table-hover dysplay" cellspacing="0" width="100%">
+    <table id="datatableReservaPend"  class="table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
         <tr>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -103,6 +103,9 @@
     <div class="espacio h3 text-center">Busqueda de RESERVAS</div>
     <h4><strong>Filtros de Busqueda:</strong></h4>
 
+
+
+<div class="well">
     {{ form_start(form) }}
     {{ form_errors(form) }}
     <div class="row">
@@ -126,14 +129,13 @@
                 {{ form_row(form.paciente) }}
             </div>
         </div>
-
         <div class="col-md-12 espacio"></div>
         {{ form_row(form.save) }}
     </div>
 
     {{ form_end(form) }}
 
-
+</div>
     <div class="col-md-12 espacio"></div>
     <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>

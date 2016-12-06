@@ -20,7 +20,7 @@ class FechaPendientesType extends AbstractType
                 'label' => false,
                 'required' => false,
                 "attr" => [
-                    "class" => "col-md-4 form-control datetimepicker"
+                    "class" => "col-md-4 form-control datetimepickerWithoutTime"
                 ]
             ])
             ->add('save', SubmitType::class, array(

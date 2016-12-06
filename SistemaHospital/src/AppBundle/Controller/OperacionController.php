@@ -18,154 +18,59 @@ class OperacionController extends Controller
     /**
      * Lists all operacion entities.
      *
-     * @Route("/",defaults={"page": 1}, name="operacion_index")
-     * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="operacion_index_paginated")
+     * @Route("/", name="operacion_index")
      * @Method({"GET","POST"})
      */
-    public function indexAction(Request $request,$page)
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $opeSinFinalizar = $em->getRepository(Operacion::class)->findNoFinalizada();
+        return $this->render('operacion/index.html.twig', array(
+            "opeSinFinalizar" =>$opeSinFinalizar,
+        ));
+    }
+
+    /**
+     * Lists all operacion entities.
+     *
+     * @Route("/search",defaults={"page": 1}, name="operacion_search")
+     * @Route("/search/page/{page}", requirements={"page": "[1-9]\d*"}, name="operacion_search_paginated")
+     * @Method({"GET","POST"})
+     */
+    public function  searchAction(Request $request,$page)
     {
 
         $em = $this->getDoctrine()->getManager();
-
-
-
-        $form = $this->createFormBuilder()
-            ->add("fechaIni", "text",[
-                'label' => 'Filtrar operaciones Desde',
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add("fechaFin", "text",[
-                'label' => 'Hasta',
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add('save', SubmitType::class, array(
-                'label' => 'Buscar operaciones',
-                "attr" => [
-                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
-                ]
-            ))
-            ->getForm();
-
+        $form = $this->createForm('AppBundle\Form\FiltroOperacionType');
         $form->handleRequest($request);
 
-       
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $datos = $form->getData();
             $page=1;
+            if(isset($datos["fechaIni"]) &&  isset($datos["fechaFin"])){
+                $datos["fechaIni"] = str_replace('/', '-', $datos["fechaIni"]);
+                $datos["fechaIni"]= date('Y-m-d H:i', strtotime($datos["fechaIni"]));
 
-            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
-
-                //$operacionesEntre = $this->operacionesEntre($datos["fechaIni"], $datos["fechaFin"]);
-                $operaciones = $em->getRepository(Operacion::class)->findLatest($page,$datos);
-                return $this->render('operacion/index.html.twig', array(
-                    'operacions' => $operaciones,
-                    'form' => $form->createView(),
-                ));
+                $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
+                $datos["fechaFin"]= date('Y-m-d H:i', strtotime( $datos["fechaFin"]));
             }
-            else {
-                $operaciones = $em->getRepository(Operacion::class)->findLatest($page,null);
-                echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
-                return $this->render('operacion/index.html.twig', array(
+            $operaciones = $em->getRepository(Operacion::class)->findLatest($page,$datos);
+
+            return $this->render('operacion/search.html.twig', array(
                 'operacions' => $operaciones,
                 'form' => $form->createView(),
             ));
-            }
-
         }
-
         $operaciones = $em->getRepository(Operacion::class)->findLatest($page,null);
-        return $this->render('operacion/index.html.twig', array(
+        return $this->render('operacion/search.html.twig', array(
             'operacions' => $operaciones,
             'form' => $form->createView()
         ));
     }
 
 
-//      public function operacionesEntre($fechadesde, $fechahasta)
-//    {
-//        $resultado = array();
-//
-//        $em = $this->getDoctrine()->getManager();
-//        $operacions = $em->getRepository('AppBundle:Operacion')->findAll();
-//        $inicio = new \DateTime($fechadesde);
-//        $fin = new \DateTime($fechahasta);
-//        foreach ($operacions as $ope) {
-//
-//            if (($ope->getReserva()->getFechaInicio() > $inicio) and
-//                ($ope->getReserva()->getFechaFin() < $fin)){
-//                array_push($resultado, $ope);
-//          }
-//        }
-//
-//        return $resultado;
-//    }
-
-    public function buscarReserva ($operacion){
-
-       
-        $em = $this->getDoctrine()->getManager();
-        $reservas = $em->getRepository('AppBundle:Reserva')->findAll();
-        foreach ($reservas as $r) {
-            if ($r->getOperacion()->getId() == $id){
-                return $r;
-            }
-        }
-    }
-
-    /**
-     * Muestra la estadistica.
-     
-     */
-        /*
-     public function estadisticaIndex()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-
-        $query_string = "
-          SELECT r as nombre, count (r) as suma
-          FROM AppBundle\Entity\Reserva r 
-          WHERE r.estado  = (SELECT e.id FROM AppBundle\Entity\Estado e WHERE e.tipo = 'FINALIZADA')
-                
-          GROUP BY r.servicio  
-          ORDER BY r.servicio
-          ";
-        // agregar a la consulta:    
-        // and r.operacion = (SELECT o.guardia FROM AppBundle\Entity\Operacion o WHERE o.guardia = 1)
-        $query = $em->createQuery($query_string);
-        $reservas= $query->getResult();
-
-         $query_string = "
-          SELECT r 
-          FROM AppBundle\Entity\Reserva r
-          WHERE r.estado  = (SELECT e.id FROM AppBundle\Entity\Estado e WHERE e.tipo = 'FINALIZADA')
-          ORDER BY r.servicio
-          ";
-
-        $query = $em->createQuery($query_string);
-        $res= $query->getResult();
-
-        $anestesia=0;
-        $sinanestesia=0;
-        $arreglo = array();
-        foreach ($res as $r) {
-
-            if (is_null($r->getOperacion()->getAnestesia())) {
-                $sinanestesia= $sinanestesia + 1;
-            }
-            else {
-                $anestesia= $anestesia + 1;
-            }
-
-        }
-
-        return $this->render('operacion/estadistica.html.twig', array('reservas' => $reservas, 'anestesia' => $anestesia, 'sinanestesia' => $sinanestesia));
-    }*/
 
     /**
      * Creates a new operacion entity.
@@ -196,7 +101,7 @@ class OperacionController extends Controller
     /**
      * Finds and displays a operacion entity.
      *
-     * @Route("/{id}", name="operacion_show")
+     * @Route("/{id}/show", name="operacion_show")
      * @Method("GET")
      */
     public function showAction(Operacion $operacion)
@@ -237,7 +142,7 @@ class OperacionController extends Controller
     /**
      * Deletes a operacion entity.
      *
-     * @Route("/{id}", name="operacion_delete")
+     * @Route("/{id}/delete", name="operacion_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Operacion $operacion)
