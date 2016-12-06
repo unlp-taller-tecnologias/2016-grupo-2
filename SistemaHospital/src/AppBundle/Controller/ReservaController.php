@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Reserva;
+use AppBundle\Entity\Quirofano;
 use AppBundle\Entity\Operacion;
 use AppBundle\Entity\Sangre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -182,7 +183,25 @@ class ReservaController extends Controller
      */
     public function newAction(Request $request)
     {
-        
+         $form = $this->createFormBuilder()
+           ->add('quirofano', 'entity', array(
+                'class' => 'AppBundle:Quirofano',
+                'property'     => 'getNombre',
+                'label' => 'Quirófano',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            ->add("fechaquirofano", "text",[
+                'label' => 'Fecha',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ])
+            ->getForm();
+
+         $form->handleRequest($request);
+
          $form2 = $this->createFormBuilder()
             ->add("numero_reserva", "number",[
                 'label' => 'Numero reserva',
@@ -318,6 +337,23 @@ class ReservaController extends Controller
             ->getForm();
 
         $form2->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $datosQuirofano = $form->getData();
+
+            $quirofano = $datosQuirofano['quirofano'];
+            $date =  $datosQuirofano['fechaquirofano'];
+
+            $turnosquirofano = $this->getTurnosQuirofano($quirofano->getId(), $date);
+
+              return $this->render('reserva/disponibilidad_quirofano.html.twig', array(
+            'quirofano' => $quirofano,
+             'turnos' => $turnosquirofano,
+             'fecha' => $datosQuirofano['fechaquirofano'],
+             'total' => count($turnosquirofano)
+        ));
+        }
       
         if ($form2->isSubmitted() && $form2->isValid()){
                 
@@ -360,6 +396,7 @@ class ReservaController extends Controller
         }
 
        return $this->render('reserva/new.html.twig', array(
+            'form' => $form->createView(),
             'form2' => $form2->createView(),
         
         ));
@@ -381,6 +418,28 @@ class ReservaController extends Controller
         ));
     }
 
+    public function getTurnosQuirofano($quirofano, $fecha){
+     
+
+        $em = $this->getDoctrine()->getManager();
+
+        $turnos= array();
+
+          $query_string = "
+          SELECT r
+          FROM AppBundle\Entity\Reserva r 
+          WHERE r.quirofano = :quirofano and r.fecha_inicio = :fecha
+          ORDER by r.fecha_inicio
+          ";
+        $query = $em->createQuery($query_string);
+
+        $query->setParameter('quirofano',$quirofano);
+        $query->setParameter('fecha',new \DateTime($fecha));
+
+        return $query->getResult();
+
+        
+        }
     /**
      * Displays a form to edit an existing reserva entity.
      *

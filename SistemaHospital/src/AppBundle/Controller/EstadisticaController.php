@@ -143,24 +143,28 @@ class EstadisticaController extends Controller
 
     public function sacarInternados($reservas){
         $cant = 0;
-        foreach ($reservas as $r) {
+               foreach ($reservas as $r) {
             if (($r->getOperacion()->getInternado() == 1)) 
             {
               $cant++;
             }      
          }
+        
          return $cant;
     }
 
     public function reservasFinalizadas($reservas){
         $resultado = array();
+        
         foreach ($reservas as $r) {
             if ($r->getEstado()->getTipo() == 'FINALIZADA') 
             {
               array_push($resultado, $r);
             }      
          }
+    
          return $resultado;
+         
     }
 
     public function entreFechas ($reservas, $fechaini, $fechafin) {
