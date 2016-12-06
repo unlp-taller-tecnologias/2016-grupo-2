@@ -6,8 +6,13 @@ use AppBundle\Entity\Operacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Entity\Reserva;
+use AppBundle\Entity\Quirofano;
+use AppBundle\Entity\Sangre;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 /**
  * Operacion controller.
  *
@@ -78,6 +83,8 @@ class OperacionController extends Controller
      * @Route("/new", name="operacion_new")
      * @Method({"GET", "POST"})
      */
+
+    /*
     public function newAction(Request $request)
     {
         $operacion = new Operacion();
@@ -97,6 +104,62 @@ class OperacionController extends Controller
             'form' => $form->createView(),
         ));
     }
+    */
+
+    public function newAction(Request $request)
+    {
+
+        $form2 = $this->createForm('AppBundle\Form\NewReservaType');
+
+        $form2->handleRequest($request);
+
+
+        if ($form2->isSubmitted() && $form2->isValid()){
+
+            $datos = $form2->getData();
+
+            $operacion = new Operacion();
+            $operacion->setDiagnostico($datos["diagnostico"]);
+            $operacion->setHabitacion($datos["habitacion"]);
+            $operacion->setObservaciones($datos["observaciones"]);
+            $operacion->setInternado($datos["Internado"]);
+            $operacion->setCirujia($datos["cirugia"]);
+            $operacion->setTq($datos["TiempoQuirurgico"]);
+            $operacion->setBaja(0); //Se setea en 0 por defecto siempre.
+            $operacion->setSangre($datos["sangre"]);
+            $operacion->setAsa($datos["asa"]);
+            $operacion->setAnestesia($datos["Anestesia"]);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($operacion);
+            $em->flush($operacion);
+
+            $reserva = new Reserva();
+            $reserva->setNumeroReserva($datos['numero_reserva']);
+            $reserva->setBaja(0);
+
+            $inicio = new \DateTime($datos['fecha_inicio']);
+            $fin = new \DateTime($datos['fecha_fin']);
+
+            $reserva->setFechaInicio($inicio);
+            $reserva->setFechaFin($fin);
+            $reserva->setPaciente($datos['paciente']);
+            $reserva->setServicio($datos['servicio']);
+            $reserva->setEstado($datos['estado']);
+            $reserva->setQuirofano($datos['quirofano']);
+            $reserva->setOperacion($operacion);
+            $em->persist($reserva);
+            $em->flush($reserva);
+
+
+            return $this->redirectToRoute('operacion_show', array('id' => $operacion->getId()));
+        }
+
+        return $this->render('operacion/new.html.twig', array(
+            'form2' => $form2->createView()
+        ));
+    }
+
+
 
     /**
      * Finds and displays a operacion entity.
