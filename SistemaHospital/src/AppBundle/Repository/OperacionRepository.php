@@ -34,19 +34,6 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
 
     public function operacionEntre($fechadesde, $fechahasta)
     {
-//        $resultado = array();
-//
-//        $em = $this->getEntityManager();
-//        $operacions = $em->getRepository('AppBundle:Operacion')->findAll();
-//        $inicio = new \DateTime($fechadesde);
-//        $fin = new \DateTime($fechahasta);
-//        foreach ($operacions as $ope) {
-//            if (($ope->getReserva()->getFechaInicio() > $inicio) and
-//                ($ope->getReserva()->getFechaFin() < $fin)){
-//                array_push($resultado, $ope);
-//            }
-//        }
-//        return $resultado;
 
         return $this->getEntityManager()
             ->createQuery( "
@@ -61,6 +48,75 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
             ;
     }
 
+
+    public function filtrarReservas($datos){
+
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb ->select('o')
+            ->from('AppBundle:Operacion', 'o')
+            ->join('o.reserva', 'r');
+        if(isset($datos["fechaIni"] ) && isset($datos["fechaFin"])){
+
+            $qb
+                ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
+                ->setParameter('firstDate', new \DateTime($datos["fechaIni"]))
+                ->setParameter('lastDate', new \DateTime($datos["fechaFin"]));
+            echo("entre en fecha \n");
+        }
+
+        if(isset($datos["numeroReserva"] )){
+            $qb ->andWhere('r.numeroReserva = :numeroReserva')
+                ->setParameter('numeroReserva', $datos["numeroReserva"] );
+            echo("entre en numero de reserva \n");
+        }
+        if(isset($datos["servicios"])){
+
+            $qb ->andWhere("r.servicio = :servicio")
+                ->setParameter("servicio", $datos["servicios"]);
+            echo("entre en servicios \n");
+        }
+
+        if(isset($datos["paciente"])){
+            $qb ->andWhere("r.paciente = :paciente")
+                ->setParameter("paciente", $datos["paciente"]);
+            echo("entre en paciente \n");
+        }
+
+        if(isset($datos["esInternado"])){
+            $qb ->andWhere("o.internado = :internado")
+                ->setParameter("internado", ($datos["esInternado"] == "si")? true : false);
+            echo("entre en esInternado \n");
+        }
+
+        if(isset($datos["tq"])){
+            $qb ->andWhere("o.tq = :tq")
+                ->setParameter("tq", $datos["tq"]);
+            echo("entre en tq \n");
+
+        }
+
+        if(isset($datos["anestesia"])){
+            $qb ->andWhere("o.anestesia = :anestesia")
+                ->setParameter("anestesia", $datos["anestesia"]);
+            echo("entre en anestesia \n");
+        }
+        if(isset($datos["asa"])){
+            $qb ->andWhere("o.asa = :asa")
+                ->setParameter("asa", $datos["asa"]);
+            echo("entre en asa \n");
+        }
+
+//        if(isset($datos["personal"])){
+//            $qb ->andWhere("o.personal.dni = :personal")
+//                ->setParameter("personal", $datos["personal"]);
+//        }
+
+
+        return $qb->getQuery();
+
+    }
+
     /**
      * @param int $page
      * @return Pagerfanta
@@ -69,7 +125,8 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
     {
         if($datos !== null)
         {
-            $paginator = new Pagerfanta(new DoctrineORMAdapter($this->operacionEntre($datos["fechaIni"], $datos["fechaFin"]), false));
+//            $paginator = new Pagerfanta(new DoctrineORMAdapter($this->operacionEntre($datos["fechaIni"], $datos["fechaFin"]), false));
+            $paginator = new Pagerfanta(new DoctrineORMAdapter($this->filtrarReservas($datos), false));
         }else{
             $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest(), false));
         }

@@ -25,7 +25,7 @@ class EstadisticaController extends Controller
      * 
      */
 
-     public function estadisticaIndex(Request $request)
+    public function estadisticaIndex(Request $request)
     {
       
         $em = $this->getDoctrine()->getManager();
@@ -195,5 +195,16 @@ class EstadisticaController extends Controller
          return $cant;
     }
 
+/**
+* Muestra la estadistica.
+*
+* @Route("/grafica", name="estadistica_grafica")
+*
+*/
+
+    public function graficarEStadistica(Request $request){
+        echo "lala";
+
+    }
    
 }

@@ -28,27 +28,7 @@ class OperacionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 
-
-        $form = $this->createFormBuilder()
-            ->add("fechaIni", "text",[
-                'label' => 'Filtrar operaciones Desde',
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add("fechaFin", "text",[
-                'label' => 'Hasta',
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add('save', SubmitType::class, array(
-                'label' => 'Buscar operaciones',
-                "attr" => [
-                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
-                ]
-            ))
-            ->getForm();
+        $form = $this->createForm('AppBundle\Form\FiltroOperacionType');
 
         $form->handleRequest($request);
 
@@ -57,26 +37,23 @@ class OperacionController extends Controller
 
             $datos = $form->getData();
             $page=1;
+            if(isset($datos["fechaIni"]) &&  isset($datos["fechaFin"])){
+                $datos["fechaIni"] = str_replace('/', '-', $datos["fechaIni"]);
+                $datos["fechaIni"]= date('Y-m-d H:i', strtotime($datos["fechaIni"]));
 
-            if ($datos ["fechaIni"] < $datos ["fechaFin"]) {
-
-                //$operacionesEntre = $this->operacionesEntre($datos["fechaIni"], $datos["fechaFin"]);
-                $operaciones = $em->getRepository(Operacion::class)->findLatest($page,$datos);
-                return $this->render('operacion/index.html.twig', array(
-                    'operacions' => $operaciones,
-                    'form' => $form->createView(),
-                ));
+                $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
+                $datos["fechaFin"]= date('Y-m-d H:i', strtotime( $datos["fechaFin"]));
             }
-            else {
-                $operaciones = $em->getRepository(Operacion::class)->findLatest($page,null);
-                echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
-                return $this->render('operacion/index.html.twig', array(
+            $operaciones = $em->getRepository(Operacion::class)->findLatest($page,$datos);
+
+            return $this->render('operacion/index.html.twig', array(
                 'operacions' => $operaciones,
                 'form' => $form->createView(),
             ));
-            }
-
         }
+
+
+
 
         $operaciones = $em->getRepository(Operacion::class)->findLatest($page,null);
         return $this->render('operacion/index.html.twig', array(
@@ -85,25 +62,6 @@ class OperacionController extends Controller
         ));
     }
 
-
-//      public function operacionesEntre($fechadesde, $fechahasta)
-//    {
-//        $resultado = array();
-//
-//        $em = $this->getDoctrine()->getManager();
-//        $operacions = $em->getRepository('AppBundle:Operacion')->findAll();
-//        $inicio = new \DateTime($fechadesde);
-//        $fin = new \DateTime($fechahasta);
-//        foreach ($operacions as $ope) {
-//
-//            if (($ope->getReserva()->getFechaInicio() > $inicio) and
-//                ($ope->getReserva()->getFechaFin() < $fin)){
-//                array_push($resultado, $ope);
-//          }
-//        }
-//
-//        return $resultado;
-//    }
 
     public function buscarReserva ($operacion){
 

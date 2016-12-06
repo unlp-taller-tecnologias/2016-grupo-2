@@ -25,7 +25,7 @@
                 clear: 'fa fa-trash',
                 close: 'fa fa-remove'
             },
-            format: "DD/MM/YYYY",
+            format: "DD/MM/YYYY LT",
             locale: 'es'
         });
         //esto es para el nav del sidevar darles estilos
@@ -46,6 +46,7 @@
             "paging":   false,
             "ordering": false,
             "info":     false,
+            "responsive": true,
             "language": {
                 "search": "Busqueda por pagina:"
             }
@@ -64,6 +65,12 @@
              $("#ocultarFiltrosReserva").show();
              $("#verFiltrosReservas").hide();
          });
+
+        $("#ocultarFiltrosOperaciones").hide();
+        $("#verFiltrosOperaciones").click(function(e){
+            $("#ocultarFiltrosOperaciones").show();
+            $("#verFiltrosOperaciones").hide();
+        });
 
         
         

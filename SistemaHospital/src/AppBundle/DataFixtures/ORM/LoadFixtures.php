@@ -485,6 +485,12 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
         $obs=["Electro RX","Electro","Electro"];//dos veces electro para que haganm  mas chances de q toq
         $hab=["328v","250c","110g","110a","110b","110c", "210a"];
         $tq=["Corta","Media","Larga","MuyLarga"];
+        /* de 0 a 2 hrs ->corta
+            de 2 a 3 hrs -> media
+            de 3 a 4 hrs -> larga
+            de 4 o > ->muy largo
+         *
+         * */
         foreach (range(1, self::RESERVASYOPECANT) as $i) {
             $operaciones[$i]=new Operacion();
             $operaciones[$i]->setDiagnostico($this->getRandomFrase());
