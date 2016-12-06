@@ -42,7 +42,7 @@ class PersonalType extends AbstractType
                     'Femenino' => 'Femenino'
                 ],
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "chosen-select form-control"
                 ]
             ])
             ->add("dni", "integer",[
@@ -63,7 +63,7 @@ class PersonalType extends AbstractType
                 'class' => 'AppBundle:Servicio',
                 'property'     => 'getTipo',
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "chosen-select form-control"
                 ]
             ))
 //            ->add('servicios', EntityType::class, [
@@ -80,7 +80,7 @@ class PersonalType extends AbstractType
                 'class'=>"AppBundle:Rol",
                 'choice_label' => 'getNombre',
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "chosen-select form-control"
                 ]
             ]);
     }

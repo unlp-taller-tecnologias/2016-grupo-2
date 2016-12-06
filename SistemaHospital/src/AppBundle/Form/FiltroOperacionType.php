@@ -37,7 +37,7 @@ class FiltroOperacionType extends AbstractType
                 "placeholder" =>"Elige una opcion...",
                 'required' => false,
                 "attr" => [
-                    "class" => "form-control",
+                    "class" => " chosen-select form-control",
                 ]
             ))
             ->add("numeroReserva", "text", [
@@ -56,7 +56,7 @@ class FiltroOperacionType extends AbstractType
                     'si' => "SI",
                     'no' => "NO",
                 ),
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'chosen-select form-control']
             ))
             ->add('tq', ChoiceType::class, array(
                 'label' =>false,
@@ -68,7 +68,7 @@ class FiltroOperacionType extends AbstractType
                     'Larga' => 'Larga',
                     'MuyLarga' => 'MuyLarga',
                 ),
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'chosen-select form-control']
 
             ))
             ->add('paciente', 'entity', array(
@@ -82,7 +82,7 @@ class FiltroOperacionType extends AbstractType
                 "placeholder" =>"Elige un Paciente...",
                 'required' => false,
                 "attr" => [
-                    "class" => "form-control",
+                    "class" => "chosen-select  form-control",
                 ]
             ))
 
@@ -94,7 +94,7 @@ class FiltroOperacionType extends AbstractType
                 "placeholder" =>"Elige una opcion...",
                 'required' => false,
                 "attr" => [
-                    "class" => "form-control",
+                    "class" => "chosen-select form-control",
                 ]
             ))
 
@@ -106,7 +106,7 @@ class FiltroOperacionType extends AbstractType
                 "placeholder" =>"Elige una opcion...",
                 'required' => false,
                 "attr" => [
-                    "class" => "form-control",
+                    "class" => "form-control chosen-select",
                 ]
             ))
 

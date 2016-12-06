@@ -37,7 +37,7 @@ class FiltroReservaType extends AbstractType
                 "placeholder" =>"Elige un servicio..",
                 'required' => false,
                 "attr" => [
-                    "class" => "form-control",
+                    "class" => " chosen-select form-control",
                 ]
             ))
             ->add("numeroReserva", "text", [
@@ -58,7 +58,7 @@ class FiltroReservaType extends AbstractType
                 "placeholder" =>"Elige un Paciente...",
                 'required' => false,
                 "attr" => [
-                    "class" => "form-control",
+                    "class" => "chosen-select form-control",
                 ]
             ))
             ->add('save', SubmitType::class, array(
