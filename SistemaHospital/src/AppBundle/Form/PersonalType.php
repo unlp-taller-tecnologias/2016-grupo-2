@@ -38,6 +38,7 @@ class PersonalType extends AbstractType
             ->add("genero", "choice",[
                 'label' => 'Género',
                 'choices' => [
+                    '' => '',
                     'Masculino' => 'Masculino',
                     'Femenino' => 'Femenino'
                 ],
@@ -76,11 +77,11 @@ class PersonalType extends AbstractType
 //
 //            ])
             ->add('rol', EntityType::class, [
-                'placeholder' => "- Seleccione una opción..",
+                'empty_value' => '',
                 'class'=>"AppBundle:Rol",
                 'choice_label' => 'getNombre',
                 "attr" => [
-                    "class" => "chosen-select form-control"
+                    "class" => "chosen-select-rol form-control"
                 ]
             ]);
     }
