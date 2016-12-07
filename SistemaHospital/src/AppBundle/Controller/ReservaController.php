@@ -33,15 +33,14 @@ class ReservaController extends Controller
     public function indexAction(Request $request, $page)
 
     {
-
         $em = $this->getDoctrine()->getManager();
 
         $form2 = $this->createForm('AppBundle\Form\FechaPendientesType');
         $form = $this->createForm('AppBundle\Form\FiltroReservaType');
 
-
         $form->handleRequest($request);
         $form2->handleRequest($request);
+
 
         $hoy = new \DateTime ("now");
         $year=$hoy->format("Y");
@@ -52,16 +51,22 @@ class ReservaController extends Controller
         $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
             $datos = $form->getData();
 
-            if(isset($datos["fechaIni"]) &&  isset($datos["fechaFin"])){
+            if(isset($datos["fechaIni"])){
                 $datos["fechaIni"] = str_replace('/', '-', $datos["fechaIni"]);
                 $datos["fechaIni"]= date('Y-m-d H:i', strtotime($datos["fechaIni"]));
-
-                $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
-                $datos["fechaFin"]= date('Y-m-d H:i', strtotime( $datos["fechaFin"]));
+                if(isset($datos["fechaFin"])){
+                    $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
+                    $datos["fechaFin"]= date('Y-m-d H:i', strtotime( $datos["fechaFin"]));
+                }else{
+                    $datos["fechaFin"]= 0;
+                }
             }
+
+            setcookie("filtrosR",serialize($datos));
 
             $reservas = $em->getRepository(Reserva::class)->findLatest($page,$datos);
 
@@ -85,9 +90,14 @@ class ReservaController extends Controller
                 $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
             }
         }
-        
 
-        $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);
+        $reservas=null;
+        if(isset($_COOKIE) && isset($_COOKIE["filtrosR"]) ){
+            $reservas = $em->getRepository(Reserva::class)->findLatest($page,unserialize($_COOKIE["filtrosR"]));
+        }else{
+            $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);
+        }
+
         return $this->render('reserva/index.html.twig', array(
             'reservas' => $reservas,
             'form' => $form->createView(),

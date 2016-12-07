@@ -55,17 +55,22 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
         $qb ->select('r')
             ->from('AppBundle:Reserva', 'r');
         if(isset($datos["fechaIni"] ) && isset($datos["fechaFin"])){
-
-            $qb
-            ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
-            ->setParameter('firstDate', new \DateTime($datos["fechaIni"]))
-            ->setParameter('lastDate', new \DateTime($datos["fechaFin"]));
+            if($datos["fechaFin"] !== 0){
+                $qb
+                    ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
+                    ->setParameter('firstDate', new \DateTime($datos["fechaIni"]))
+                    ->setParameter('lastDate', new \DateTime($datos["fechaFin"]));
+            }else{
+                $qb
+                    ->where('r.fecha_inicio > :firstDate ')
+                    ->setParameter('firstDate', new \DateTime($datos["fechaIni"]));
+            }
         }
-
         if(isset($datos["numeroReserva"] )){
             $qb ->andWhere('r.numeroReserva = :numeroReserva')
                 ->setParameter('numeroReserva', $datos["numeroReserva"] );
         }
+
         if(isset($datos["servicios"])){
             /*$qb->andWhere('r.servicio.getId() = :servicio')
             ->setParameter('servicio', $datos["servicios"]);
