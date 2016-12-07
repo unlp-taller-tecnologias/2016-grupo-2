@@ -207,9 +207,10 @@ class EstadisticaController extends Controller
 *
 */
 
-    public function graficarEStadistica(Request $request){
-        echo "lala";
+    public function graficarEstadistica(){
+        return $this->render('estadistica/grafico.html.twig', array(
 
+        ));
     }
    
 }
