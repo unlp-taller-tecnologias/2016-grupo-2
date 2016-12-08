@@ -20,6 +20,7 @@ class EstadoController extends Controller
      * @Route("/", name="admin_estado_index")
      * @Method("GET")
      */
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -44,6 +45,20 @@ class EstadoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formnew = $form->getData();
+            $datos = array('tipo' => $formnew->getTipo(), 'descripcion' => $formnew->getDescripcion());
+
+            foreach($datos as $campo){
+                if (!strcmp($this->validar($campo),"OK") == 0){
+                    $error = $this->validar($campo);
+                    return $this->render('Admin/partials/estado/new.html.twig', array(
+                        'error' => $error,
+                        'estado' => $estado,
+                        'form' => $form->createView(),
+                    ));
+                }
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($estado);
             $em->flush($estado);
@@ -79,6 +94,8 @@ class EstadoController extends Controller
      * @Route("/{id}/edit", name="admin_estado_edit")
      * @Method({"GET", "POST"})
      */
+
+
     public function editAction(Request $request, Estado $estado)
     {
         $deleteForm = $this->createDeleteForm($estado);
@@ -86,9 +103,24 @@ class EstadoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $form = $editForm->getData();
+            $datos = array('tipo' => $form->getTipo(), 'descripcion' => $form->getDescripcion());
+
+            foreach($datos as $campo){
+                if (!strcmp($this->validar($campo),"OK") == 0){
+                    $error = $this->validar($campo);
+                    return $this->render('Admin/partials/estado/edit.html.twig', array(
+                        'error' => $error,
+                        'estado' => $estado,
+                        'edit_form' => $editForm->createView(),
+                        'delete_form' => $deleteForm->createView(),
+                    ));
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_estado_edit', array('id' => $estado->getId()));
+            return $this->redirectToRoute('admin_estado_show', array('id' => $estado->getId()));
         }
 
         return $this->render('Admin/partials/estado/edit.html.twig', array(
@@ -132,5 +164,21 @@ class EstadoController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function validar($texto){
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
     }
 }
