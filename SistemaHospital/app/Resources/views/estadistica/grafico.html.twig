@@ -1,0 +1,97 @@
+{% extends 'operacion/layout.html.twig' %}
+{% block main %}
+
+
+     <div class="col-md-6">
+         <div class="col-md-5">
+             <label for="graffechaHasta">Fecha hasta:</label>
+         </div>
+        <div class="col-md-7">
+            <input id="graffechaHasta" type="text" class="datetimepickerWithoutTime form-control" name="graffechaHasta" required>
+        </div>
+     </div>
+     <div class="col-md-6">
+         <div class="col-md-5">
+             <label for="graffechaDesde">Fecha hasta:</label>
+         </div>
+         <div class="col-md-7">
+             <input id="graffechaDesde" type="text" class="datetimepickerWithoutTime form-control" name="graffechaDesde" required>
+         </div>
+     </div>
+
+
+    <div class="col-md-offset-5 col-md-3">
+        <button id="graficar" class="btn btn-primary espacio"> Estadistica entre fechas </button>
+    </div>
+
+<div id="grafBarra" class="col-12"></div>
+{#<div id="grafTorta" class="col-12"></div>#}
+
+{% endblock  %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script type="application/javascript">
+        $(document).ready(function () {
+            grafbarra= $("#grafBarra");
+            grafbarra.hide();
+
+            btngraficar = $("#graficar");
+            fechahasta= $("#graffechaHasta");
+            fechadesde= $("#graffechaDesde");
+            path="{{ path('ajax_ejemplo') }}";
+
+            function parseDate(str) {
+                var mdy = str.split('/');
+                return  (mdy[2]+"-"+mdy[1]+"-"+mdy[0]);
+            }
+
+            btngraficar.click(function (){
+
+                if(fechahasta.val() && fechadesde.val()){
+                     auxhasta=parseDate(fechahasta.val());
+                     auxdesde=parseDate(fechadesde.val());
+                     graficar(auxhasta,auxdesde);
+                }else{
+                    alert("debe llenar algun campo");
+                }
+            });
+
+            function graficar(auxhasta,auxdesde){
+                genericoAjax(path,funcOperacionCant,{fechaHasta : auxhasta , fechaDesde : auxdesde});
+
+            }
+
+            function genericoAjax(url, funcion, parametros) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    async: false,
+                    data: parametros,
+                    dataType: "json",
+                    success: function(data){
+                        funcion(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("error ajax"+errorThrown)
+                    }
+                });
+            }
+
+            global=null;
+
+            function funcOperacionCant(data){
+                global = new Array() ;
+                if (data != null) {
+                    global= data;
+                    alert(global);
+                }
+
+            }
+
+
+        });
+    </script>
+
+{% endblock %}

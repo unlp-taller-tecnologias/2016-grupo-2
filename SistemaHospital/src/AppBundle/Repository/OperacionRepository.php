@@ -58,11 +58,17 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
             ->join('o.reserva', 'r');
         if(isset($datos["fechaIni"] ) && isset($datos["fechaFin"])){
 
-            $qb
-                ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
-                ->setParameter('firstDate', new \DateTime($datos["fechaIni"]))
-                ->setParameter('lastDate', new \DateTime($datos["fechaFin"]));
-            echo("entre en fecha \n");
+            if($datos["fechaFin"] !== 0){
+                $qb
+                    ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
+                    ->setParameter('firstDate', new \DateTime($datos["fechaIni"]))
+                    ->setParameter('lastDate', new \DateTime($datos["fechaFin"]));
+            }else{
+                $qb
+                    ->where('r.fecha_inicio > :firstDate ')
+                    ->setParameter('firstDate', new \DateTime($datos["fechaIni"]));
+            }
+//            echo("entre en fecha \n");
         }
 
         if(isset($datos["numeroReserva"] )){

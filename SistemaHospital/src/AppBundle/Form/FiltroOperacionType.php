@@ -19,14 +19,16 @@ class FiltroOperacionType extends AbstractType
                 'label' => 'Filtrar reservas Desde',
                 'required' => false,
                 "attr" => [
-                    "class" => "form-control datetimepicker"
+                    "class" => "form-control datetimepicker",
+                    "id" => "fechaIniOpe"
                 ]
             ])
             ->add("fechaFin", "text", [
                 'label' => 'Hasta',
                 'required' => false,
                 "attr" => [
-                    "class" => "form-control datetimepicker"
+                    "class" => "form-control datetimepicker",
+                    "id" => "fechaFinOpe"
                 ]
             ])
             ->add('servicios', 'entity', array(
@@ -38,6 +40,7 @@ class FiltroOperacionType extends AbstractType
                 'required' => false,
                 "attr" => [
                     "class" => " chosen-select form-control",
+
                 ]
             ))
             ->add("numeroReserva", "text", [

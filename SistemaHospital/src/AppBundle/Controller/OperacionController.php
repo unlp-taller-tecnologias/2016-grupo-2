@@ -54,13 +54,18 @@ class OperacionController extends Controller
 
             $datos = $form->getData();
             $page=1;
-            if(isset($datos["fechaIni"]) &&  isset($datos["fechaFin"])){
+            if(isset($datos["fechaIni"])){
                 $datos["fechaIni"] = str_replace('/', '-', $datos["fechaIni"]);
                 $datos["fechaIni"]= date('Y-m-d H:i', strtotime($datos["fechaIni"]));
-
-                $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
-                $datos["fechaFin"]= date('Y-m-d H:i', strtotime( $datos["fechaFin"]));
+                if(isset($datos["fechaFin"])){
+                    $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
+                    $datos["fechaFin"]= date('Y-m-d H:i', strtotime( $datos["fechaFin"]));
+                }else{
+                    $datos["fechaFin"]= 0;
+                }
             }
+            setcookie("filtrosO",serialize($datos));
+
             $operaciones = $em->getRepository(Operacion::class)->findLatest($page,$datos);
 
             return $this->render('operacion/search.html.twig', array(
@@ -68,7 +73,15 @@ class OperacionController extends Controller
                 'form' => $form->createView(),
             ));
         }
-        $operaciones = $em->getRepository(Operacion::class)->findLatest($page,null);
+
+
+        $operaciones=null;
+
+        if(isset($_COOKIE) && isset($_COOKIE["filtrosO"]) ){
+            $operaciones = $em->getRepository(Operacion::class)->findLatest($page,unserialize($_COOKIE["filtrosO"]));
+        }else{
+            $operaciones = $em->getRepository(Operacion::class)->findLatest($page,null);
+        }
         return $this->render('operacion/search.html.twig', array(
             'operacions' => $operaciones,
             'form' => $form->createView()

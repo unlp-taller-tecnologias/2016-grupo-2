@@ -27,6 +27,10 @@ class EstadisticaController extends Controller
 
     public function estadisticaIndex(Request $request)
     {
+        $auxtotal = 0;
+        $auxProgramada = 0;
+        $auxAnestesia = 0;
+        $auxGuardia = 0;
       
         $em = $this->getDoctrine()->getManager();
 
@@ -67,6 +71,18 @@ class EstadisticaController extends Controller
             ->getForm();
 
         $form->handleRequest($request);
+
+        $totalprogramadas=0;
+        $totalguardia=0;
+        $totalanestesia=0;
+        $total=0;
+        foreach ($arregloservicios as $a) {
+            $totalprogramadas = $totalprogramadas + $a[1];
+            $totalguardia = $totalguardia + $a[2];
+            $totalanestesia = $totalanestesia + $a[3];
+            $total = $total + $a[4];
+
+        }
         
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -114,30 +130,27 @@ class EstadisticaController extends Controller
                      'totalguardia' => $totalguardia,
                      'totalanestesia' => $totalanestesia,
                      'total' => $total,
+                    'desde' => $datos["fechaIni"],
+                    'hasta' => $datos["fechaFin"],
                     'form' => $form->createView(),
                 ));
             
           }
             else {
-                echo ("(!!!! )ERROR, LA FECHA DE INICIO NO PUEDE SER MAYOR NI IGUAL A LA FECHA DE FIN");
+                $error = "La fecha 'Desde' no puede ser mayor o igual a la fecha 'Hasta'.";
                 return $this->render('estadistica/index.html.twig', array(
                 'servicios' => $arregloservicios,
+                'totalprogramadas' => $totalprogramadas,
+                'totalguardia' => $totalguardia,
+                'totalanestesia' => $totalanestesia,
+                'total' => $total,
+                'error' => $error,
                 'form' => $form->createView(),
             ));
             }
           
         }
-        $totalprogramadas=0;
-        $totalguardia=0;
-        $totalanestesia=0;
-        $total=0;
-         foreach ($arregloservicios as $a) {
-                  $totalprogramadas = $totalprogramadas + $a[1];
-                  $totalguardia = $totalguardia + $a[2];
-                  $totalanestesia = $totalanestesia + $a[3];
-                  $total = $total + $a[4];
-                
-              }
+
 
         return $this->render('estadistica/index.html.twig', array('servicios' => $arregloservicios,'totalprogramadas' => $totalprogramadas,
                      'totalguardia' => $totalguardia,
@@ -207,9 +220,10 @@ class EstadisticaController extends Controller
 *
 */
 
-    public function graficarEStadistica(Request $request){
-        echo "lala";
+    public function graficarEstadistica(){
+        return $this->render('estadistica/grafico.html.twig', array(
 
+        ));
     }
    
 }

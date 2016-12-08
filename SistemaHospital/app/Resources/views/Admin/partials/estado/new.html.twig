@@ -3,6 +3,10 @@
 {% block main %}
     <h1>Nuevo Estado de Reserva</h1>
 
+    {% if error is defined %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
     {{ form_start(form) }}
     <div class="form-group">
         {{ form_widget(form) }}
