@@ -69,7 +69,7 @@ class PacienteController extends Controller
     public function newActionInReserva(Request $request)
     {
         $paciente = new Paciente();
-        $form = $this->createForm('AppBundle\Form\PacienteType', $paciente);
+        $form = $this->createForm('AppBundle\Form\PacienteInReservaType', $paciente);
         $form->handleRequest($request);
 
        
@@ -83,7 +83,36 @@ class PacienteController extends Controller
 
         }
 
-        return $this->render('paciente/new.html.twig', array(
+        return $this->render('paciente/newInReserva.html.twig', array(
+            'paciente' => $paciente,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Creates a new paciente entity.
+     *
+     * @Route("/newParaOperacion", name="paciente_agregarpaciente_operacion")
+     * @Method({"GET", "POST"})
+     */
+    public function newActionInOperacion(Request $request)
+    {
+        $paciente = new Paciente();
+        $form = $this->createForm('AppBundle\Form\PacienteType', $paciente);
+        $form->handleRequest($request);
+
+       
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($paciente);
+            $em->flush($paciente);
+
+            return $this->redirectToRoute('operacion_new');
+
+        }
+
+        return $this->render('paciente/newInOperacion.html.twig', array(
             'paciente' => $paciente,
             'form' => $form->createView(),
         ));
