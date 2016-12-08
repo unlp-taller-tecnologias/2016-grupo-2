@@ -1,30 +1,28 @@
 {% extends 'operacion/layout.html.twig' %}
 {% block main %}
 
- <form action="#" >
+
      <div class="col-md-6">
          <div class="col-md-5">
-             <label for="fechaHasta">Fecha hasta:</label>
+             <label for="graffechaHasta">Fecha hasta:</label>
          </div>
         <div class="col-md-7">
-            <input id="graffechaHasta" type="text" class="datetimepickerWithoutTime form-control" name="fechaHasta" required>
+            <input id="graffechaHasta" type="text" class="datetimepickerWithoutTime form-control" name="graffechaHasta" required>
         </div>
      </div>
      <div class="col-md-6">
          <div class="col-md-5">
-             <label for="fechaDesde">Fecha hasta:</label>
+             <label for="graffechaDesde">Fecha hasta:</label>
          </div>
          <div class="col-md-7">
-             <input id="graffechaDesde" type="text" class="datetimepickerWithoutTime form-control" name="fechaDesde" required>
+             <input id="graffechaDesde" type="text" class="datetimepickerWithoutTime form-control" name="graffechaDesde" required>
          </div>
      </div>
 
 
     <div class="col-md-offset-5 col-md-3">
-        <button id="graficar" type="submit" class="btn btn-primary espacio"> Estadistica entre fechas </button>
+        <button id="graficar" class="btn btn-primary espacio"> Estadistica entre fechas </button>
     </div>
-
-  </form>
 
 <div id="grafBarra" class="col-12"></div>
 {#<div id="grafTorta" class="col-12"></div>#}
@@ -40,9 +38,9 @@
             grafbarra.hide();
 
             btngraficar = $("#graficar");
-            fechahasta= $("#fechaHasta");
-            fechadesde= $("#fechaDesde");
-
+            fechahasta= $("#graffechaHasta");
+            fechadesde= $("#graffechaDesde");
+            path="{{ path('ajax_ejemplo') }}";
 
             function parseDate(str) {
                 var mdy = str.split('/');
@@ -50,28 +48,30 @@
             }
 
             btngraficar.click(function (){
+
                 if(fechahasta.val() && fechadesde.val()){
                      auxhasta=parseDate(fechahasta.val());
                      auxdesde=parseDate(fechadesde.val());
-
-                     path="{{ path('ajax_ejemplo') }}";
-
-
+                     graficar(auxhasta,auxdesde);
                 }else{
-
+                    alert("debe llenar algun campo");
                 }
-
             });
 
-            function genericoAjax(url, funcion, parametros, combo) {
+            function graficar(auxhasta,auxdesde){
+                genericoAjax(path,funcOperacionCant,{fechaHasta : auxhasta , fechaDesde : auxdesde});
+
+            }
+
+            function genericoAjax(url, funcion, parametros) {
                 $.ajax({
                     type: 'POST',
                     url: url,
-                    async: true,
+                    async: false,
                     data: parametros,
                     dataType: "json",
                     success: function(data){
-                        funcion(data,combo)
+                        funcion(data);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("error ajax"+errorThrown)
@@ -81,78 +81,15 @@
 
             global=null;
 
-            function funcGanancia(data,combo){
+            function funcOperacionCant(data){
                 global = new Array() ;
                 if (data != null) {
                     global= data;
+                    alert(global);
                 }
 
             }
 
-
-            {#function graficarBarra(){#}
-                {#gananciaXdia= {arreglo :[]};#}
-                {#genericoAjax("./?action=gananciaPorDia",funcGanancia,{fechaDesde: fechaDesde.val(), fechaHasta: fechaHasta.val()},gananciaXdia);#}
-
-                {#auxfechaDesde = fechaDesde.val().split('-');#}
-
-                {#grafBarra=$('#grafBarra');#}
-                {#grafBarra.highcharts({#}
-                    {#chart: {#}
-                        {#type: 'spline'#}
-                    {#},#}
-                    {#title: {#}
-                        {#text: 'Ganacia por dia'JSON.parse(data);#}
-                {#for (var i = 0; i < data.length; i++) {#}
-                    {#selectedDates[new Date(data[i])] = new Date(data[i]);#}
-                {#}#}
-            {#},#}
-                {#subtitle: {#}
-                    {#text: 'Desde '+fechaDesde.val()+' hasta '+fechaHasta.val()#}
-                {#},#}
-                {#xAxis: {#}
-                    {#type: 'datetime',#}
-                            {#labels: {#}
-                        {#overflow: 'justify'#}
-                    {#},#}
-                    {#dateTimeLabelFormats: {#}
-                        {#day: '%e/%m'#}
-                    {#}#}
-                {#},#}
-                {#tooltip: {#}
-                    {#valueSuffix: 'Gan/Dia'#}
-                {#},#}
-                {#plotOptions: {#}
-                    {#spline: {#}
-                        {#lineWidth: 4,#}
-                                {#states: {#}
-                            {#hover: {#}
-                                {#lineWidth: 5#}
-                            {#}#}
-                        {#},#}
-                        {#marker: {#}
-                            {#enabled: false#}
-                        {#},#}
-                        {#pointInterval: 24 * 3600 * 1000, // one hour#}
-                                {#/*NO ENTIENDO PORQUE LE TENGO Q DESCONDATAR 1 AL MES#}
-                                 {#LE SUMARA 1 DIGITO AL MES??? NO ENTIENDO PORQ#}
-                                 {#*/#}
-                                {#pointStart: Date.UTC(auxfechaDesde[0],auxfechaDesde[1]-1,auxfechaDesde[2])#}
-                    {#}#}
-                {#},#}
-                {#series: [{#}
-                    {#name: 'Buffet',#}
-                    {#data: global //[100,50,30,800,-300,400,500,30] //aca va el arreglo..//#}
-                {#}#}
-
-                {#],#}
-                        {#navigation: {#}
-                    {#menuItemStyle: {#}
-                        {#fontSize: '10px'#}
-                    {#}#}
-                {#}#}
-            {#});#}
-            {#}#}
 
         });
     </script>

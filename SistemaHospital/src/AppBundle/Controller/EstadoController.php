@@ -38,6 +38,7 @@ class EstadoController extends Controller
      * @Route("/new", name="admin_estado_new")
      * @Method({"GET", "POST"})
      */
+
     public function newAction(Request $request)
     {
         $estado = new Estado();
@@ -48,15 +49,8 @@ class EstadoController extends Controller
             $formnew = $form->getData();
             $datos = array('tipo' => $formnew->getTipo(), 'descripcion' => $formnew->getDescripcion());
 
-            foreach($datos as $campo){
-                if (!strcmp($this->validar($campo),"OK") == 0){
-                    $error = $this->validar($campo);
-                    return $this->render('Admin/partials/estado/new.html.twig', array(
-                        'error' => $error,
-                        'estado' => $estado,
-                        'form' => $form->createView(),
-                    ));
-                }
+            if($this->procesardatos($datos,'Admin/partials/estado/new.html.twig',$estado,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'Admin/partials/estado/new.html.twig',$estado,$form->createView(),false,false);
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -106,16 +100,8 @@ class EstadoController extends Controller
             $form = $editForm->getData();
             $datos = array('tipo' => $form->getTipo(), 'descripcion' => $form->getDescripcion());
 
-            foreach($datos as $campo){
-                if (!strcmp($this->validar($campo),"OK") == 0){
-                    $error = $this->validar($campo);
-                    return $this->render('Admin/partials/estado/edit.html.twig', array(
-                        'error' => $error,
-                        'estado' => $estado,
-                        'edit_form' => $editForm->createView(),
-                        'delete_form' => $deleteForm->createView(),
-                    ));
-                }
+            if($this->procesardatos($datos,'Admin/partials/estado/edit.html.twig',$estado,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'Admin/partials/estado/edit.html.twig',$estado,false,$editForm->createView(),$deleteForm->createView());
             }
 
             $this->getDoctrine()->getManager()->flush();
@@ -166,6 +152,37 @@ class EstadoController extends Controller
         ;
     }
 
+    private function procesardatos($datos,$view,$estado,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$estado,$create,$edit,$delete);
+            }
+        }
+        if (!strcmp($this->existe($datos['tipo']),"OK") == 0){
+            $error = $this->existe($datos['tipo']);
+            return $this->renderizar($error,$view,$estado,$create,$edit,$delete);
+        }
+    }
+
+    private function renderizar($error,$view,$estado,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'estado' => $estado,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'estado' => $estado,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
     private function validar($texto){
         $aux = $texto;
         $aux = strip_tags($aux);
@@ -178,6 +195,15 @@ class EstadoController extends Controller
         }
         if (empty($aux)){
             return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
+    private function existe($tipo){
+        $estado = $this->getDoctrine()->getRepository('AppBundle:Estado')->findOneBy(array(
+            'tipo'  => $tipo , 'baja' => 0));
+        if ($estado) {
+            return "¡Alto! El tipo de estado ingresado ya existe.";
         }
         return "OK";
     }
