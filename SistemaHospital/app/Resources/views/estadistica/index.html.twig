@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
+    {% if error is defined %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
     <div class="well">
 
     {{ form_start(form) }}
@@ -41,15 +45,22 @@
 </tr>
 {% endfor %}
 <tr>
-    <th></th>
-    <th>Total programadas:{{ totalprogramadas }}</th>
-    <th>Total por guardia: {{ totalguardia }} </th>
-    <th>Total con anestesia: {{ totalanestesia }}</th>
-    <th>Total {{ total }}</th>
+    <b>
+    <th>TOTAL</th>
+    <th id="totalprogramadas">{{ totalprogramadas }}</th>
+    <th id="totalguardia">{{ totalguardia }} </th>
+    <th id="totalanestesia">{{ totalanestesia }}</th>
+    <th id="totaltotal">{{ total }}</th>
+    </b>
 </tr>
 </table>
 
-<form><input type="hidden" id="cantidadservicios" value="{{ counter }}"></form>
+<form>
+    <input type="hidden" id="cantidadservicios" value="{{ counter }}">
+    <input type="hidden" id="desde" value="{% if desde is defined %}{{ desde }}{% else %}null{% endif %}">
+    <input type="hidden" id="hasta" value="{% if hasta is defined %}{{ hasta }}{% else %}null{% endif %}">
+</form>
+
 
 <a href="javascript:demoFromHTML()" class="btn btn-success col-md-offset-10"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
     Exportar </a>

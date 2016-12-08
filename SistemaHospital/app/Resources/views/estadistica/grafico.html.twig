@@ -53,14 +53,41 @@
                 if(fechahasta.val() && fechadesde.val()){
                      auxhasta=parseDate(fechahasta.val());
                      auxdesde=parseDate(fechadesde.val());
-                     alert(auxhasta+ auxdesde);
+
+                     path="{{ path('ajax_ejemplo') }}";
+
+
                 }else{
-                    alert("agrega valores en las fechas");
+
                 }
 
             });
 
+            function genericoAjax(url, funcion, parametros, combo) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    async: true,
+                    data: parametros,
+                    dataType: "json",
+                    success: function(data){
+                        funcion(data,combo)
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("error ajax"+errorThrown)
+                    }
+                });
+            }
 
+            global=null;
+
+            function funcGanancia(data,combo){
+                global = new Array() ;
+                if (data != null) {
+                    global= data;
+                }
+
+            }
 
 
             {#function graficarBarra(){#}

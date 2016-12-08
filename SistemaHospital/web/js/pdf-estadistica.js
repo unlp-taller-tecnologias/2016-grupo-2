@@ -3,15 +3,24 @@ function demoFromHTML() {
     logo.src = '../../../rr.png';
     logo.onload = function () {
 
-        var desde = document.getElementById("form_fechaIni").value;
-        var hasta = document.getElementById("form_fechaFin").value;
+        if(document.getElementById("desde").value == "null"){
+            var desde = "";
+        } else {
+            var desde = " desde: "+document.getElementById("desde").value;
+        }
+
+        if(document.getElementById("hasta").value == "null"){
+            var hasta = "";
+        } else {
+            var hasta = " hasta: "+document.getElementById("hasta").value;
+        }
         var cantidadservicios = document.getElementById("cantidadservicios").value;
         var pdf = new jsPDF('l', 'pt', 'letter');
 
 
         pdf.addImage(logo, 'PNG', 40, 20, 50, 50);
         pdf.text(100, 55, 'Hospital Rodolfo Rossi - Sistema Gestión de Quirófano');
-        pdf.text(40, 90, 'Operaciones Realizadas desde: ' + desde + ' hasta: ' + hasta);
+        pdf.text(40, 90, 'Operaciones Realizadas'+desde+hasta+'.');
 
         var columns = ["Servicio", "Cirugias Programadas", "Cirugias por Guardia", "Cirugias con Anestesia", "Total"];
 
@@ -27,6 +36,14 @@ function demoFromHTML() {
             var aux = [servicio, programadas, guardia, anestesia, total];
             rows.push(aux);
         }
+
+        var servicio = "TOTAL";
+        var programadas = document.getElementById("totalprogramadas").innerText;
+        var guardia = document.getElementById("totalguardia").innerText;
+        var anestesia = document.getElementById("totalanestesia").innerText;
+        var total = document.getElementById("totaltotal").innerText;
+        var aux = [servicio, programadas, guardia, anestesia, total];
+        rows.push(aux);
 
         pdf.autoTable(columns, rows, {
             theme: 'striped',

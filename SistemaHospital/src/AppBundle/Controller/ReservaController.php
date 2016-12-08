@@ -47,7 +47,7 @@ class ReservaController extends Controller
         $month=$hoy->format("m");
         $day=$hoy->format("d");
         $fecha1= $year."-".$month."-".$day." 00:00:00";
-        $fecha2= $year."-".$month."-".$day." 23:59:50";
+        $fecha2= $year."-".$month."-".$day." 23:59:59";
         $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
 
         if ($form->isSubmitted() && $form->isValid()) {
