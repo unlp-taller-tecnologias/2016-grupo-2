@@ -6,11 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AjaxController.php" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ed80508-c5bd-40d3-b7ad-f729ad8086dc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ReservaController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ReservaController.php" />
-    </list>
+    <list default="true" id="6ed80508-c5bd-40d3-b7ad-f729ad8086dc" name="Default" comment="" />
     <ignored path="taller.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -33,7 +29,7 @@
       <file leaf-file-name="grafico.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
+            <state relative-caret-position="18">
               <caret line="74" column="20" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
               <folding />
             </state>
@@ -53,7 +49,7 @@
       <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1">
+            <state relative-caret-position="0">
               <caret line="0" column="16" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="16" />
               <folding />
             </state>
@@ -153,9 +149,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 5.6" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
-    <option name="width" value="1922" />
-    <option name="height" value="1056" />
+    <option name="width" value="1920" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -527,7 +522,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../grupo58" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -626,15 +621,16 @@
       <workItem from="1481136359552" duration="2843000" />
       <workItem from="1481206660147" duration="23000" />
       <workItem from="1481206729586" duration="1634000" />
+      <workItem from="1481234772059" duration="2000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209235000" />
+    <option name="totallyTimeSpent" value="209237000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1922" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2453125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -722,7 +718,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -758,9 +753,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <marker date="1480538665109" expanded="true" signature="547:597" ph="SELECT p FRO... AppBundle" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -937,7 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2754">
           <caret line="205" column="48" selection-start-line="205" selection-start-column="48" selection-end-line="205" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -973,7 +964,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1800">
           <caret line="100" column="26" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -981,7 +971,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" column="27" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -989,10 +978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
           <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding>
-            <marker date="1481115436339" expanded="true" signature="712:851" ph="SELECT p FRO... AppBundle" />
-            <marker date="1481115436339" expanded="true" signature="1072:1221" ph="SELECT r FRO... AppBundle" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1000,7 +985,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="594">
           <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1008,10 +992,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1170">
           <caret line="68" column="72" selection-start-line="68" selection-start-column="72" selection-end-line="68" selection-end-column="72" />
-          <folding>
-            <marker date="1481115468599" expanded="true" signature="549:723" ph="SELECT p FRO... AppBundle" />
-            <marker date="1481115468599" expanded="true" signature="946:1125" ph="SELECT o FRO... AppBundle" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1019,7 +999,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1206">
           <caret line="77" column="26" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1027,7 +1006,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="31" column="57" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1035,9 +1013,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="95" column="112" selection-start-line="95" selection-start-column="112" selection-end-line="95" selection-end-column="112" />
-          <folding>
-            <marker date="1481207070142" expanded="true" signature="7979:8133" ph="SELECT r FRO... AppBundle" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1045,7 +1020,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1080">
           <caret line="67" column="0" selection-start-line="64" selection-start-column="7" selection-end-line="67" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1053,13 +1027,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="863">
           <caret line="106" column="65" selection-start-line="106" selection-start-column="65" selection-end-line="106" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
+        <state relative-caret-position="0">
           <caret line="0" column="16" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="16" />
           <folding />
         </state>
@@ -1083,7 +1056,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
+        <state relative-caret-position="18">
           <caret line="74" column="20" selection-start-line="74" selection-start-column="20" selection-end-line="74" selection-end-column="20" />
           <folding />
         </state>
