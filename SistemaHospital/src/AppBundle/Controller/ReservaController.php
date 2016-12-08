@@ -33,15 +33,14 @@ class ReservaController extends Controller
     public function indexAction(Request $request, $page)
 
     {
-
         $em = $this->getDoctrine()->getManager();
 
         $form2 = $this->createForm('AppBundle\Form\FechaPendientesType');
         $form = $this->createForm('AppBundle\Form\FiltroReservaType');
 
-
         $form->handleRequest($request);
         $form2->handleRequest($request);
+
 
         $hoy = new \DateTime ("now");
         $year=$hoy->format("Y");
@@ -52,16 +51,22 @@ class ReservaController extends Controller
         $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
             $datos = $form->getData();
 
-            if(isset($datos["fechaIni"]) &&  isset($datos["fechaFin"])){
+            if(isset($datos["fechaIni"])){
                 $datos["fechaIni"] = str_replace('/', '-', $datos["fechaIni"]);
                 $datos["fechaIni"]= date('Y-m-d H:i', strtotime($datos["fechaIni"]));
-
-                $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
-                $datos["fechaFin"]= date('Y-m-d H:i', strtotime( $datos["fechaFin"]));
+                if(isset($datos["fechaFin"])){
+                    $datos["fechaFin"] = str_replace('/', '-', $datos["fechaFin"]);
+                    $datos["fechaFin"]= date('Y-m-d H:i', strtotime( $datos["fechaFin"]));
+                }else{
+                    $datos["fechaFin"]= 0;
+                }
             }
+
+            setcookie("filtrosR",serialize($datos));
 
             $reservas = $em->getRepository(Reserva::class)->findLatest($page,$datos);
 
@@ -85,9 +90,14 @@ class ReservaController extends Controller
                 $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
             }
         }
-        
 
-        $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);
+        $reservas=null;
+        if(isset($_COOKIE) && isset($_COOKIE["filtrosR"]) ){
+            $reservas = $em->getRepository(Reserva::class)->findLatest($page,unserialize($_COOKIE["filtrosR"]));
+        }else{
+            $reservas = $em->getRepository(Reserva::class)->findLatest($page,null);
+        }
+
         return $this->render('reserva/index.html.twig', array(
             'reservas' => $reservas,
             'form' => $form->createView(),
@@ -108,158 +118,28 @@ class ReservaController extends Controller
      */
     public function newAction(Request $request)
     {
-         $form = $this->createFormBuilder()
-           ->add('quirofano', 'entity', array(
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFormBuilder()
+
+            ->add('quirofano', 'entity', array(
                 'class' => 'AppBundle:Quirofano',
                 'property'     => 'getNombre',
-                'label' => 'Quirófano',
+                'label' => false,
                 "attr" => [
                     "class" => "form-control"
                 ]
             ))
             ->add("fechaquirofano", "text",[
-                'label' => 'Fecha',
+                'label' => false,
                 "attr" => [
-                    "class" => "form-control datetimepicker"
+                    "class" => "form-control datetimepickerWithoutTime"
                 ]
             ])
             ->getForm();
 
-         $form->handleRequest($request);
+        $form->handleRequest($request);
 
-         $form2 = $this->createFormBuilder()
-            ->add("numero_reserva", "number",[
-                'label' => 'Numero reserva',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            ->add("fecha_inicio", "text",[
-                'label' => 'Fecha y Hora de Inicio',
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add("fecha_fin", "text",[
-                'label' => 'Fecha y Hora de Finalización',
-                "attr" => [
-                    "class" => "form-control datetimepicker"
-                ]
-            ])
-            ->add("paciente", "choice",[
-                'label' => 'Paciente',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            /*->add('agregarpaciente', ButtonType::class, array(
-                 'label' => 'Agregar un nuevo paciente',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))*/
-
-            ->add('estado', 'entity', array(
-                'class' => 'AppBundle:Estado',
-                'property'     => 'getTipo',
-                'label' => 'Estado de la reserva',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-            ->add('paciente', 'entity', array(
-                'class' => 'AppBundle:Paciente',
-                'property'     => 'getNombreyApellido',
-                'label' => 'Paciente',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-            ->add('servicio', 'entity', array(
-                'class' => 'AppBundle:Servicio',
-                'property'     => 'getTipo',
-                'label' => 'Servicio',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-            ->add('quirofano', 'entity', array(
-                'class' => 'AppBundle:Quirofano',
-                'property'     => 'getNombre',
-                'label' => 'Quirófano',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-           ->add('sangre', 'entity', array(
-                'class' => 'AppBundle:Sangre',
-                'property'     => 'getNombre',
-                'label' => 'Sangre',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-           ->add('asa', 'entity', array(
-                'class' => 'AppBundle:Asa',
-                'property'     => 'getGrado',
-                'label' => 'Asa',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-           ->add('Anestesia', 'entity', array(
-                'class' => 'AppBundle:Anestesia',
-                'property'     => 'getTipo',
-                'label' => 'Anestesia',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-            ->add("diagnostico", "text",[
-                'label' => 'Diagnostico',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-             ->add("habitacion", "text",[
-                'label' => 'Habitacion',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-              ->add("observaciones", "text",[
-                'label' => 'Observaciones',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            ->add("cirugia", "text",[
-                'label' => 'Cirugia',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-             ->add('Internado', ChoiceType::class, array(
-                'choices'  => array(
-                    1 => 'Si',
-                    0 => 'No',
-                ),
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-            ->add('TiempoQuirurgico', ChoiceType::class, array(
-                'choices'  => array(
-                   "Corto" => 'Corto',
-                    "Medio" => 'Medio',
-                    "Largo" => 'Largo',
-                    "Muy Largo" => 'Muy Largo',
-                ),
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-            ->getForm();
+        $form2 = $this->createForm('AppBundle\Form\NewReservaType');
 
         $form2->handleRequest($request);
 
@@ -268,64 +148,77 @@ class ReservaController extends Controller
             $datosQuirofano = $form->getData();
 
             $quirofano = $datosQuirofano['quirofano'];
+
+
             $date =  $datosQuirofano['fechaquirofano'];
 
-            $turnosquirofano = $this->getTurnosQuirofano($quirofano->getId(), $date);
+             if(isset($datosQuirofano['fechaquirofano'])){
+                $datosQuirofano['fechaquirofano'] = str_replace('/', '-', $datosQuirofano['fechaquirofano']);
+                $fecha1= date('Y-m-d H:i:s', strtotime($datosQuirofano['fechaquirofano']));
 
-              return $this->render('reserva/disponibilidad_quirofano.html.twig', array(
-            'quirofano' => $quirofano,
-             'turnos' => $turnosquirofano,
-             'fecha' => $datosQuirofano['fechaquirofano'],
-             'total' => count($turnosquirofano)
-        ));
+                $datosQuirofano['fechaquirofano'] = str_replace('/', '-', $datosQuirofano['fechaquirofano']);
+                $fecha2= date('Y-m-d 23:59:59', strtotime( $datosQuirofano['fechaquirofano']));
+
+                $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
+            }
+
+           $turnosquirofano = $this->getTurnosQuirofano($quirofano->getId(), $reservasPen);
+
+            return $this->render('reserva/disponibilidad_quirofano.html.twig', array(
+                'quirofano' => $quirofano,
+                'turnos' => $turnosquirofano,
+                'fecha' => $datosQuirofano['fechaquirofano'],
+                'total' => count($turnosquirofano)
+            ));
         }
-      
+
         if ($form2->isSubmitted() && $form2->isValid()){
-                
-                $datos = $form2->getData();
 
-                $operacion = new Operacion();
-                $operacion->setDiagnostico($datos["diagnostico"]);
-                $operacion->setHabitacion($datos["habitacion"]);
-                $operacion->setObservaciones($datos["observaciones"]);
-                $operacion->setInternado($datos["Internado"]);
-                $operacion->setCirujia($datos["cirugia"]);
-                $operacion->setTq($datos["TiempoQuirurgico"]);
-                $operacion->setBaja(0); //Se setea en 0 por defecto siempre.
-                $operacion->setSangre($datos["sangre"]);
-                $operacion->setAsa($datos["asa"]);
-                $operacion->setAnestesia($datos["Anestesia"]);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($operacion);
-                $em->flush($operacion);
+            $datos = $form2->getData();
 
-                $reserva = new Reserva();
-                $reserva->setNumeroReserva($datos['numero_reserva']);
-                $reserva->setBaja(0);
+            $operacion = new Operacion();
+            $operacion->setDiagnostico($datos["diagnostico"]);
+            $operacion->setHabitacion($datos["habitacion"]);
+            $operacion->setObservaciones($datos["observaciones"]);
+            $operacion->setInternado($datos["Internado"]);
+            $operacion->setCirujia($datos["cirugia"]);
+            $operacion->setTq($datos["TiempoQuirurgico"]);
+            $operacion->setBaja(0); //Se setea en 0 por defecto siempre.
+            $operacion->setSangre($datos["sangre"]);
+            $operacion->setAsa($datos["asa"]);
+            $operacion->setAnestesia($datos["Anestesia"]);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($operacion);
+            $em->flush($operacion);
 
-                $inicio = new \DateTime($datos['fecha_inicio']);
-                 $fin = new \DateTime($datos['fecha_fin']);
+            $reserva = new Reserva();
+            $reserva->setNumeroReserva($datos['numero_reserva']);
+            $reserva->setBaja(0);
 
-                $reserva->setFechaInicio($inicio);
-                $reserva->setFechaFin($fin);
-                $reserva->setPaciente($datos['paciente']);
-                $reserva->setServicio($datos['servicio']);
-                $reserva->setEstado($datos['estado']);
-                $reserva->setQuirofano($datos['quirofano']);
-                $reserva->setOperacion($operacion);
-                $em->persist($reserva);
-                $em->flush($reserva);
+            $inicio = new \DateTime($datos['fecha_inicio']);
+            $fin = new \DateTime($datos['fecha_fin']);
+
+            $reserva->setFechaInicio($inicio);
+            $reserva->setFechaFin($fin);
+            $reserva->setPaciente($datos['paciente']);
+            $reserva->setServicio($datos['servicio']);
+            $reserva->setEstado($datos['estado']);
+            $reserva->setQuirofano($datos['quirofano']);
+            $reserva->setOperacion($operacion);
+            $em->persist($reserva);
+            $em->flush($reserva);
 
 
-              return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId()));
+            return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId()));
         }
 
-       return $this->render('reserva/new.html.twig', array(
+
+        return $this->render('reserva/new.html.twig', array(
             'form' => $form->createView(),
-            'form2' => $form2->createView(),
-        
-        ));
+            'form2' => $form2->createView()));
+
     }
+
 
     /**
      * Finds and displays a reserva entity.
@@ -343,34 +236,33 @@ class ReservaController extends Controller
         ));
     }
 
-    public function getTurnosQuirofano($quirofano, $fecha){
-     
+    public function getTurnosQuirofano($quirofano, $reservas){
 
+      
         $em = $this->getDoctrine()->getManager();
+        $resultado = array();
 
-        $turnos= array();
+        foreach ($reservas as $r) {
 
-          $query_string = "
-          SELECT r
-          FROM AppBundle\Entity\Reserva r 
-          WHERE r.quirofano = :quirofano and r.fecha_inicio = :fecha
-          ORDER by r.fecha_inicio
-          ";
-        $query = $em->createQuery($query_string);
+            if ($r->getQuirofano()->getId() == $quirofano){
 
-        $query->setParameter('quirofano',$quirofano);
-        $query->setParameter('fecha',new \DateTime($fecha));
-
-        return $query->getResult();
+                array_push($resultado, $r);
+            }
+        }
+        
+        
+        return $resultado;
+        }
 
         
-        }
+
     /**
      * Displays a form to edit an existing reserva entity.
      *
      * @Route("/{id}/edit", name="reserva_edit")
      * @Method({"GET", "POST"})
      */
+
     public function editAction(Request $request, Reserva $reserva)
     {
         $deleteForm = $this->createDeleteForm($reserva);

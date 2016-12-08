@@ -1,5 +1,4 @@
 {% extends 'Admin/layout.html.twig' %}
-
 {% block main %}
     <h1>Nuevo Personal</h1>
 
@@ -12,6 +11,8 @@
             Confirmar </button>
     </div>
     {{ form_end(form) }}
+
+    <div id="admin_rol_new_path" data-path="{{path('admin_rol_new')}}"></div>
 
     <table class="table table-striped">
         <tbody>

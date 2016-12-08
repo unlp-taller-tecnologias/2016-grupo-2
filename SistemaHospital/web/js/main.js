@@ -61,6 +61,37 @@
             locale: 'es'
         });
 
+        /*Date time picker arreglados   */
+        // $('#filtro_reserva_fechaIni').data("DateTimePicker").maxDate(e.date);
+        // $('#filtro_operacion_fechaIni').data("DateTimePicker").maxDate(e.date);
+        // $('#graffechaHasta').data("DateTimePicker").maxDate(datetime);
+
+        $("#filtro_operacion_fechaIni").on("dp.change", function (e) {
+            $('#filtro_operacion_fechaFin').data("DateTimePicker").minDate(e.date);
+        });
+        $("#filtro_operacion_fechaFin").on("dp.change", function (e) {
+            $('#filtro_operacion_fechaIni').data("DateTimePicker").maxDate(e.date);
+        });
+
+
+        $("#filtro_reserva_fechaIni").on("dp.change", function (e) {
+            $('#filtro_reserva_fechaFin').data("DateTimePicker").minDate(e.date);
+        });
+        $("#filtro_reserva_fechaFin").on("dp.change", function (e) {
+            $('#filtro_reserva_fechaIni').data("DateTimePicker").maxDate(e.date);
+        });
+
+
+        $("#graffechaHasta").on("dp.change", function (e) {
+            $('#graffechaDesde').data("DateTimePicker").minDate(e.date);
+        });
+        $("#graffechaDesde").on("dp.change", function (e) {
+            $('#graffechaHasta').data("DateTimePicker").maxDate(e.date);
+        });
+
+
+
+
         //esto es para el nav del sidevar darles estilos
         $("#sidebar ul li a").click(function () {
             $(this).parent().attr("class","active");
