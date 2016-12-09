@@ -62,6 +62,9 @@
         </div>
         <div class='col-sm-6'>
             {{ form_row(form2.sangre) }}
+
+            {% for s in form2.sangre %}
+            {% endfor %}
         </div>
         <div class='col-sm-6'>
             {{ form_row(form2.asa) }}
