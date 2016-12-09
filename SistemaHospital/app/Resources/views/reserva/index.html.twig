@@ -48,6 +48,7 @@
             <th>Ver</th>
             <th>Editar</th>
             <th>Cancelar</th>
+
         </tr>
         </thead>
         <tbody>
@@ -76,6 +77,8 @@
                     <td>
                         <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}"><i class="fa fa-ban" aria-hidden="true"></i></a>
                     </td>
+
+                    
                 {% else %}
                     <td>
                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -155,6 +158,7 @@
                 <th>Ver</th>
                 <th>Editar</th>
                 <th>Cancelar</th>
+               
             </tr>
         </thead>
         <tbody>
@@ -182,6 +186,7 @@
                     <td>
                         <a href="{{ path('reserva_cancel', { 'id': reserva.id }) }}"><i class="fa fa-ban" aria-hidden="true"></i></a>
                     </td>
+                    
                 {% else %}
                     <td>
                         <i class="fa fa-pencil" aria-hidden="true"></i>

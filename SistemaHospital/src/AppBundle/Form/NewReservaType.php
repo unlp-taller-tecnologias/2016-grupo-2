@@ -9,6 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Entity\Estado;
+
 
 class NewReservaType extends AbstractType
 {
@@ -17,6 +19,7 @@ class NewReservaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add("numero_reserva", "number",[
                 'label' => 'Numero reserva',
@@ -50,12 +53,7 @@ class NewReservaType extends AbstractType
                     "class" => "chosen-select  form-control",
                 ]
             ))
-            /*->add('agregarpaciente', ButtonType::class, array(
-                 'label' => 'Agregar un nuevo paciente',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))*/
+           
 
             ->add('estado', 'entity', array(
                 'class' => 'AppBundle:Estado',
@@ -150,6 +148,23 @@ class NewReservaType extends AbstractType
                     "class" => "form-control"
                 ]
             ));
+    }
+
+     public function getEstados(){
+
+        $resultado = array();
+        $em = $this->getDoctrine()->getManager();
+        $estados = $em->getRepository(Estado::class)->findAll();
+
+        foreach ($estados as $e) {
+            if ($e->getBaja() == 0) {
+                array_push($resultado, $e);
+            }
+        }
+
+        return $resultado;
+
+
     }
 
 }

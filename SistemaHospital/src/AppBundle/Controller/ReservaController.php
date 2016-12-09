@@ -139,6 +139,7 @@ class ReservaController extends Controller
 
         $form->handleRequest($request);
 
+      
         $form2 = $this->createForm('AppBundle\Form\NewReservaType');
 
         $form2->handleRequest($request);
@@ -252,8 +253,24 @@ class ReservaController extends Controller
         
         
         return $resultado;
+    }
+
+    public function getEstados(){
+
+        $resultado = array();
+        $em = $this->getDoctrine()->getManager();
+        $estados = $em->getRepository(Estado::class)->findAll();
+
+        foreach ($estados as $e) {
+            if ($e->getBaja() == 0) {
+                array_push($resultado, $e);
+            }
         }
 
+        return $resultado;
+
+
+    }
         
 
     /**
