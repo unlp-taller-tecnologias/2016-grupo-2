@@ -78,7 +78,7 @@ class AjaxController extends Controller
         $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder();
         $qb
             ->select('c')
-            ->from($model, 'c')
+            ->from('AppBundle:Operacion', 'c')
             ->where('c.fecha BETWEEN :firstDate AND :lastDate')
             ->setParameter('firstDate', $fecha1)
             ->setParameter('lastDate',  $fecha2)
