@@ -4,7 +4,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class FiltroReservaType extends AbstractType
@@ -33,6 +34,10 @@ class FiltroReservaType extends AbstractType
                 'multiple' => false,   // Multiple selection allowed
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Servicio',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.baja = FALSE');
+                },
                 'property'     => 'getTipo',
                 "placeholder" =>"Elige un servicio..",
                 'required' => false,
@@ -52,6 +57,10 @@ class FiltroReservaType extends AbstractType
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Paciente',
                 'property'     => 'getDni',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.baja = FALSE');
+                },
                 'choice_label'  => function ($paciente) {
                                         return (string)($paciente->getNombre()." ".$paciente->getApellido()." ".$paciente->getDni());
                                     },
