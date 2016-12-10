@@ -23,6 +23,10 @@
     <div class="col-md-offset-5 col-md-3">
         <button id="graficar" class="btn btn-primary espacio"> Estadistica entre fechas </button>
     </div>
+    
+    <div id="loadingGif" class="col-md-12 espacio ">
+        <img  class="col-md-offset-6" src="{{ asset('images/ajax-loader.gif') }}" alt="gif-loading">
+    </div>
 
 <div id="grafBarra" class="col-12"></div>
 {#<div id="grafTorta" class="col-12"></div>#}
@@ -62,12 +66,18 @@
                 genericoAjax(path,funcOperacionCant,{fechaHasta : auxhasta , fechaDesde : auxdesde});
 
             }
-
+            $('#loadingGif').hide();
             function genericoAjax(url, funcion, parametros) {
                 $.ajax({
                     type: 'POST',
                     url: url,
-                    async: false,
+                    async: true,
+                    beforeSend: function() {
+                        $('#loadingGif').show();
+                    },
+                    complete: function(){
+                        $('#loadingGif').hide();
+                    },
                     data: parametros,
                     dataType: "json",
                     success: function(data){
@@ -85,9 +95,69 @@
                 global = new Array() ;
                 if (data != null) {
                     global= data;
-                    alert(global);
                 }
+                graficarBarra()
+            }
 
+
+            function graficarBarra(){
+                //gananciaXdia= {arreglo :[]};
+                //genericoAjax("./?action=gananciaPorDia",funcGanancia,{fechaDesde: fechaDesde.val(), fechaHasta: fechaHasta.val()},gananciaXdia);
+
+                auxfechaDesde = fechadesde.val().split('-');
+                grafBarra=$('#grafBarra');
+                grafBarra.highcharts({
+                    chart: {
+                        type: 'spline'
+                    },
+                    title: {
+                        text: 'Operaciones por dia'
+                    },
+                    subtitle: {
+                        text: 'Desde '+fechadesde.val()+' hasta '+fechahasta.val()
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        labels: {
+                            overflow: 'justify'
+                        },
+                        dateTimeLabelFormats: {
+                            day: '%e/%m'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: 'Gan/Dia'
+                    },
+                    plotOptions: {
+                        spline: {
+                            lineWidth: 4,
+                            states: {
+                                hover: {
+                                    lineWidth: 5
+                                }
+                            },
+                            marker: {
+                                enabled: false
+                            },
+                            pointInterval: 24 * 3600 * 1000, // one hour
+                            /*NO ENTIENDO PORQUE LE TENGO Q DESCONDATAR 1 AL MES
+                             LE SUMARA 1 DIGITO AL MES??? NO ENTIENDO PORQ
+                             */
+                            pointStart: Date.UTC(auxfechaDesde[2],auxfechaDesde[1]-1,auxfechaDesde[0])
+                        }
+                    },
+                    series: [{
+                        name: 'Operaciones',
+                        data: global //[100,50,30,800,-300,400,500,30] //aca va el arreglo..//
+                    }
+
+                    ],
+                    navigation: {
+                        menuItemStyle: {
+                            fontSize: '10px'
+                        }
+                    }
+                });
             }
 
 
