@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class OperacionType extends AbstractType
 {
@@ -13,38 +14,94 @@ class OperacionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('diagnostico')
-        ->add('habitacion')
-        ->add('observaciones')
-        ->add('internado')
-        ->add('tq')
-        ->add('baja')
-        ->add('sangre', 'entity', array(
-                'multiple' => false,   // Multiple selection allowed
-                'expanded' => false,   // Render as checkboxes
+        $builder->add("diagnostico", "text",[
+                'label' => 'Diagnostico',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+       ->add("habitacion", "text",[
+                'label' => 'Habitacion',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+        ->add("observaciones", "text",[
+                'label' => 'Observaciones',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+        ->add('internado', ChoiceType::class, array(
+                'choices'  => array(
+                    1 => 'Si',
+                    0 => 'No',
+                ),
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+        ->add('tq', ChoiceType::class, array(
+                'choices'  => array(
+                    "Corto" => 'Corto',
+                    "Medio" => 'Medio',
+                    "Largo" => 'Largo',
+                    "Muy Largo" => 'Muy Largo',
+                ),
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+        ->add('baja', ChoiceType::class, array(
+                'label' => 'Dar de baja',
+                'choices'  => array(
+                    1 => 'Si',
+                    0 => 'No',
+                ),
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+         ->add('sangre', 'entity', array(
                 'class' => 'AppBundle:Sangre',
-                'property'     => 'getNombre'
+                'property'     => 'getNombre',
+                'label' => 'Sangre',
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ))
 
         ->add('asa', 'entity', array(
-                'multiple' => false,   // Multiple selection allowed
-                'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Asa',
-                'property'     => 'getGrado'
+                'property'     => 'getGrado',
+                'label' => 'Asa',
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ))
         ->add('anestesia', 'entity', array(
                 'multiple' => false,   // Multiple selection allowed
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:anestesia',
-                'property'     => 'getTipo'
+                'property'     => 'getTipo',
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ))
         
         ->add('personal', 'entity', array(
                 'multiple' => true,   // Multiple selection allowed
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Personal',
-                'property'     => 'getNombre'
-            ))       ;
+                'choice_label'  => function ($personal) {
+                    return (string)($personal->getNombre()." ".$personal->getApellido()." ".$personal->getDni());
+                },
+                "placeholder" =>"Elige uno o varios personales...",
+                'required' => false,
+                "attr" => [
+                    "class" => "chosen-select  form-control",
+                ]
+            ));
     }
     
     /**

@@ -22,9 +22,10 @@
             <th>Fecha</th>
             <th>Observaciones</th>
             <th>Internado</th>
-            <th>TQ</th>
             <th>Ver</th>
             <th>Editar</th>
+            <th>Finalizar</th>
+
         </tr>
         </thead>
         <tbody>
@@ -35,7 +36,7 @@
                 <td>{{ operacion.reserva.fechainicio|date('d/m/Y')  }}</td>
                 <td>{{ operacion.observaciones }}</td>
                 <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
-                <td>{{ operacion.tq }}</td>
+      
                 <td>
                     <a href="{{ path('operacion_show', { 'id': operacion.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                     </a>
@@ -44,6 +45,11 @@
                     <a href="{{ path('operacion_edit', { 'id': operacion.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
+                <td>
+                    <a href="{{ path('operacion_edit', { 'id': operacion.id }) }}"><i class="fa fa-check" aria-hidden="true"></i>
+                    </a>
+                </td>
+
             </tr>
         {% endfor %}
         </tbody>
