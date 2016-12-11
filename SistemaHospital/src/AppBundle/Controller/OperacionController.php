@@ -173,6 +173,23 @@ class OperacionController extends Controller
     }
 
 
+     /**
+     * Displays a form to edit an existing operacion entity.
+     *
+     * @Route("/{id}/edit", name="operacion_finish")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, Operacion $operacion)
+    {
+        
+
+        return $this->render('operacion/edit.html.twig', array(
+            'operacion' => $operacion,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
 
     /**
      * Finds and displays a operacion entity.
