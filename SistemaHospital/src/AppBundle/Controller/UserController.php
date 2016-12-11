@@ -55,6 +55,14 @@ class UserController extends Controller
             $personal= $em->getRepository('AppBundle:Personal')->find($id_personal);
             $user->setPersonal($personal);
 
+            $formnew = $form->getData();
+            $datos = array('username' => $form->getUsername(), 'mail' => $form->getEmail(), 'pass1' => $form->getPlainPassword('first'),
+                'pass2' => $form->getPlainPassword('second'));
+
+            if($this->procesardatos($datos,'Admin/partials/user/new.html.twig',$estado,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'Admin/partials/user/new.html.twig',$estado,$form->createView(),false,false);
+            }
+
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('user_show', array('id' => $user->getId()));
@@ -95,9 +103,18 @@ class UserController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $form = $editForm->getData();
+            $datos = array('username' => $form->getUsername(), 'mail' => $form->getEmail(), 'pass1' => $form->getPlainPassword('first'),
+                'pass2' => $form->getPlainPassword('second'));
+
+            if($this->procesardatos($datos,'Admin/partials/user/edit.html.twig',$user,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'Admin/partials/user/edit.html.twig',$user,false,$editForm->createView(),$deleteForm->createView());
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
         }
 
         return $this->render('Admin/partials/user/edit.html.twig', array(
@@ -142,4 +159,75 @@ class UserController extends Controller
             ->getForm()
         ;
     }
+
+    private function procesardatos($datos,$view,$usuario,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
+            }
+        }
+        if($create){
+            if (!strcmp($this->existe($datos['username']), "OK") == 0) {
+                $error = $this->existe($datos['username']);
+                return $this->renderizar($error, $view, $usuario, $create, $edit, $delete);
+            }
+        }
+
+        if (!strcmp($this->validarMail($datos['mail']),"OK") == 0){
+            $error = $this->validarMail($datos['mail']);
+            return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
+        }
+    }
+
+    private function renderizar($error,$view,$usuario,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'user' => $usuario,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'user' => $usuario,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
+    private function existe($usuario){
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array(
+            'username'  => $usuario , 'enabled' => 1));
+        if ($user) {
+            return "¡Alto! El nombre de usuario ingresado ya existe.";
+        }
+        return "OK";
+    }
+
+    private function validarMail($mail){
+        if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            return "¡Alto! El formato del mail es incorrecto.";
+        }
+        return "OK";
+    }
 }
+

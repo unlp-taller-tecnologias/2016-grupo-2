@@ -44,6 +44,14 @@ class AsaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $formnew = $form->getData();
+            $datos = array('grado' => $formnew->getGrado(), 'descripcion' => $formnew->getDescripcion());
+
+            if($this->procesardatos($datos,'Admin/partials/asa/new.html.twig',$asa,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'Admin/partials/asa/new.html.twig',$asa,$form->createView(),false,false);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($asa);
             $em->flush($asa);
@@ -86,9 +94,17 @@ class AsaController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $form = $editForm->getData();
+            $datos = array('grado' => $form->getGrado(), 'descripcion' => $form->getDescripcion());
+
+            if($this->procesardatos($datos,'Admin/partials/asa/edit.html.twig',$asa,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'Admin/partials/asa/edit.html.twig',$asa,false,$editForm->createView(),$deleteForm->createView());
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_asa_edit', array('id' => $asa->getId()));
+            return $this->redirectToRoute('admin_asa_show', array('id' => $asa->getId()));
         }
 
         return $this->render('Admin/partials/asa/edit.html.twig', array(
@@ -132,5 +148,61 @@ class AsaController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function procesardatos($datos,$view,$asa,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$asa,$create,$edit,$delete);
+            }
+        }
+        if (!strcmp($this->existe($datos['grado']),"OK") == 0){
+            $error = $this->existe($datos['grado']);
+            return $this->renderizar($error,$view,$asa,$create,$edit,$delete);
+        }
+    }
+
+    private function renderizar($error,$view,$asa,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'asa' => $asa,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'asa' => $asa,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
+    private function existe($grado){
+        $asa = $this->getDoctrine()->getRepository('AppBundle:Asa')->findOneBy(array(
+            'grado'  => $grado , 'baja' => 0));
+        if ($asa) {
+            return "¡Alto! El nombre de ASA ingresado ya existe.";
+        }
+        return "OK";
     }
 }
