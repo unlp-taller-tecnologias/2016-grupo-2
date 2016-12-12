@@ -8,13 +8,40 @@
 
     
     <tr>
-    <th id="turnos">Turnos para el día {{ fecha|date('d/m/Y')}} </th>
+    <th id="turnos">Turnos para el día {{ fecha }} </th>
     </tr>
+    <tr>
+    <th> Reserva</th>
+    <th> Servicio</th>
+    <th> Paciente</th>
+    <th> Estado</th>
+    <th> Horario</th>
+    <th>Ver</th>
+    <th>Editar</th>
+    <th>Cancelar</th>
+    <tr>
     {% for turno in turnos %}
        <tr>
        <td>
-        Reserva numero {{ turno.numeroReserva}}  |  Horario: {{ turno.fechainicio|date('H:i:s')}} a  {{ turno.fechafin|date('H:i:s')}} hs
+        Reserva numero {{ turno.numeroReserva}} 
+        </td>
+       <td>{{ turno.servicio.tipo }}</td>
+       <td>{{ turno.paciente.nombre }} {{ turno.paciente.apellido }}</td>
+      <td>{{ turno.estado.tipo }}</td>
+        <td>
+         {{ turno.fechainicio|date('H:i:s')}}hs a  {{ turno.fechafin|date('H:i:s')}} hs
        </td>
+
+       <td>
+        <a href="{{ path('reserva_show', { 'id': turno.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+     </td>
+     <td>
+        <a href="{{ path('reserva_edit', { 'id': turno.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+         </td>
+        <td>
+        <a href="{{ path('reserva_cancel', { 'id': turno.id }) }}"><i class="fa fa-ban" aria-hidden="true"></i></a>
+         </td>
+
        </tr>
 
     {% endfor %}
@@ -23,7 +50,7 @@
     
     {% else %}
 
-        <h3>No hay turnos registrados en el quirofano para el día {{ fecha|date('d/m/Y')}}<h3>
+        <h3>No hay turnos registrados en el quirofano para el día {{ fecha }}<h3>
     {% endif %}
 
       <table class="table table-striped">

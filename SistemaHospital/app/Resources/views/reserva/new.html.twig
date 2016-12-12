@@ -7,19 +7,24 @@
     <h3>Ver disponibilidad quirofano</h3>
 
      {{ form_start(form) }}
+
         <div class='col-sm-5'>
             <div class="col-md-3">{{ form_label(form.quirofano , "Quirofano:" ) }}</div>
             <div class="col-md-9">{{ form_row(form.quirofano) }}</div>
         </div>
-        <div class='col-sm-5'>
-            {{ form_row(form.fechaquirofano) }}
+
+       <div class='col-sm-5'>
+            <div class="col-md-3">{{ form_label(form.fechaquirofano , "Fecha:" ) }}</div>
+            <div class="col-md-9">{{ form_row(form.fechaquirofano) }}</div>
         </div>
-
-
     <div class="form-group">
+
         <button type="submit" class="btn btn-success col-md-2"> <i class="fa fa-check " aria-hidden="true"></i>
+
             Ver disponibilidad </button>
     </div>
+
+       <br><br>   <br><br>
     {{ form_end(form) }}
 
 
@@ -27,13 +32,22 @@
     <div class="row">
 
         <div class='col-sm-3 col-sm-offset-9' >
-            <a href="{{ path('paciente_agregarpaciente_reserva') }}" class="btn btn-primary"> agregar nuevo paciente</a>
+            <a href="{{ path('paciente_agregarpaciente_reserva') }}" class="btn btn-primary"> Nuevo paciente</a>
         </div>
 
           <div class='col-sm-6'>
         {{ form_row(form2.paciente) }}
         </div>
+    
+        <div class='col-sm-6'>
+
        
+        {{ form_row(form2.estado) }}
+
+   
+    
+        </div>
+
          <div class='col-sm-6'>
         {{ form_row(form2.numero_reserva) }}
         </div>
@@ -46,16 +60,14 @@
         <div class='col-sm-6'>
             {{ form_row(form2.fecha_fin) }}
         </div>
-      
-        <div class='col-sm-6'>
-            {{ form_row(form2.estado) }}
-        </div>
+    
         
         <div class='col-sm-6'>
             {{ form_row(form2.quirofano) }}
         </div>
         <div class='col-sm-6'>
             {{ form_row(form2.sangre) }}
+
         </div>
         <div class='col-sm-6'>
             {{ form_row(form2.asa) }}
@@ -81,6 +93,7 @@
         <div class='col-sm-6'>
             {{ form_row(form2.TiempoQuirurgico) }}
         </div>
+
     </div>
 
 

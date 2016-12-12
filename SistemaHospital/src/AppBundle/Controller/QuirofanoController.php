@@ -44,6 +44,14 @@ class QuirofanoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $formnew = $form->getData();
+            $datos = array('nombre' => $formnew->getNombre());
+
+            if($this->procesardatos($datos,'Admin/partials/quirofano/new.html.twig',$quirofano,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'Admin/partials/quirofano/new.html.twig',$quirofano,$form->createView(),false,false);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($quirofano);
             $em->flush($quirofano);
@@ -86,9 +94,17 @@ class QuirofanoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $form = $editForm->getData();
+            $datos = array('nombre' => $form->getNombre());
+
+            if($this->procesardatos($datos,'Admin/partials/quirofano/edit.html.twig',$quirofano,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'Admin/partials/quirofano/edit.html.twig',$quirofano,false,$editForm->createView(),$deleteForm->createView());
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_quirofano_edit', array('id' => $quirofano->getId()));
+            return $this->redirectToRoute('admin_quirofano_show', array('id' => $quirofano->getId()));
         }
 
         return $this->render('Admin/partials/quirofano/edit.html.twig', array(
@@ -133,6 +149,62 @@ class QuirofanoController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function procesardatos($datos,$view,$quirofano,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$quirofano,$create,$edit,$delete);
+            }
+        }
+        if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
+            $error = $this->existe($datos['nombre']);
+            return $this->renderizar($error,$view,$quirofano,$create,$edit,$delete);
+        }
+    }
+
+    private function renderizar($error,$view,$quirofano,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'quirofano' => $quirofano,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'quirofano' => $quirofano,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
+    private function existe($nombre){
+        $quirofano = $this->getDoctrine()->getRepository('AppBundle:Quirofano')->findOneBy(array(
+            'nombre'  => $nombre));
+        if ($quirofano) {
+            return "¡Alto! El nombre de quirófano ingresado ya existe.";
+        }
+        return "OK";
     }
 
 

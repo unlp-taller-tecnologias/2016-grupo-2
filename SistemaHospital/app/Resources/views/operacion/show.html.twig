@@ -11,6 +11,22 @@
                     <td>{{ operacion.id }}</td>
             </tr>
             {% endif %}
+             <tr>
+                    <th>Paciente</th>
+                    <td>{{ operacion.reserva.paciente.nombre }} {{ operacion.reserva.paciente.apellido }}</td>
+            </tr>
+             <tr>
+                    <th>Mutual</th>
+                    <td>{{ operacion.reserva.paciente.mutual }} </td>
+            </tr>
+             <tr>
+                    <th>Servicio</th>
+                    <td>{{ operacion.reserva.servicio.tipo }}</td>
+            </tr>
+            <tr>
+                    <th>Sangre</th>
+                    <td>{{ operacion.sangre.nombre }}</td>
+            </tr>
             <tr>
                 <th>Diagnóstico</th>
                 <td>{{ operacion.diagnostico }}</td>
@@ -25,7 +41,7 @@
             </tr>
             <tr>
                 <th>Internado</th>
-                <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
+                <td>{% if operacion.internado %}Si{% else %}No{% endif %}</td>
             </tr>
             <tr>
                 <th>Tq</th>

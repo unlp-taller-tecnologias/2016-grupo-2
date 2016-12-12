@@ -4,7 +4,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Anestesia;
-use AppBundle\Entity\Operacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,8 +22,25 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class AjaxController extends Controller
 {
 
+    /***
+     * @Route("/otroservicio" , name="ajax_servicioXRer")
+     * @Method("POST")
+     */
+    public function ajaxServiciosCantOpe(){
+
+//        $datos=array();
+//        $datos["fechaDesde"]=$_REQUEST["fechaDesde"];
+//        $datos["fechaHasta"]=$_REQUEST["fechaHasta"];
+
+
+       //respuesta= $this->procesarDatos($datos);
+
+        //return new Response($respuesta);
+        return new Response ("lala");
+    }
+
     /**     *
-     * @Route("/ejemplo" , name="ajax_ejemplo")
+     * @Route("/ejemplo" , name="ajax_RerservaXDia")
      * @Method("POST")
      */
     public function ajaxsimple(){
@@ -79,14 +95,15 @@ class AjaxController extends Controller
         $fecha2= new \DateTime($fecha2." 23:59:59");
 
         $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder();
-        $qb->select('o')
-              ->from('AppBundle:Operacion', 'o')
-              ->join('o.reserva', 'r')
+        $qb->select('r')
+              ->from('AppBundle:Reserva', 'r')
+              //->join('o.reserva', 'r')
                 ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
-                ->setParameter('firstDate', new \DateTime($fecha1))
-                ->setParameter('lastDate', new \DateTime($fecha2))
+                ->setParameter('firstDate',$fecha1)
+                ->setParameter('lastDate', $fecha2)
         ;
-        $listado = $qb->getQuery()->getResult();
+        //$listado = $qb->getQuery()->getResult();
+        $listado = $qb->getQuery()->execute();
         return $listado;
     }
 }

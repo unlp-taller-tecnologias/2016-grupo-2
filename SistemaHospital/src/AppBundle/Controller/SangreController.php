@@ -44,6 +44,14 @@ class SangreController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $formnew = $form->getData();
+            $datos = array('nombre' => $formnew->getNombre());
+
+            if($this->procesardatos($datos,'Admin/partials/sangre/new.html.twig',$sangre,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'Admin/partials/sangre/new.html.twig',$sangre,$form->createView(),false,false);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($sangre);
             $em->flush($sangre);
@@ -86,9 +94,17 @@ class SangreController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $form = $editForm->getData();
+            $datos = array('nombre' => $form->getNombre());
+
+            if($this->procesardatos($datos,'Admin/partials/sangre/edit.html.twig',$sangre,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'Admin/partials/sangre/edit.html.twig',$sangre,false,$editForm->createView(),$deleteForm->createView());
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('Admin_sangre_edit', array('id' => $sangre->getId()));
+            return $this->redirectToRoute('Admin_sangre_show', array('id' => $sangre->getId()));
         }
 
         return $this->render('Admin/partials/sangre/edit.html.twig', array(
@@ -132,5 +148,61 @@ class SangreController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function procesardatos($datos,$view,$sangre,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$sangre,$create,$edit,$delete);
+            }
+        }
+        if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
+            $error = $this->existe($datos['nombre']);
+            return $this->renderizar($error,$view,$sangre,$create,$edit,$delete);
+        }
+    }
+
+    private function renderizar($error,$view,$sangre,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'sangre' => $sangre,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'sangre' => $sangre,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
+    private function existe($nombre){
+        $sangre = $this->getDoctrine()->getRepository('AppBundle:Sangre')->findOneBy(array(
+            'nombre'  => $nombre));
+        if ($sangre) {
+            return "¡Alto! El nombre de sangre ingresado ya existe.";
+        }
+        return "OK";
     }
 }

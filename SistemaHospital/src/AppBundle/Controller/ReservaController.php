@@ -3,8 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Reserva;
-use AppBundle\Entity\Operacion;
 use AppBundle\Entity\Quirofano;
+use AppBundle\Entity\Operacion;
 use AppBundle\Entity\Sangre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -118,7 +118,9 @@ class ReservaController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()
+
             ->add('quirofano', 'entity', array(
                 'class' => 'AppBundle:Quirofano',
                 'property'     => 'getNombre',
@@ -128,7 +130,7 @@ class ReservaController extends Controller
                 ]
             ))
             ->add("fechaquirofano", "text",[
-                'label' => 'Fecha',
+                'label' => false,
                 "attr" => [
                     "class" => "form-control datetimepickerWithoutTime"
                 ]
@@ -137,6 +139,7 @@ class ReservaController extends Controller
 
         $form->handleRequest($request);
 
+      
         $form2 = $this->createForm('AppBundle\Form\NewReservaType');
 
         $form2->handleRequest($request);
@@ -147,8 +150,20 @@ class ReservaController extends Controller
 
             $quirofano = $datosQuirofano['quirofano'];
 
+
             $date =  $datosQuirofano['fechaquirofano'];
-           $turnosquirofano = $this->getTurnosQuirofano($quirofano->getId(), $date);
+
+             if(isset($datosQuirofano['fechaquirofano'])){
+                $datosQuirofano['fechaquirofano'] = str_replace('/', '-', $datosQuirofano['fechaquirofano']);
+                $fecha1= date('Y-m-d H:i:s', strtotime($datosQuirofano['fechaquirofano']));
+
+                $datosQuirofano['fechaquirofano'] = str_replace('/', '-', $datosQuirofano['fechaquirofano']);
+                $fecha2= date('Y-m-d 23:59:59', strtotime( $datosQuirofano['fechaquirofano']));
+
+                $reservasPen = $em->getRepository(Reserva::class)->findPendientes($fecha1,$fecha2);
+            }
+
+           $turnosquirofano = $this->getTurnosQuirofano($quirofano->getId(), $reservasPen);
 
             return $this->render('reserva/disponibilidad_quirofano.html.twig', array(
                 'quirofano' => $quirofano,
@@ -198,10 +213,11 @@ class ReservaController extends Controller
             return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId()));
         }
 
+
         return $this->render('reserva/new.html.twig', array(
             'form' => $form->createView(),
-            'form2' => $form2->createView()
-        ));
+            'form2' => $form2->createView()));
+
     }
 
 
@@ -221,33 +237,49 @@ class ReservaController extends Controller
         ));
     }
 
-    public function getTurnosQuirofano($quirofano, $fecha){
+    public function getTurnosQuirofano($quirofano, $reservas){
 
-
+      
         $em = $this->getDoctrine()->getManager();
+        $resultado = array();
 
-        $query_string = "
-          SELECT r
-          FROM AppBundle\Entity\Reserva r 
-          WHERE r.quirofano = :quirofano and r.fecha_inicio = :fecha
-          ORDER by r.fecha_inicio
-          ";
-        $query = $em->createQuery($query_string);
+        foreach ($reservas as $r) {
 
-        $query->setParameter('quirofano',$quirofano);
+            if ($r->getQuirofano()->getId() == $quirofano){
 
-        $query->setParameter('fecha',new \DateTime($fecha));
+                array_push($resultado, $r);
+            }
+        }
+        
+        
+        return $resultado;
+    }
 
-        return $query->getResult();
+    public function getEstados(){
+
+        $resultado = array();
+        $em = $this->getDoctrine()->getManager();
+        $estados = $em->getRepository(Estado::class)->findAll();
+
+        foreach ($estados as $e) {
+            if ($e->getBaja() == 0) {
+                array_push($resultado, $e);
+            }
+        }
+
+        return $resultado;
 
 
     }
+        
+
     /**
      * Displays a form to edit an existing reserva entity.
      *
      * @Route("/{id}/edit", name="reserva_edit")
      * @Method({"GET", "POST"})
      */
+
     public function editAction(Request $request, Reserva $reserva)
     {
         $deleteForm = $this->createDeleteForm($reserva);

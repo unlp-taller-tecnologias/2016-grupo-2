@@ -1,11 +1,7 @@
-{% extends 'Admin/layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block main %}
-    <h1>Nuevo Servicio</h1>
-
-    {% if error is defined %}
-        <div class="alert alert-danger">{{ error }}</div>
-    {% endif %}
+{% block body %}
+    <h1>Nuevo Paciente</h1>
 
     {{ form_start(form) }}
     <div class="form-group">
@@ -21,8 +17,8 @@
         <tbody>
         <tr>
             <td>
-                <a href="{{ path('admin_servicio_index') }}" class="btn btn-primary"> <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                    Volver al Listado </a>
+                <a href="{{ path('reserva_new') }}" class="btn btn-primary"> <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Volver a alta de reserva </a>
             </td>
         </tr>
         </tbody>
