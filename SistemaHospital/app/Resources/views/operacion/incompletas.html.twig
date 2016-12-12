@@ -11,29 +11,28 @@
 <br class="espacio">
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Listado de operaciones NO FINALIZADAS</h3>
+        <h3 class="panel-title">Listado de operaciones con datos incompletos</h3>
     </div>
     <div class="panel-body">
     <table id="datatableOpeNoFinalizada" class="table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
         <tr>
             <th>Paciente</th>
-            <th>Habitación</th>
+            
             <th>Fecha</th>
             <th>Estado</th>
             <th>Internado</th>
             <th>Ver</th>
-            <th>Editar</th>
-            <th>Finalizar</th>
+            <th>Completar datos</th>
 
         </tr>
         </thead>
         <tbody>
-        {% for operacion in opeSinFinalizar %}
+        {% for operacion in incompletas %}
             <tr>
-    
-               <td>{{ operacion.reserva.paciente.nombre }} {{ operacion.reserva.paciente.apellido }}</td> 
-                <td>{{ operacion.habitacion }}</td>
+
+                <td>{{ operacion.reserva.paciente.nombre }} {{ operacion.reserva.paciente.apellido }}</td>
+              
                 <td>{{ operacion.reserva.fechainicio|date('d/m/Y')  }}</td> 
                 <td>{{ operacion.reserva.estado.tipo }}</td>
                 <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
@@ -46,11 +45,7 @@
                     <a href="{{ path('operacion_edit', { 'id': operacion.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
-                <td>
-                    <a href="{{ path('operacion_finish', { 'id': operacion.id }) }}"><i class="fa fa-check" aria-hidden="true"></i>
-                    </a>
-                </td>
-
+             
             </tr>
         {% endfor %}
         </tbody>

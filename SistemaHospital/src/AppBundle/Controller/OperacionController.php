@@ -38,6 +38,25 @@ class OperacionController extends Controller
     /**
      * Lists all operacion entities.
      *
+     * @Route("/incompletas", name="operacion_incompletas")
+     * @Method({"GET","POST"})
+     */
+    public function indexIncompletas()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $incompletas = $em->getRepository(Operacion::class)->findIncompletas();
+   
+
+        return $this->render('operacion/incompletas.html.twig', array(
+            'incompletas' =>$incompletas,
+
+        ));
+    }
+
+    /**
+     * Lists all operacion entities.
+     *
      * @Route("/search",defaults={"page": 1}, name="operacion_search")
      * @Route("/search/page/{page}", requirements={"page": "[1-9]\d*"}, name="operacion_search_paginated")
      * @Method({"GET","POST"})
@@ -142,6 +161,10 @@ class OperacionController extends Controller
             $operacion->setSangre($datos["sangre"]);
             $operacion->setAsa($datos["asa"]);
             $operacion->setAnestesia($datos["Anestesia"]);
+
+            foreach ($datos["personal"] as $p) {
+                $operacion->addPersonal($p);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($operacion);
             $em->flush($operacion);
@@ -173,7 +196,6 @@ class OperacionController extends Controller
     }
 
 
-
     /**
      * Finds and displays a operacion entity.
      *
@@ -189,6 +211,31 @@ class OperacionController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+     /**
+     * Displays a form to edit an existing operacion entity.
+     *
+     * @Route("/{id}/finish", name="operacion_finish")
+     * @Method({"GET", "POST"})
+     */
+    public function finishAction(Request $request, Operacion $operacion)
+    {
+        
+   
+       $em = $this->getDoctrine()->getManager();
+       $finalizada = $em->getRepository('AppBundle:Estado')->findOneByTipo('FINALIZADA');
+       $operacion->getReserva()->setEstado($finalizada);
+       $em->persist($operacion);
+       $em->flush($operacion);
+
+       $deleteForm = $this->createDeleteForm($operacion);
+
+        return $this->render('operacion/show.html.twig', array(
+            'operacion' => $operacion,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
 
     /**
      * Displays a form to edit an existing operacion entity.

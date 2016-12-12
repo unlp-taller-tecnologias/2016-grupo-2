@@ -6,6 +6,7 @@ use AppBundle\Entity\Reserva;
 use AppBundle\Entity\Quirofano;
 use AppBundle\Entity\Operacion;
 use AppBundle\Entity\Sangre;
+use AppBundle\Entity\Estado;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Reserva controller.
@@ -119,9 +121,10 @@ class ReservaController extends Controller
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+         $states = $this->getEstados();
         $form = $this->createFormBuilder()
-
             ->add('quirofano', 'entity', array(
+                'class' => $states,
                 'class' => 'AppBundle:Quirofano',
                 'property'     => 'getNombre',
                 'label' => false,
@@ -135,6 +138,20 @@ class ReservaController extends Controller
                     "class" => "form-control datetimepickerWithoutTime"
                 ]
             ])
+            /*
+            ->add('states', 'entity', array(
+                'class' => 'AppBundle:Estado',
+                'property'     => 'getTipo',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
+                'label' => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            */
+            
             ->getForm();
 
         $form->handleRequest($request);
@@ -188,6 +205,15 @@ class ReservaController extends Controller
             $operacion->setSangre($datos["sangre"]);
             $operacion->setAsa($datos["asa"]);
             $operacion->setAnestesia($datos["Anestesia"]);
+
+
+
+            foreach ($datos["personal"] as $p) {
+               // ($p->getNombre());
+                //$operacion->addPersonal($p);
+            }
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($operacion);
             $em->flush($operacion);

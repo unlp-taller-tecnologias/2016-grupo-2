@@ -32,6 +32,12 @@ class OperacionType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
+        ->add("cirujia", "text",[
+                'label' => 'Cirugia',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
         ->add('internado', ChoiceType::class, array(
                 'choices'  => array(
                     1 => 'Si',

@@ -148,8 +148,25 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
           return  $qb ->select('o')
                 ->from('AppBundle:Operacion', 'o')
                 ->join('o.reserva', 'r')
-                ->where('r.estado = 4')
+                ->join('r.estado', 'e')
+                ->where('e.tipo = :pend')
+                ->orWhere('e.tipo = :esperando')
+                ->setParameter('pend', "PENDIENTE")
+                ->setParameter('esperando', "ESPERANDO CONFIRMACION")
                 ->getQuery()->execute()
               ;
+    }
+
+    public function findIncompletas(){
+         $qb = $this->getEntityManager()->createQueryBuilder();
+          return  $qb ->select('o')
+                ->from('AppBundle:Operacion', 'o')
+                ->join('o.reserva', 'r')
+                ->where('o.observaciones is NULL')
+                ->orWhere('o.habitacion is NULL')
+                ->orWhere('o.cirujia is NULL')
+                ->getQuery()->execute()
+              ;
+
     }
 }

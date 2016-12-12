@@ -53,6 +53,13 @@
                 <th>Estado</th>
                 <td>{{ reserva.estado.tipo }}</td>
             </tr>
+
+             <tr>
+                <th>Personal</th>
+                {% for personal in reserva.operacion.personal  %}
+                <td>{{ personal.nombre }} </td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
 
