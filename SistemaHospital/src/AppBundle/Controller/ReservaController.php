@@ -205,6 +205,15 @@ class ReservaController extends Controller
             $operacion->setSangre($datos["sangre"]);
             $operacion->setAsa($datos["asa"]);
             $operacion->setAnestesia($datos["Anestesia"]);
+
+
+
+            foreach ($datos["personal"] as $p) {
+               // ($p->getNombre());
+                //$operacion->addPersonal($p);
+            }
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($operacion);
             $em->flush($operacion);

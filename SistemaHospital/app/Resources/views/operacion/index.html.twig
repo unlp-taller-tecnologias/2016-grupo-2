@@ -20,7 +20,7 @@
             <th>Paciente</th>
             <th>Habitación</th>
             <th>Fecha</th>
-            <th>Observaciones</th>
+            <th>Estado</th>
             <th>Internado</th>
             <th>Ver</th>
             <th>Editar</th>
@@ -35,7 +35,7 @@
                <td>{{ operacion.reserva.paciente.nombre }} {{ operacion.reserva.paciente.apellido }}</td> 
                 <td>{{ operacion.habitacion }}</td>
                 <td>{{ operacion.reserva.fechainicio|date('d/m/Y')  }}</td> 
-                <td>{{ operacion.observaciones }}</td>
+                <td>{{ operacion.reserva.estado.tipo }}</td>
                 <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
       
                 <td>

@@ -71,6 +71,7 @@ class NewReservaType extends AbstractType
                     return $er->createQueryBuilder('u')->where('u.baja = 0');
                 },
                 'label' => 'Estado de la reserva',
+                "placeholder" =>"Elige el estado en el que se encuentra...",
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -170,6 +171,19 @@ class NewReservaType extends AbstractType
                 ),
                 "attr" => [
                     "class" => "form-control"
+                ]
+            ))
+             ->add('personal', 'entity', array(
+                'multiple' => true,   // Multiple selection allowed
+                'expanded' => false,   // Render as checkboxes
+                'class' => 'AppBundle:Personal',
+                'choice_label'  => function ($personal) {
+                    return (string)($personal->getNombre()." ".$personal->getApellido()." ".$personal->getDni());
+                },
+                "placeholder" =>"Elige uno o varios personales...",
+                'required' => false,
+                "attr" => [
+                    "class" => "chosen-select  form-control",
                 ]
             ));
     }

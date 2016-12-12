@@ -150,7 +150,9 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
                 ->join('o.reserva', 'r')
                 ->join('r.estado', 'e')
                 ->where('e.tipo = :pend')
+                ->orWhere('e.tipo = :esperando')
                 ->setParameter('pend', "PENDIENTE")
+                ->setParameter('esperando', "ESPERANDO CONFIRMACION")
                 ->getQuery()->execute()
               ;
     }

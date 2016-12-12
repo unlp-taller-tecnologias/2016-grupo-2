@@ -51,6 +51,12 @@
                 <th>Tq</th>
                 <td>{{ operacion.tq }} </td>
             </tr>
+             <tr>
+                <th>Personal</th>
+                {% for personal in operacion.personal  %}
+                <td>{{ personal.nombre }} </td>
+                {% endfor %}
+            </tr>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
             <tr>
                 <th>Baja</th>
