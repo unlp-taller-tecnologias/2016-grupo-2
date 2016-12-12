@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Estado;
+use Doctrine\ORM\EntityRepository;
 
 
 class NewReservaType extends AbstractType
@@ -44,6 +45,9 @@ class NewReservaType extends AbstractType
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Paciente',
                 'property'     => 'getDni',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
                 'choice_label'  => function ($paciente) {
                     return (string)($paciente->getNombre()." ".$paciente->getApellido()." ".$paciente->getDni());
                 },
@@ -63,6 +67,9 @@ class NewReservaType extends AbstractType
             ->add('estado', 'entity', array(
                 'class' => 'AppBundle:Estado',
                 'property'     => 'getTipo',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
                 'label' => 'Estado de la reserva',
                 "attr" => [
                     "class" => "form-control"
@@ -73,6 +80,9 @@ class NewReservaType extends AbstractType
                 'class' => 'AppBundle:Servicio',
                 'property'     => 'getTipo',
                 'label' => 'Servicio',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -97,6 +107,9 @@ class NewReservaType extends AbstractType
                 'class' => 'AppBundle:Asa',
                 'property'     => 'getGrado',
                 'label' => 'Asa',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -104,6 +117,9 @@ class NewReservaType extends AbstractType
             ->add('Anestesia', 'entity', array(
                 'class' => 'AppBundle:Anestesia',
                 'property'     => 'getTipo',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
                 'label' => 'Anestesia',
                 "attr" => [
                     "class" => "form-control"
@@ -117,18 +133,21 @@ class NewReservaType extends AbstractType
             ])
             ->add("habitacion", "text",[
                 'label' => 'Habitacion',
+                'required' =>false,
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("observaciones", "text",[
                 'label' => 'Observaciones',
+                'required' =>false,
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("cirugia", "text",[
                 'label' => 'Cirugia',
+                'required' =>false,
                 "attr" => [
                     "class" => "form-control"
                 ]

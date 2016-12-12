@@ -63,6 +63,9 @@ class PersonalType extends AbstractType
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Servicio',
                 'property'     => 'getTipo',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
                 "attr" => [
                     "class" => "chosen-select form-control"
                 ]
@@ -80,6 +83,9 @@ class PersonalType extends AbstractType
                 'empty_value' => '',
                 'class'=>"AppBundle:Rol",
                 'choice_label' => 'getNombre',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
                 "attr" => [
                     "class" => "chosen-select-rol form-control"
                 ]
