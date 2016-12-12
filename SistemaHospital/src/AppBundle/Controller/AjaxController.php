@@ -4,6 +4,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Anestesia;
+use AppBundle\Entity\Operacion;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -31,6 +32,8 @@ class AjaxController extends Controller
         $datos=array();
         $datos["fechaDesde"]=$_REQUEST["fechaDesde"];
         $datos["fechaHasta"]=$_REQUEST["fechaHasta"];
+
+
         $respuesta= $this->procesarDatos($datos);
 
         return new Response($respuesta);
@@ -50,7 +53,7 @@ class AjaxController extends Controller
             for ($i = 0; $i < $dias; $i++)
             {
                 //LISTA DE COMPRAS Y VENTAS EN UNA FECHA --> no va a la base de datos
-                $listaOpeXDia= $this->listarEntreFechas('AppBundle:Operacion',$auxFecha,$auxFecha);
+                $listaOpeXDia= $this->listarOpeEntreFechas($auxFecha,$auxFecha);
                 //AUMENTAR UN DIA!!!
                 $auxFecha = new \DateTime($auxFecha);
                 $auxFecha->modify('+1 day');
@@ -68,7 +71,7 @@ class AjaxController extends Controller
     }
 
 
-    public function listarEntreFechas($model, $fecha1, $fecha2)
+    public function listarOpeEntreFechas( $fecha1, $fecha2)
     {
 
         $listado=null;
@@ -76,12 +79,12 @@ class AjaxController extends Controller
         $fecha2= new \DateTime($fecha2." 23:59:59");
 
         $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder();
-        $qb
-            ->select('c')
-            ->from($model, 'c')
-            ->where('c.fecha BETWEEN :firstDate AND :lastDate')
-            ->setParameter('firstDate', $fecha1)
-            ->setParameter('lastDate',  $fecha2)
+        $qb->select('o')
+              ->from('AppBundle:Operacion', 'o')
+              ->join('o.reserva', 'r')
+                ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
+                ->setParameter('firstDate', new \DateTime($fecha1))
+                ->setParameter('lastDate', new \DateTime($fecha2))
         ;
         $listado = $qb->getQuery()->getResult();
         return $listado;
