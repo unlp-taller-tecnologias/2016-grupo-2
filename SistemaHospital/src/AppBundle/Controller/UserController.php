@@ -56,11 +56,11 @@ class UserController extends Controller
             $user->setPersonal($personal);
 
             $formnew = $form->getData();
-            $datos = array('username' => $form->getUsername(), 'mail' => $form->getEmail(), 'pass1' => $form->getPlainPassword('first'),
-                'pass2' => $form->getPlainPassword('second'));
+            $datos = array('username' => $formnew->getUsername(), 'mail' => $formnew->getEmail(), 'pass1' => $formnew->getPlainPassword('first'),
+                'pass2' => $formnew->getPlainPassword('second'));
 
-            if($this->procesardatos($datos,'Admin/partials/user/new.html.twig',$estado,$form->createView(),false,false)){
-                return $this->procesardatos($datos,'Admin/partials/user/new.html.twig',$estado,$form->createView(),false,false);
+            if($this->procesardatos($datos,'Admin/partials/user/new.html.twig',$user,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'Admin/partials/user/new.html.twig',$user,$form->createView(),false,false);
             }
 
             $em->persist($user);
