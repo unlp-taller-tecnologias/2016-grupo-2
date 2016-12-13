@@ -48,11 +48,11 @@ class PacienteController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $formnew = $form->getData();
-            $datos = array('nombre' => $form->getNombre(), 'apellido' => $form->getApellido(), 'dni' => $form->getDni(),
-                'edad' => $form->getEdad(), 'genero' => $form->getGenero());
+            $datos = array('nombre' => $formnew->getNombre(), 'apellido' => $formnew->getApellido(), 'dni' => $formnew->getDni(),
+                'edad' => $formnew->getEdad(), 'genero' => $formnew->getGenero());
 
-            if($this->procesardatos($datos,'Admin/partials/paciente/new.html.twig',$paciente,$form->createView(),false,false)){
-                return $this->procesardatos($datos,'Admin/partials/paciente/new.html.twig',$paciente,$form->createView(),false,false);
+            if($this->procesardatos($datos,'paciente/new.html.twig',$paciente,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'paciente/new.html.twig',$paciente,$form->createView(),false,false);
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -85,11 +85,11 @@ class PacienteController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formnew = $form->getData();
-            $datos = array('nombre' => $form->getNombre(), 'apellido' => $form->getApellido(), 'dni' => $form->getDni(),
-                'edad' => $form->getEdad(), 'genero' => $form->getGenero());
+            $datos = array('nombre' => $formnew->getNombre(), 'apellido' => $formnew->getApellido(), 'dni' => $formnew->getDni(),
+                'edad' => $formnew->getEdad(), 'genero' => $formnew->getGenero());
 
-            if($this->procesardatos($datos,'Admin/partials/paciente/newInReserva.html.twig',$paciente,$form->createView(),false,false)){
-                return $this->procesardatos($datos,'Admin/partials/paciente/newInReserva.html.twig',$paciente,$form->createView(),false,false);
+            if($this->procesardatos($datos,'paciente/newInReserva.html.twig',$paciente,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'paciente/newInReserva.html.twig',$paciente,$form->createView(),false,false);
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($paciente);
@@ -121,11 +121,11 @@ class PacienteController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formnew = $form->getData();
-            $datos = array('nombre' => $form->getNombre(), 'apellido' => $form->getApellido(), 'dni' => $form->getDni(),
-                'edad' => $form->getEdad(), 'genero' => $form->getGenero());
+            $datos = array('nombre' => $formnew->getNombre(), 'apellido' => $formnew->getApellido(), 'dni' => $formnew->getDni(),
+                'edad' => $formnew->getEdad(), 'genero' => $formnew->getGenero());
 
-            if($this->procesardatos($datos,'Admin/partials/paciente/newInOperacion.html.twig',$paciente,$form->createView(),false,false)){
-                return $this->procesardatos($datos,'Admin/partials/paciente/newInOperacion.html.twig',$paciente,$form->createView(),false,false);
+            if($this->procesardatos($datos,'paciente/newInOperacion.html.twig',$paciente,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'paciente/newInOperacion.html.twig',$paciente,$form->createView(),false,false);
             }
             $em = $this->getDoctrine()->getManager();
             $em->persist($paciente);
@@ -176,8 +176,8 @@ class PacienteController extends Controller
             $datos = array('nombre' => $form->getNombre(), 'apellido' => $form->getApellido(), 'dni' => $form->getDni(),
                 'edad' => $form->getEdad(), 'genero' => $form->getGenero());
 
-            if($this->procesardatos($datos,'Admin/partials/paciente/edit.html.twig',$paciente,false,$editForm->createView(),$deleteForm->createView())){
-                return $this->procesardatos($datos,'Admin/partials/paciente/edit.html.twig',$paciente,false,$editForm->createView(),$deleteForm->createView());
+            if($this->procesardatos($datos,'paciente/edit.html.twig',$paciente,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'paciente/edit.html.twig',$paciente,false,$editForm->createView(),$deleteForm->createView());
             }
 
             $this->getDoctrine()->getManager()->flush();
