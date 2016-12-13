@@ -6,10 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AjaxController.php" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ed80508-c5bd-40d3-b7ad-f729ad8086dc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php" />
-    </list>
+    <list default="true" id="6ed80508-c5bd-40d3-b7ad-f729ad8086dc" name="Default" comment="" />
     <ignored path="taller.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -42,8 +39,8 @@
       <file leaf-file-name="PersonalType.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-614">
-              <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+            <state relative-caret-position="340">
+              <caret line="82" column="29" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
               <folding>
                 <element signature="e#34#94#0#PHP" expanded="true" />
               </folding>
@@ -677,12 +674,12 @@
       <workItem from="1481294989618" duration="2782000" />
       <workItem from="1481370760205" duration="1131000" />
       <workItem from="1481569626637" duration="10719000" />
-      <workItem from="1481663543647" duration="4084000" />
+      <workItem from="1481663543647" duration="4130000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206901000" />
+    <option name="totallyTimeSpent" value="206947000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
@@ -1128,8 +1125,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-614">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+        <state relative-caret-position="340">
+          <caret line="82" column="29" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
           <folding>
             <element signature="e#34#94#0#PHP" expanded="true" />
           </folding>
