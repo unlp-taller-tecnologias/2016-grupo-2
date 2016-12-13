@@ -19,7 +19,7 @@ class ReservaType extends AbstractType
     {
         $builder
             ->add("numero_reserva", "number",[
-                'label' => 'Numero reserva',
+                'label' => 'Número reserva',
                 "attr" => [
                     "class" => "form-control"
                 ]
