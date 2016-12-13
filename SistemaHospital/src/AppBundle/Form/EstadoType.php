@@ -16,13 +16,13 @@ class EstadoType extends AbstractType
     {
         $builder
             ->add("tipo", "text",[
-                'label' => 'Nombre del Estado de Reserva',
+                'label' => 'Nombre del Estado de Reserva *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("descripcion", "text",[
-                'label' => 'Descripción',
+                'label' => 'Descripción *',
                 "attr" => [
                     "class" => "form-control"
                 ]
