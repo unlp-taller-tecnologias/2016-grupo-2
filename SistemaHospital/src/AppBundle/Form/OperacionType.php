@@ -15,13 +15,13 @@ class OperacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add("diagnostico", "text",[
-                'label' => 'Diagnostico',
+                'label' => 'Diagnóstico',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
        ->add("habitacion", "text",[
-                'label' => 'Habitacion',
+                'label' => 'Habitación',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -33,7 +33,7 @@ class OperacionType extends AbstractType
                 ]
             ])
         ->add("cirujia", "text",[
-                'label' => 'Cirugia',
+                'label' => 'Cirugía',
                 "attr" => [
                     "class" => "form-control"
                 ]
