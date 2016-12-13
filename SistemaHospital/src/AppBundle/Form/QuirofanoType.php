@@ -15,7 +15,7 @@ class QuirofanoType extends AbstractType
     {
         $builder
             ->add("nombre", "text",[
-                'label' => 'Nombre',
+                'label' => 'Nombre *',
                 "attr" => [
                     "class" => "form-control"
                 ]
