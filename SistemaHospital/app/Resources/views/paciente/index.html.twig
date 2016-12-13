@@ -9,17 +9,17 @@
     <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
+                <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Mutual</th>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <th>Baja</th>
                 {% endif %}
-                <th>Nombre</th>
-                <th>Apellido</th>
+            
+
                 <th>G&eacute;nero</th>
                 <th>Dni</th>
+                <th>Fecha de nacimiento</th>
                 <th>Edad</th>
                 <th>Ver</th>
                 <th>Editar</th>
@@ -28,18 +28,18 @@
         <tbody>
         {% for paciente in pacientes %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('paciente_show', { 'id': paciente.id }) }}">{{ paciente.id }}</a></td>
-                {% endif %}
-                <td>{{ paciente.mutual }}</td>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td>{% if paciente.baja %}Yes{% else %}No{% endif %}</td>
-                {% endif %}
                 <td>{{ paciente.nombre }}</td>
                 <td>{{ paciente.apellido }}</td>
+                <td>{{ paciente.mutual }}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td>{% if paciente.baja %}Si{% else %}No{% endif %}</td>
+                {% endif %}
+            
                 <td>{{ paciente.genero }}</td>
                 <td>{{ paciente.dni }}</td>
-                <td>{{ paciente.edad }}</td>
+                <td>{{ paciente.edad|date('d / m / Y') }}</td>
+                 <td>{{ paciente.edadpersona }}</td>
+
                 <td>
                             <a href="{{ path('paciente_show', { 'id': paciente.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                             </a>

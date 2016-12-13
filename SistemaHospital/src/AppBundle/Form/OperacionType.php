@@ -15,13 +15,13 @@ class OperacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add("diagnostico", "text",[
-                'label' => 'Diagnostico',
+                'label' => 'Diagnóstico',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
        ->add("habitacion", "text",[
-                'label' => 'Habitacion',
+                'label' => 'Habitación',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -33,7 +33,7 @@ class OperacionType extends AbstractType
                 ]
             ])
         ->add("cirujia", "text",[
-                'label' => 'Cirugia',
+                'label' => 'Cirugía',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -48,6 +48,7 @@ class OperacionType extends AbstractType
                 ]
             ))
         ->add('tq', ChoiceType::class, array(
+                'label' => 'Tiempo Quirúrgico',
                 'choices'  => array(
                     "Corto" => 'Corto',
                     "Medio" => 'Medio',
@@ -80,7 +81,7 @@ class OperacionType extends AbstractType
         ->add('asa', 'entity', array(
                 'class' => 'AppBundle:Asa',
                 'property'     => 'getGrado',
-                'label' => 'Asa',
+                'label' => 'ASA',
                 "attr" => [
                     "class" => "form-control"
                 ]

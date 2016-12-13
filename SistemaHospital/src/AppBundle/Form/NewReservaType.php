@@ -23,19 +23,19 @@ class NewReservaType extends AbstractType
 
         $builder
             ->add("numero_reserva", "number",[
-                'label' => 'Numero reserva',
+                'label' => 'Número Reserva *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("fecha_inicio", "text",[
-                'label' => 'Fecha y Hora de Inicio',
+                'label' => 'Fecha y Hora de Inicio *',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
             ])
             ->add("fecha_fin", "text",[
-                'label' => 'Fecha y Hora de Finalización',
+                'label' => 'Fecha y Hora de Finalización *',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
@@ -45,13 +45,14 @@ class NewReservaType extends AbstractType
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Paciente',
                 'property'     => 'getDni',
+                 'label' => 'Paciente *',
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('u')->where('u.baja = 0');
                 },
                 'choice_label'  => function ($paciente) {
                     return (string)($paciente->getNombre()." ".$paciente->getApellido()." ".$paciente->getDni());
                 },
-                "placeholder" =>"Elige un Paciente...",
+                "placeholder" =>"Elige un Paciente *",
                 'required' => false,
                 "attr" => [
                     "class" => "chosen-select  form-control",
@@ -70,7 +71,7 @@ class NewReservaType extends AbstractType
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('u')->where('u.baja = 0');
                 },
-                'label' => 'Estado de la reserva',
+                'label' => 'Estado de la reserva *',
                 "placeholder" =>"Elige el estado en el que se encuentra...",
                 "attr" => [
                     "class" => "form-control"
@@ -80,7 +81,7 @@ class NewReservaType extends AbstractType
             ->add('servicio', 'entity', array(
                 'class' => 'AppBundle:Servicio',
                 'property'     => 'getTipo',
-                'label' => 'Servicio',
+                'label' => 'Servicio *',
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('u')->where('u.baja = 0');
                 },
@@ -91,7 +92,7 @@ class NewReservaType extends AbstractType
             ->add('quirofano', 'entity', array(
                 'class' => 'AppBundle:Quirofano',
                 'property'     => 'getNombre',
-                'label' => 'Quirófano',
+                'label' => 'Quirófano *',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -99,7 +100,7 @@ class NewReservaType extends AbstractType
             ->add('sangre', 'entity', array(
                 'class' => 'AppBundle:Sangre',
                 'property'     => 'getNombre',
-                'label' => 'Sangre',
+                'label' => 'Sangre *',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -107,7 +108,7 @@ class NewReservaType extends AbstractType
             ->add('asa', 'entity', array(
                 'class' => 'AppBundle:Asa',
                 'property'     => 'getGrado',
-                'label' => 'Asa',
+                'label' => 'ASA *',
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('u')->where('u.baja = 0');
                 },
@@ -121,19 +122,19 @@ class NewReservaType extends AbstractType
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('u')->where('u.baja = 0');
                 },
-                'label' => 'Anestesia',
+                'label' => 'Anestesia *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ))
             ->add("diagnostico", "text",[
-                'label' => 'Diagnostico',
+                'label' => 'Diagnóstico *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("habitacion", "text",[
-                'label' => 'Habitacion',
+                'label' => 'Habitación',
                 'required' =>false,
                 "attr" => [
                     "class" => "form-control"
@@ -147,7 +148,7 @@ class NewReservaType extends AbstractType
                 ]
             ])
             ->add("cirugia", "text",[
-                'label' => 'Cirugia',
+                'label' => 'Cirugía',
                 'required' =>false,
                 "attr" => [
                     "class" => "form-control"
@@ -158,6 +159,7 @@ class NewReservaType extends AbstractType
                     1 => 'Si',
                     0 => 'No',
                 ),
+                'label' => 'Internado *',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -169,6 +171,7 @@ class NewReservaType extends AbstractType
                     "Largo" => 'Largo',
                     "Muy Largo" => 'Muy Largo',
                 ),
+                 'label' => 'Tiempo Quirurgico * ',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -180,7 +183,8 @@ class NewReservaType extends AbstractType
                 'choice_label'  => function ($personal) {
                     return (string)($personal->getNombre()." ".$personal->getApellido()." ".$personal->getDni());
                 },
-                "placeholder" =>"Elige uno o varios personales...",
+                "placeholder" =>"Seleccione uno o más... ",
+                 'label' => 'Personal *',
                 'required' => false,
                 "attr" => [
                     "class" => "chosen-select  form-control",

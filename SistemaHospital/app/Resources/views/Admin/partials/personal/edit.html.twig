@@ -11,7 +11,9 @@
     <div class="form-group">
         {{ form_widget(edit_form) }}
     </div>
+    <div class="alert alert-info">Los campos con * son obligatorios.</div>
     <div class="form-group">
+        <input type="hidden" name="actual" value="{{ edit_form.vars.value.dni }}"/>
         <button type="submit" class="btn btn-success col-sm-offset-10"> <i class="fa fa-check" aria-hidden="true"></i>
             Confirmar </button>
     </div>

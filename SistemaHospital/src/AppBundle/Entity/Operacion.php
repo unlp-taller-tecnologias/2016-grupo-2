@@ -208,7 +208,7 @@ class Operacion
      */
     public function getCirujia()
     {
-        return $this->diagnostico;
+        return $this->cirujia;
     }
 
     /**

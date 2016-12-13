@@ -29,7 +29,7 @@ class Persona
     /** @ORM\Column(type="integer", unique=true) **/
     protected $dni;
 
-    /** @ORM\Column(type="integer") **/
+    /** @ORM\Column(type="date") **/
     protected $edad;
 
 
@@ -127,7 +127,7 @@ class Persona
     /**
      * Set edad
      *
-     * @param integer $edad
+     * @param date $edad
      * @return Persona
      */
     public function setEdad($edad)
@@ -139,7 +139,7 @@ class Persona
     /**
      * Get edad
      *
-     * @return integer
+     * @return date
      */
     public function getEdad()
     {
@@ -157,6 +157,26 @@ class Persona
         $apellido = $this -> getApellido();
         return $nombre." ".$apellido;
     }
+
+    /**
+     * Get edadpersona
+     *
+     * @return integer
+     */
+    public function getEdadPersona()
+    {
+         $fechanac = $this->getEdad()->format('Y-m-d H:i:s');; //getEdad en realidad es el date que indica la fecha nacimiento 
+
+        $fechaactual = (new \DateTime())->format('Y-m-d H:i:s');
+
+        $edad = (strtotime($fechaactual)-strtotime($fechanac))/(365.25*60*60*24);
+        $edad = abs($edad); $edad = floor($edad);
+
+        
+        return $edad;
+        
+    }
+
 
 
 

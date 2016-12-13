@@ -56,7 +56,7 @@ class QuirofanoController extends Controller
             $em->persist($quirofano);
             $em->flush($quirofano);
 
-            return $this->redirectToRoute('admin_quirofano_show', array('id' => $quirofano->getId()));
+            return $this->redirectToRoute('admin_quirofano_show', array('id' => $quirofano->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/quirofano/new.html.twig', array(
@@ -104,7 +104,7 @@ class QuirofanoController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_quirofano_show', array('id' => $quirofano->getId()));
+            return $this->redirectToRoute('admin_quirofano_show', array('id' => $quirofano->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/quirofano/edit.html.twig', array(
@@ -158,9 +158,16 @@ class QuirofanoController extends Controller
                 return $this->renderizar($error,$view,$quirofano,$create,$edit,$delete);
             }
         }
-        if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
-            $error = $this->existe($datos['nombre']);
-            return $this->renderizar($error,$view,$quirofano,$create,$edit,$delete);
+        if($create != false){
+            if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
+                $error = $this->existe($datos['nombre']);
+                return $this->renderizar($error,$view,$quirofano,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['nombre']),"OK") == 0){
+                $error = $this->existeModificar($datos['nombre']);
+                return $this->renderizar($error,$view,$quirofano,$create,$edit,$delete);
+            }
         }
     }
 
@@ -205,6 +212,13 @@ class QuirofanoController extends Controller
             return "¡Alto! El nombre de quirófano ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeModificar($nombre){
+        if(strcmp($_POST['actual'],$nombre) == 0){
+            return "OK";
+        }
+        return $this->existe($nombre);
     }
 
 

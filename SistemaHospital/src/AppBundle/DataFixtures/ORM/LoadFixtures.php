@@ -29,6 +29,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+
 /**
  * Defines the sample data to load in the database when running the unit and
  * functional tests. Execute this command to load the data:
@@ -378,6 +379,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
     {
         $min=10000000;
         $max=99999999;
+        $fecha=new \DateTime('02/31/1990');
         $personal= array();
         foreach (range(1, self::PERSONALCANT) as $i) {
             $personal[$i] = new Personal();
@@ -386,7 +388,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
             $personal[$i]->setApellido($this->getRandomApellido());
             $personal[$i]->setBaja(0);
             $personal[$i]->setDni(rand ( $min , $max ));
-            $personal[$i]->setEdad(rand ( 15 , 85 ));
+            $personal[$i]->setEdad($fecha);
             $personal[$i]->setRol($this->getReference("rol-$randRol"));
             $randServ=array(1,2,3,4,5,6,7,8,9,10,11,12,13);
             foreach (range(1, 4) as $j) {
@@ -412,6 +414,9 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
     {
         $min=10000000;
         $max=99999999;
+      
+
+        $fecha=new \DateTime('02/31/1990');
         $paciente= array();
         $mutual=["OSECAC","IOMA","IPROSS","UPCN","AMEP","MAPEDUC","OSPE","AMTE"];
         foreach (range(1, self::PACIENTESCANT) as $i) {
@@ -420,7 +425,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
             $paciente[$i]->setApellido($this->getRandomApellido());
             $paciente[$i]->setBaja(0);
             $paciente[$i]->setDni(rand ( $min , $max ));
-            $paciente[$i]->setEdad(rand ( 15 , 85 ));
+            $paciente[$i]->setEdad($fecha);
             $paciente[$i]->setMutual($mutual[array_rand($mutual)]);
             $paciente[$i]->setGenero("Masculino");
             $manager->persist($paciente[$i]);
@@ -453,7 +458,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
             $operaciones[$i]=new Operacion();
 
             //RESERVAS
-            $reservas[$i]->setNumeroReserva((string)$value);
+            //$reservas[$i]->setNumeroReserva((string)$value);
 
             //VER COMO HACER EL RANDON DE FECHAS
             //$reservas[$i]->setFechaInicio($this->randomDate(20150101000000,20161123115959));

@@ -3,6 +3,12 @@
 {% block body %}
     <h1>Reserva</h1>
 
+    {% if app.request.query.get("exito") == "new" %}
+        <div class="alert alert-success">Se ha creado exitósamente la nueva Reserva.</div>
+    {% else %}
+        <div class="alert alert-success">Se ha modificado exitósamente la Reserva.</div>
+    {% endif %}
+
     <table class="table table-striped table-hover">
         <tbody>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -11,14 +17,11 @@
                     <td>{{ reserva.id }}</td>
                 </tr>
             {% endif %}
-            <tr>
-                <th>Nº Reserva</th>
-                <td>{{ reserva.numeroReserva }}</td>
-            </tr>
+            
             {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <tr>
                     <th>Baja</th>
-                    <td>{% if reserva.baja %}Yes{% else %}No{% endif %}</td>
+                    <td>{% if reserva.baja %}Si{% else %}No{% endif %}</td>
                 </tr>
             {% endif %}
             <tr>
@@ -37,10 +40,7 @@
                 <th>Quirófano</th>
                 <td>{{ reserva.quirofano.nombre }}</td>
             </tr>
-            <tr>
-                <th>Nº Reserva</th>
-                <td>{{ reserva.numeroReserva }}</td>
-            </tr>
+           
             <tr>
                 <th>Fecha y Hora Inicio</th>
                 <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('d/m/Y H:i:s') }}{% endif %}</td>
@@ -52,13 +52,6 @@
              <tr>
                 <th>Estado</th>
                 <td>{{ reserva.estado.tipo }}</td>
-            </tr>
-
-             <tr>
-                <th>Personal</th>
-                {% for personal in reserva.operacion.personal  %}
-                <td>{{ personal.nombre }} </td>
-                {% endfor %}
             </tr>
         </tbody>
     </table>
@@ -85,3 +78,4 @@
         </tbody>
     </table>
 {% endblock %}
+

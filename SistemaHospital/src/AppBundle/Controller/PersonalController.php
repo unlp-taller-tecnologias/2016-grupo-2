@@ -79,7 +79,7 @@ class PersonalController extends Controller
             $em->persist($personal);
             $em->flush($personal);
 
-            return $this->redirectToRoute('personal_show', array('id' => $personal->getId()));
+            return $this->redirectToRoute('personal_show', array('id' => $personal->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/personal/new.html.twig', array(
@@ -129,7 +129,7 @@ class PersonalController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('personal_edit', array('id' => $personal->getId()));
+            return $this->redirectToRoute('personal_edit', array('id' => $personal->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/personal/edit.html.twig', array(
@@ -182,9 +182,16 @@ class PersonalController extends Controller
                 return $this->renderizar($error,$view,$personal,$create,$edit,$delete);
             }
         }
-        if (!strcmp($this->existe($datos['DNI']),"OK") == 0){
-            $error = $this->existe($datos['DNI']);
-            return $this->renderizar($error,$view,$personal,$create,$edit,$delete);
+        if($create != false){
+            if (!strcmp($this->existe($datos['dni']),"OK") == 0){
+                $error = $this->existe($datos['dni']);
+                return $this->renderizar($error,$view,$personal,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['dni']),"OK") == 0){
+                $error = $this->existeModificar($datos['dni']);
+                return $this->renderizar($error,$view,$personal,$create,$edit,$delete);
+            }
         }
     }
 
@@ -237,5 +244,12 @@ class PersonalController extends Controller
             return "¡Alto! Ya existe un personal asociado al DNI ingresado.";
         }
         return "OK";
+    }
+
+    private function existeModificar($dni){
+        if(($_POST['actual'] - $dni) == 0){
+            return "OK";
+        }
+        return $this->existe($dni);
     }
 }

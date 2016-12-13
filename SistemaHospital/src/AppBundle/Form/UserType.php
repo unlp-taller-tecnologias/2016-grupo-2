@@ -24,13 +24,13 @@ class UserType extends AbstractType
     {
         $builder
             ->add("username", "text",[
-            'label' => 'Nombre de Usuario',
+            'label' => 'Nombre de Usuario *',
             "attr" => [
                 "class" => "form-control"
             ]
             ])
             ->add("email", "email",[
-                'label' => 'E-Mail',
+                'label' => 'E-Mail *',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -40,12 +40,12 @@ class UserType extends AbstractType
                 "invalid_message" => "Las contraseñas no coinciden.",
                 "required" => true,
                 "first_options" => [
-                    "label" => 'Contraseña',
+                    "label" => 'Contraseña *',
                     "attr" => [
                         "class" => "form-control"
                     ]],
                 "second_options" => [
-                    "label" => 'Confirmar Contraseña',
+                    "label" => 'Confirmar Contraseña *',
                     "attr" => [
                         "class" => "form-control"
                     ]]

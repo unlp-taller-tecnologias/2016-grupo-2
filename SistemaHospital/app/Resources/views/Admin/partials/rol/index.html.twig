@@ -10,9 +10,7 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
+                
                 <th>Nombre</th>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <th>Baja</th>
@@ -24,9 +22,7 @@
         <tbody>
         {% for rol in rols %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('admin_rol_show', { 'id': rol.id }) }}">{{ rol.id }}</a></td>
-                {% endif %}
+        
                 <td>{{ rol.nombre }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                 <td>{% if rol.baja %}Yes{% else %}No{% endif %}</td>

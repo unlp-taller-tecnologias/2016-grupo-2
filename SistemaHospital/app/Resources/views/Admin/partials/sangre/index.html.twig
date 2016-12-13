@@ -9,9 +9,7 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
+               
                 <th>Nombre</th>
                 <th>Ver</th>
                 <th>Editar</th>
@@ -21,9 +19,7 @@
         <tbody>
         {% for sangre in sangres %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('Admin_sangre_show', { 'id': sangre.id }) }}">{{ sangre.id }}</a></td>
-                {% endif %}
+              
                 <td>{{ sangre.nombre }}</td>
                 <td>
                     <a href="{{ path('Admin_sangre_show', { 'id': sangre.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
