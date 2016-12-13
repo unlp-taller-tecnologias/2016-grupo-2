@@ -48,6 +48,7 @@ class OperacionType extends AbstractType
                 ]
             ))
         ->add('tq', ChoiceType::class, array(
+                'label' => 'Tiempo Quirúrgico',
                 'choices'  => array(
                     "Corto" => 'Corto',
                     "Medio" => 'Medio',
@@ -80,7 +81,7 @@ class OperacionType extends AbstractType
         ->add('asa', 'entity', array(
                 'class' => 'AppBundle:Asa',
                 'property'     => 'getGrado',
-                'label' => 'Asa',
+                'label' => 'ASA',
                 "attr" => [
                     "class" => "form-control"
                 ]
