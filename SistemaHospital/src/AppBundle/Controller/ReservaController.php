@@ -209,8 +209,8 @@ class ReservaController extends Controller
 
 
             foreach ($datos["personal"] as $p) {
-               // ($p->getNombre());
-                //$operacion->addPersonal($p);
+              
+                $operacion->addPersonal($p);
             }
 
 
@@ -315,7 +315,7 @@ class ReservaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('reserva_edit', array('id' => $reserva->getId()));
+            return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId()));
         }
 
         return $this->render('reserva/edit.html.twig', array(

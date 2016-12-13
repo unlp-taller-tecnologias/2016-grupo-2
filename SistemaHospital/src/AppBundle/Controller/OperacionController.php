@@ -165,6 +165,7 @@ class OperacionController extends Controller
             foreach ($datos["personal"] as $p) {
                 $operacion->addPersonal($p);
             }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($operacion);
             $em->flush($operacion);
@@ -252,7 +253,7 @@ class OperacionController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('operacion_edit', array('id' => $operacion->getId()));
+            return $this->redirectToRoute('operacion_show', array('id' => $operacion->getId()));
         }
 
         return $this->render('operacion/edit.html.twig', array(

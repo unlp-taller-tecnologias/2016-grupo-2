@@ -150,7 +150,7 @@ class PacienteController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('paciente_edit', array('id' => $paciente->getId()));
+            return $this->redirectToRoute('paciente_show', array('id' => $paciente->getId()));
         }
 
         return $this->render('paciente/edit.html.twig', array(
