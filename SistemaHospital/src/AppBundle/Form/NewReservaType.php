@@ -22,12 +22,6 @@ class NewReservaType extends AbstractType
     {
 
         $builder
-            ->add("numero_reserva", "number",[
-                'label' => 'Número Reserva *',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
             ->add("fecha_inicio", "text",[
                 'label' => 'Fecha y Hora de Inicio *',
                 "attr" => [

@@ -82,11 +82,11 @@
         });
 
 
-        $("#graffechaHasta").on("dp.change", function (e) {
-            $('#graffechaDesde').data("DateTimePicker").minDate(e.date);
-        });
         $("#graffechaDesde").on("dp.change", function (e) {
-            $('#graffechaHasta').data("DateTimePicker").maxDate(e.date);
+            $('#graffechaHasta').data("DateTimePicker").minDate(e.date);
+        });
+        $("#graffechaHasta").on("dp.change", function (e) {
+            $('#graffechaDesde').data("DateTimePicker").maxDate(e.date);
         });
 
 

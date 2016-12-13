@@ -375,40 +375,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
         $this->addReference('servicio-1',$serv1);
     }
 
-    private function loadPersonals(ObjectManager $manager)
-    {
-        $min=10000000;
-        $max=99999999;
-        $fecha=new \DateTime('02/31/1990');
-        $personal= array();
-        foreach (range(1, self::PERSONALCANT) as $i) {
-            $personal[$i] = new Personal();
-            $randRol=rand( 1 , self::ROLESCANT );//valores random para aplicar roles y servicios
-            $personal[$i]->setNombre($this->getRandomNombre());
-            $personal[$i]->setApellido($this->getRandomApellido());
-            $personal[$i]->setBaja(0);
-            $personal[$i]->setDni(rand ( $min , $max ));
-            $personal[$i]->setEdad($fecha);
-            $personal[$i]->setRol($this->getReference("rol-$randRol"));
-            $randServ=array(1,2,3,4,5,6,7,8,9,10,11,12,13);
-            foreach (range(1, 4) as $j) {
-                $ran = $randServ[array_rand($randServ)];
-                $personal[$i]->addServicio($this->getReference("servicio-$ran"));
-                unset($randServ[$ran-1]);
-            }
-            $personal[$i]->setGenero("Masculino");
 
-            //$personal->setPublishedAt(new \DateTime('now - '.$i.'days'));
-
-            $manager->persist($personal[$i]);
-        }
-
-        $manager->flush();
-
-        foreach (range(1, self::PERSONALCANT) as $i) {
-            $this->addReference('personal-'.$i, $personal[$i]);
-        }
-    }
 
     private function loadPacientes(ObjectManager $manager)
     {
@@ -481,6 +448,75 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
         $manager->flush();
     }
 
+    private function loadPersonals(ObjectManager $manager)
+    {
+        $min=10000000;
+        $max=99999999;
+        $fecha=new \DateTime('02/31/1990');
+        $personal= array();
+        foreach (range(1, self::PERSONALCANT) as $i) {
+            $personal[$i] = new Personal();
+            $randRol=rand( 1 , self::ROLESCANT );//valores random para aplicar roles y servicios
+            $personal[$i]->setNombre($this->getRandomNombre());
+            $personal[$i]->setApellido($this->getRandomApellido());
+            $personal[$i]->setBaja(0);
+            $personal[$i]->setDni(rand ( $min , $max ));
+            $personal[$i]->setEdad($fecha);
+            $personal[$i]->setRol($this->getReference("rol-$randRol"));
+            $randServ=array(1,2,3,4,5,6,7,8,9,10,11,12,13);
+            foreach (range(1, 4) as $j) {
+                $ran = $randServ[array_rand($randServ)];
+                $personal[$i]->addServicio($this->getReference("servicio-$ran"));
+                unset($randServ[$ran-1]);
+            }
+            $personal[$i]->setGenero("Masculino");
+
+            //$personal->setPublishedAt(new \DateTime('now - '.$i.'days'));
+
+            $manager->persist($personal[$i]);
+        }
+
+        $manager->flush();
+
+        foreach (range(1, self::PERSONALCANT) as $i) {
+            $this->addReference('personal-'.$i, $personal[$i]);
+        }
+    }
+    /*
+
+    funcion vieja
+
+    private function loadPersonals(ObjectManager $manager)
+    {
+        $min=10000000;
+        $max=99999999;
+        $fecha=new \DateTime('02/31/1990');
+        $personal= array();
+        foreach (range(1, self::PERSONALCANT) as $i) {
+            $personal[$i] = new Personal();
+            $randRol=rand( 1 , self::ROLESCANT );//valores random para aplicar roles y servicios
+            $personal[$i]->setNombre($this->getRandomNombre());
+            $personal[$i]->setApellido($this->getRandomApellido());
+            $personal[$i]->setBaja(0);
+            $personal[$i]->setDni(rand ( $min , $max ));
+            $personal[$i]->setEdad($fecha);
+            $personal[$i]->setRol($this->getReference("rol-$randRol"));
+            $randServ=array(1,2,3,4,5,6,7,8,9,10,11,12,13);
+            foreach (range(1, 4) as $j) {
+                $ran = $randServ[array_rand($randServ)];
+                $personal[$i]->addServicio($this->getReference("servicio-$ran"));
+                unset($randServ[$ran-1]);
+            }
+            $personal[$i]->setGenero("Masculino");
+
+            //$personal->setPublishedAt(new \DateTime('now - '.$i.'days'));
+
+            $manager->persist($personal[$i]);
+        }
+
+        $manager->flush();
+    }
+    */
 
     private function loadOperaciones(ObjectManager $manager)
     {

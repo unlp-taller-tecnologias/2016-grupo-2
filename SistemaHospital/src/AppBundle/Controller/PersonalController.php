@@ -67,7 +67,7 @@ class PersonalController extends Controller
 
             $formnew = $form->getData();
             $datos = array('nombre' => $formnew->getNombre(), 'apellido' => $formnew->getApellido(), 'genero' => $formnew->getGenero(),
-                'DNI' => $formnew->getDni(), 'edad' => $formnew->getEdad(), 'servicios' => $formnew->getServicios(),
+                'dni' => $formnew->getDni(), 'edad' => $formnew->getEdad(), 'servicios' => $formnew->getServicios(),
                 'rol' => $formnew->getRol());
 
 
@@ -120,7 +120,7 @@ class PersonalController extends Controller
 
             $form = $editForm->getData();
             $datos = array('nombre' => $form->getNombre(), 'apellido' => $form->getApellido(), 'genero' => $form->getGenero(),
-                'DNI' => $form->getDni(), 'edad' => $form->getEdad(), 'servicios' => $form->getServicios(),
+                'dni' => $form->getDni(), 'edad' => $form->getEdad(), 'servicios' => $form->getServicios(),
                 'rol' => $form->getRol());
 
             if($this->procesardatos($datos,'Admin/partials/personal/edit.html.twig',$personal,false,$editForm->createView(),$deleteForm->createView())){

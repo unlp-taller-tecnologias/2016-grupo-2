@@ -22,8 +22,16 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class AjaxController extends Controller
 {
 
+    /***
+     * @Route("/ejemplodos" , name="prueba_ajax")
+     * @Method("POST")
+     */
+    public function ajaxServiciosCantOpe(){
+        return new Response ("lala");
+    }
+
     /**     *
-     * @Route("/ejemplo" , name="ajax_ejemplo")
+     * @Route("/ejemplo" , name="ajax_RerservaXDia")
      * @Method("POST")
      */
     public function ajaxsimple(){
@@ -31,6 +39,8 @@ class AjaxController extends Controller
         $datos=array();
         $datos["fechaDesde"]=$_REQUEST["fechaDesde"];
         $datos["fechaHasta"]=$_REQUEST["fechaHasta"];
+
+
         $respuesta= $this->procesarDatos($datos);
 
         return new Response($respuesta);
@@ -50,7 +60,7 @@ class AjaxController extends Controller
             for ($i = 0; $i < $dias; $i++)
             {
                 //LISTA DE COMPRAS Y VENTAS EN UNA FECHA --> no va a la base de datos
-                $listaOpeXDia= $this->listarEntreFechas('AppBundle:Operacion',$auxFecha,$auxFecha);
+                $listaOpeXDia= $this->listarOpeEntreFechas($auxFecha,$auxFecha);
                 //AUMENTAR UN DIA!!!
                 $auxFecha = new \DateTime($auxFecha);
                 $auxFecha->modify('+1 day');
@@ -68,7 +78,7 @@ class AjaxController extends Controller
     }
 
 
-    public function listarEntreFechas($model, $fecha1, $fecha2)
+    public function listarOpeEntreFechas( $fecha1, $fecha2)
     {
 
         $listado=null;
@@ -76,14 +86,14 @@ class AjaxController extends Controller
         $fecha2= new \DateTime($fecha2." 23:59:59");
 
         $qb = $this->getDoctrine()->getEntityManager()->createQueryBuilder();
-        $qb
-            ->select('c')
-            ->from('AppBundle:Operacion', 'c')
-            ->join('c.reserva', 'r')
-            ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
-            ->setParameter('firstDate', $fecha1)
-            ->setParameter('lastDate',  $fecha2)
+        $qb->select('r')
+              ->from('AppBundle:Reserva', 'r')
+              //->join('o.reserva', 'r')
+                ->where('r.fecha_inicio BETWEEN :firstDate AND :lastDate')
+                ->setParameter('firstDate',$fecha1)
+                ->setParameter('lastDate', $fecha2)
         ;
+        //$listado = $qb->getQuery()->getResult();
         $listado = $qb->getQuery()->execute();
         return $listado;
     }

@@ -318,6 +318,9 @@ class ReservaController extends Controller
     public function editAction(Request $request, Reserva $reserva)
     {
         $deleteForm = $this->createDeleteForm($reserva);
+
+        
+        
         $editForm = $this->createForm('AppBundle\Form\ReservaType', $reserva);
         $editForm->handleRequest($request);
 
@@ -326,6 +329,9 @@ class ReservaController extends Controller
             //if($this->procesardatos($datos,'Admin/reserva/edit.html.twig',false,$editForm->createView(),$deleteForm->createView())){
             //    return $this->procesardatos($datos,'Admin/reserva/edit.html.twig',false,$editForm->createView(),$deleteForm->createView());
             //}
+
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId(), 'exito' => 'edit'));
