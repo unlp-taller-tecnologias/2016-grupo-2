@@ -36,7 +36,7 @@ class FiltroOperacionType extends AbstractType
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Servicio',
                 'property'     => 'getTipo',
-                "placeholder" =>"Elige una opcion...",
+                "placeholder" =>"Elige una Opción...",
                 'required' => false,
                 "attr" => [
                     "class" => " chosen-select form-control",
@@ -44,7 +44,7 @@ class FiltroOperacionType extends AbstractType
                 ]
             ))
             ->add("numeroReserva", "text", [
-                'label' => 'Numero Reserva',
+                'label' => 'Número Reserva',
                 'required' => false,
                 "attr" => [
                     "class" => "form-control"
@@ -53,17 +53,17 @@ class FiltroOperacionType extends AbstractType
             ->add('esInternado', ChoiceType::class, array(
 
                 'label' =>false,
-                "placeholder" =>"Elige una opcion...",
+                "placeholder" =>"Elige una Opción...",
                 "required" => false,
                 'choices'  => array(
-                    'si' => "SI",
-                    'no' => "NO",
+                    'Si' => "Si",
+                    'No' => "No",
                 ),
                 'attr' => ['class' => 'chosen-select form-control']
             ))
             ->add('tq', ChoiceType::class, array(
                 'label' =>false,
-                "placeholder" =>"Elige una opcion...",
+                "placeholder" =>"Elige una Opción...",
                 "required" => false,
                 'choices'  => array(
                     'Corta' => 'Corta',
@@ -94,7 +94,7 @@ class FiltroOperacionType extends AbstractType
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Anestesia',
                 'property'     => 'getTipo',
-                "placeholder" =>"Elige una opcion...",
+                "placeholder" =>"Elige una Opción...",
                 'required' => false,
                 "attr" => [
                     "class" => "chosen-select form-control",
@@ -102,11 +102,12 @@ class FiltroOperacionType extends AbstractType
             ))
 
             ->add('asa', 'entity', array(
+                'label' => 'ASA',
                 'multiple' => false,   // Multiple selection allowed
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Asa',
                 'property'     => 'getGrado',
-                "placeholder" =>"Elige una opcion...",
+                "placeholder" =>"Elige una Opción...",
                 'required' => false,
                 "attr" => [
                     "class" => "form-control chosen-select",
@@ -126,9 +127,9 @@ class FiltroOperacionType extends AbstractType
 //            ))
 
             ->add('save', SubmitType::class, array(
-                'label' => 'Buscar Operacion',
+                'label' => 'Buscar Operación',
                 "attr" => [
-                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                    "class" => "btn btn-primary col-md-offset-5"
                 ]
             ));
     }
