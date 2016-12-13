@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,17 +12,12 @@ use Doctrine\ORM\EntityRepository;
 
 class PersonalType extends AbstractType 
 {
-
-    public $em;
-
-    public function __construct($entityManager) {
-        $this->em = $entityManager;
-    }
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        try{
         $builder
             ->add("nombre", "text",[
                 'label' => 'Nombre *',
@@ -71,15 +67,7 @@ class PersonalType extends AbstractType
                     "class" => "chosen-select form-control"
                 ]
             ))
-//            ->add('servicios', EntityType::class, [
-//                'placeholder' => "Seleccione una opción..",
-//                'class'=>"AppBundle:Servicio",
-//                'choice_label' => 'getTipo',
-//                "attr" => [
-//                     "class" => "form-control"
-//                 ]
-//
-//            ])
+
             ->add('rol', EntityType::class, [
                 'label' => 'Rol *',
                 'empty_value' => '',
@@ -92,6 +80,9 @@ class PersonalType extends AbstractType
                     "class" => "chosen-select-rol form-control"
                 ]
             ]);
+        }catch(Exception $e){
+            echo("elrror es ". $e->getMessage());
+        }
     }
     
     /**
