@@ -209,18 +209,20 @@ class ReservaController extends Controller
 
 
             foreach ($datos["personal"] as $p) {
-               // ($p->getNombre());
-                //$operacion->addPersonal($p);
+                $operacion->addPersonal($p);
             }
 
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($operacion);
-            $em->flush($operacion);
+            $em->flush();
 
             $reserva = new Reserva();
             $reserva->setNumeroReserva($datos['numero_reserva']);
             $reserva->setBaja(0);
+
+            $datos["fecha_inicio"] = str_replace('/', '-', $datos["fecha_inicio"]);
+            $datos["fecha_fin"] = str_replace('/', '-', $datos["fecha_fin"]);
 
             $inicio = new \DateTime($datos['fecha_inicio']);
             $fin = new \DateTime($datos['fecha_fin']);

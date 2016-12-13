@@ -23,19 +23,10 @@ class AjaxController extends Controller
 {
 
     /***
-     * @Route("/otroservicio" , name="ajax_servicioXRer")
+     * @Route("/ejemplodos" , name="prueba_ajax")
      * @Method("POST")
      */
     public function ajaxServiciosCantOpe(){
-
-//        $datos=array();
-//        $datos["fechaDesde"]=$_REQUEST["fechaDesde"];
-//        $datos["fechaHasta"]=$_REQUEST["fechaHasta"];
-
-
-       //respuesta= $this->procesarDatos($datos);
-
-        //return new Response($respuesta);
         return new Response ("lala");
     }
 
