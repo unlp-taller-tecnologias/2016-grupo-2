@@ -15,13 +15,13 @@ class AnestesiaType extends AbstractType
     {
         $builder
             ->add("tipo", "text",[
-                'label' => 'Nombre de la Anestesia',
+                'label' => 'Nombre de la Anestesia *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("descripcion", "text",[
-                'label' => 'Descripción',
+                'label' => 'Descripción *',
                 "attr" => [
                     "class" => "form-control"
                 ]

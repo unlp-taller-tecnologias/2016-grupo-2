@@ -17,13 +17,13 @@ class AsaType extends AbstractType
     {
         $builder
             ->add("grado", "text",[
-                'label' => 'Nombre del ASAs',
+                'label' => 'Nombre del ASAs *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("descripcion", "text",[
-                'label' => 'Descripción',
+                'label' => 'Descripción *',
                 "attr" => [
                     "class" => "form-control"
                 ]

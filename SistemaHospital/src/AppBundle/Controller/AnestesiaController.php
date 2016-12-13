@@ -57,7 +57,7 @@ class AnestesiaController extends Controller
             $em->persist($anestesium);
             $em->flush($anestesium);
 
-            return $this->redirectToRoute('admin_anestesia_show', array('id' => $anestesium->getId()));
+            return $this->redirectToRoute('admin_anestesia_show', array('id' => $anestesium->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/anestesia/new.html.twig', array(
@@ -105,7 +105,7 @@ class AnestesiaController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_anestesia_show', array('id' => $anestesium->getId()));
+            return $this->redirectToRoute('admin_anestesia_show', array('id' => $anestesium->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/anestesia/edit.html.twig', array(
@@ -158,9 +158,16 @@ class AnestesiaController extends Controller
                 return $this->renderizar($error,$view,$anestesia,$create,$edit,$delete);
             }
         }
-        if (!strcmp($this->existe($datos['tipo']),"OK") == 0){
-            $error = $this->existe($datos['tipo']);
-            return $this->renderizar($error,$view,$anestesia,$create,$edit,$delete);
+        if($create != false){
+            if (!strcmp($this->existe($datos['tipo']),"OK") == 0){
+                $error = $this->existe($datos['tipo']);
+                return $this->renderizar($error,$view,$anestesia,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['tipo']),"OK") == 0){
+                $error = $this->existeModificar($datos['tipo']);
+                return $this->renderizar($error,$view,$anestesia,$create,$edit,$delete);
+            }
         }
     }
 
@@ -205,5 +212,12 @@ class AnestesiaController extends Controller
             return "¡Alto! El tipo de anestesia ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeModificar($tipo){
+        if(strcmp($_POST['actual'],$tipo) == 0){
+            return "OK";
+        }
+        return $this->existe($tipo);
     }
 }

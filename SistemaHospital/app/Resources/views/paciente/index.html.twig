@@ -19,7 +19,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Genero</th>
-                <th>Dni</th>
+                <th>DNI</th>
                 <th>Edad</th>
                 <th>Ver</th>
                 <th>Editar</th>
@@ -33,7 +33,7 @@
                 {% endif %}
                 <td>{{ paciente.mutual }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td>{% if paciente.baja %}Yes{% else %}No{% endif %}</td>
+                    <td>{% if paciente.baja %}Si{% else %}No{% endif %}</td>
                 {% endif %}
                 <td>{{ paciente.nombre }}</td>
                 <td>{{ paciente.apellido }}</td>

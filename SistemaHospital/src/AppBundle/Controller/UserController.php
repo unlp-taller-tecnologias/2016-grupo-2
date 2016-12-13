@@ -65,7 +65,7 @@ class UserController extends Controller
 
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_show', array('id' => $user->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/user/new.html.twig', array(
@@ -114,7 +114,7 @@ class UserController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_show', array('id' => $user->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/user/edit.html.twig', array(
@@ -167,10 +167,15 @@ class UserController extends Controller
                 return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
             }
         }
-        if($create){
-            if (!strcmp($this->existe($datos['username']), "OK") == 0) {
+        if($create != false){
+            if (!strcmp($this->existe($datos['username']),"OK") == 0){
                 $error = $this->existe($datos['username']);
-                return $this->renderizar($error, $view, $usuario, $create, $edit, $delete);
+                return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['username']),"OK") == 0){
+                $error = $this->existeModificar($datos['username']);
+                return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
             }
         }
 
@@ -221,6 +226,13 @@ class UserController extends Controller
             return "¡Alto! El nombre de usuario ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeModificar($username){
+        if(strcmp($_POST['actual'],$username) == 0){
+            return "OK";
+        }
+        return $this->existe($username);
     }
 
     private function validarMail($mail){

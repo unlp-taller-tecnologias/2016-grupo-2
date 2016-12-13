@@ -3,6 +3,10 @@
 {% block body %}
     <h1>Modificar información de la Operación</h1>
 
+    {% if error is defined %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
     {{ form_start(edit_form) }}
       <div class="row">
     <div class='col-sm-6'>
@@ -17,9 +21,7 @@
         <div class='col-sm-6'>
             {{ form_row(edit_form.observaciones) }}
         </div>
-        <div class='col-sm-6'>
-            {{ form_row(edit_form.cirujia) }}
-        </div>
+     
         <div class='col-sm-6'>
             {{ form_row(edit_form.internado) }}
         </div>
@@ -41,7 +43,7 @@
 
 </div>
 
-
+    <div class="alert alert-info">Los campos con * son obligatorios.</div>
 
     <div class="form-group">
         <button type="submit" class="btn btn-success col-sm-offset-10"> <i class="fa fa-check" aria-hidden="true"></i>

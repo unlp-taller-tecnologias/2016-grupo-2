@@ -24,7 +24,7 @@ class FechaPendientesType extends AbstractType
                 ]
             ])
             ->add('save', SubmitType::class, array(
-                'label' => 'ver reservas',
+                'label' => 'Ver Reservas',
                 "attr" => [
                     "class" => "btn btn-primary"
                 ]

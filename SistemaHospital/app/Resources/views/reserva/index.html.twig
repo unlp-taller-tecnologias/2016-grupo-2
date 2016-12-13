@@ -2,16 +2,13 @@
 
 {% block body %}
 
-    <h1>Lista de Reservas</h1>
+    <h1>Listado de Reservas</h1>
     <a href="{{ path('reserva_new') }}" class="btn btn-success col-md-offset-10 block"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva Reserva </a>
-
-
-
     <br>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Listado de proximas reservas</h3>
+            <h3 class="panel-title">Listado de Próximas Reservas</h3>
         </div>
         <div class="panel-body">
 
@@ -19,7 +16,7 @@
             {{ form_errors(form2) }}
             <div class="col-md-12 espacio">
                 <div class="col-md-2">
-                    {{ form_label(form2.fechaPend, 'Buscar en el dia: ') }}
+                    {{ form_label(form2.fechaPend, 'Buscar en el día: ') }}
                 </div>
                 <div class='col-md-6'>
                     {{ form_row(form2.fechaPend) }}
@@ -63,7 +60,7 @@
                 <td>{{ reserva.paciente.nombre }} {{ reserva.paciente.apellido }}</td>
                 <td>{{ reserva.estado.tipo }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td>{% if reserva.baja %}Yes{% else %}No{% endif %}</td>
+                    <td>{% if reserva.baja %}Si{% else %}No{% endif %}</td>
                 {% endif %}
                 <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('d/m/Y H:i:s') }}{% endif %}</td>
                 <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('d/m/Y H:i:s') }}{% endif %}</td>
@@ -103,8 +100,8 @@
     <br>
     <br><br>
 
-    <div class="espacio h3 text-center">Busqueda de RESERVAS</div>
-    <h4><strong>Filtros de Busqueda:</strong></h4>
+    <div class="espacio h3 text-center">Búsqueda de Reservas</div>
+    <h4><strong>Filtros de Búsqueda:</strong></h4>
 
 
 
@@ -119,7 +116,7 @@
             {{ form_row(form.fechaFin) }}
         </div>
         <div class="col-md-12">
-            <a id="verFiltrosReservas">mas filtros...</a>
+            <a id="verFiltrosReservas">Más Filtros...</a>
         </div>
         <div id="ocultarFiltrosReserva">
             <div class='col-sm-6'>
@@ -172,7 +169,7 @@
                 <td>{{ reserva.paciente.nombre }} {{ reserva.paciente.apellido }}</td>
                 <td>{{ reserva.estado.tipo }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td>{% if reserva.baja %}Yes{% else %}No{% endif %}</td>
+                    <td>{% if reserva.baja %}Si{% else %}No{% endif %}</td>
                 {% endif %}
                 <td>{% if reserva.fechainicio %}{{ reserva.fechainicio|date('d/m/Y H:i:s') }}{% endif %}</td>
                 <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('d/m/Y H:i:s') }}{% endif %}</td>

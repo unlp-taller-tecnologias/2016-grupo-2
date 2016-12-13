@@ -157,9 +157,16 @@ class AsaController extends Controller
                 return $this->renderizar($error,$view,$asa,$create,$edit,$delete);
             }
         }
-        if (!strcmp($this->existe($datos['grado']),"OK") == 0){
-            $error = $this->existe($datos['grado']);
-            return $this->renderizar($error,$view,$asa,$create,$edit,$delete);
+        if($create != false){
+            if (!strcmp($this->existe($datos['grado']),"OK") == 0){
+                $error = $this->existe($datos['grado']);
+                return $this->renderizar($error,$view,$asa,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['grado']),"OK") == 0){
+                $error = $this->existeModificar($datos['grado']);
+                return $this->renderizar($error,$view,$asa,$create,$edit,$delete);
+            }
         }
     }
 
@@ -204,5 +211,12 @@ class AsaController extends Controller
             return "¡Alto! El nombre de ASA ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeModificar($grado){
+        if(strcmp($_POST['actual'],$grado) == 0){
+            return "OK";
+        }
+        return $this->existe($grado);
     }
 }

@@ -23,7 +23,7 @@ class NewReservaType extends AbstractType
 
         $builder
             ->add("numero_reserva", "number",[
-                'label' => 'Numero reserva',
+                'label' => 'Número Reserva',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -107,7 +107,7 @@ class NewReservaType extends AbstractType
             ->add('asa', 'entity', array(
                 'class' => 'AppBundle:Asa',
                 'property'     => 'getGrado',
-                'label' => 'Asa',
+                'label' => 'ASA',
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('u')->where('u.baja = 0');
                 },
@@ -127,13 +127,13 @@ class NewReservaType extends AbstractType
                 ]
             ))
             ->add("diagnostico", "text",[
-                'label' => 'Diagnostico',
+                'label' => 'Diagnóstico',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("habitacion", "text",[
-                'label' => 'Habitacion',
+                'label' => 'Habitación',
                 'required' =>false,
                 "attr" => [
                     "class" => "form-control"
@@ -147,7 +147,7 @@ class NewReservaType extends AbstractType
                 ]
             ])
             ->add("cirugia", "text",[
-                'label' => 'Cirugia',
+                'label' => 'Cirugía',
                 'required' =>false,
                 "attr" => [
                     "class" => "form-control"
@@ -180,7 +180,7 @@ class NewReservaType extends AbstractType
                 'choice_label'  => function ($personal) {
                     return (string)($personal->getNombre()." ".$personal->getApellido()." ".$personal->getDni());
                 },
-                "placeholder" =>"Elige uno o varios personales...",
+                "placeholder" =>"Seleccione uno o más...",
                 'required' => false,
                 "attr" => [
                     "class" => "chosen-select  form-control",

@@ -194,6 +194,10 @@ class ReservaController extends Controller
 
             $datos = $form2->getData();
 
+            //if($this->procesardatos($datos,'Admin/reserva/new.html.twig',$form2->createView(),false,false)){
+            //    return $this->procesardatos($datos,'Admin/reserva/new.html.twig',$form2->createView(),false,false);
+            //}
+
             $operacion = new Operacion();
             $operacion->setDiagnostico($datos["diagnostico"]);
             $operacion->setHabitacion($datos["habitacion"]);
@@ -238,7 +242,7 @@ class ReservaController extends Controller
             $em->flush($reserva);
 
 
-            return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId()));
+            return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId(), 'exito' => 'new'));
         }
 
 
@@ -315,9 +319,13 @@ class ReservaController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            //$datos = $editForm->getData();
+            //if($this->procesardatos($datos,'Admin/reserva/edit.html.twig',false,$editForm->createView(),$deleteForm->createView())){
+            //    return $this->procesardatos($datos,'Admin/reserva/edit.html.twig',false,$editForm->createView(),$deleteForm->createView());
+            //}
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('reserva_edit', array('id' => $reserva->getId()));
+            return $this->redirectToRoute('reserva_edit', array('id' => $reserva->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('reserva/edit.html.twig', array(
@@ -382,4 +390,54 @@ class ReservaController extends Controller
             ->setMethod('DELETE')
             ->getForm();
     }
+
+    private function procesardatos($datos,$view,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$create,$edit,$delete);
+            }
+        }
+    }
+
+    private function renderizar($error,$view,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        if (is_array($texto)){
+            foreach($texto as $campo){
+                return $this->validar($campo);
+            }
+        }
+        if (is_object($texto)){
+            return "OK";
+        }
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
 }

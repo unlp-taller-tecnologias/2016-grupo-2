@@ -16,13 +16,13 @@ class ServicioType extends AbstractType
     {
         $builder
             ->add("tipo", "text",[
-                'label' => 'Nombre del Servicio',
+                'label' => 'Nombre del Servicio *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("descripcion", "text",[
-                'label' => 'Descripción',
+                'label' => 'Descripción *',
                 "attr" => [
                     "class" => "form-control"
                 ]

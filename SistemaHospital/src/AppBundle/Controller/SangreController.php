@@ -56,7 +56,7 @@ class SangreController extends Controller
             $em->persist($sangre);
             $em->flush($sangre);
 
-            return $this->redirectToRoute('Admin_sangre_show', array('id' => $sangre->getId()));
+            return $this->redirectToRoute('Admin_sangre_show', array('id' => $sangre->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/sangre/new.html.twig', array(
@@ -104,7 +104,7 @@ class SangreController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('Admin_sangre_show', array('id' => $sangre->getId()));
+            return $this->redirectToRoute('Admin_sangre_show', array('id' => $sangre->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/sangre/edit.html.twig', array(
@@ -157,9 +157,16 @@ class SangreController extends Controller
                 return $this->renderizar($error,$view,$sangre,$create,$edit,$delete);
             }
         }
-        if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
-            $error = $this->existe($datos['nombre']);
-            return $this->renderizar($error,$view,$sangre,$create,$edit,$delete);
+        if($create != false){
+            if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
+                $error = $this->existe($datos['nombre']);
+                return $this->renderizar($error,$view,$sangre,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['nombre']),"OK") == 0){
+                $error = $this->existeModificar($datos['nombre']);
+                return $this->renderizar($error,$view,$sangre,$create,$edit,$delete);
+            }
         }
     }
 
@@ -204,5 +211,12 @@ class SangreController extends Controller
             return "¡Alto! El nombre de sangre ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeModificar($nombre){
+        if(strcmp($_POST['actual'],$nombre) == 0){
+            return "OK";
+        }
+        return $this->existe($nombre);
     }
 }

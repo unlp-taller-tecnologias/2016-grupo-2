@@ -4,108 +4,95 @@
 
     <h1>Nueva Reserva</h1>
 
-    <h3>Ver disponibilidad quirofano</h3>
-
-     {{ form_start(form) }}
-
-        <div class='col-sm-5'>
-            <div class="col-md-3">{{ form_label(form.quirofano , "Quirofano:" ) }}</div>
-            <div class="col-md-9">{{ form_row(form.quirofano) }}</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Ver disponibilidad de Quirófano</h3>
         </div>
-
-       <div class='col-sm-5'>
-            <div class="col-md-3">{{ form_label(form.fechaquirofano , "Fecha:" ) }}</div>
-            <div class="col-md-9">{{ form_row(form.fechaquirofano) }}</div>
+        <div class="panel-body">
+            {{ form_start(form) }}
+            <div class='col-sm-5'>
+                <div class="col-md-3">{{ form_label(form.quirofano , "Quirófano:" ) }}</div>
+                <div class="col-md-9">{{ form_row(form.quirofano) }}</div>
+            </div>
+            <div class='col-sm-5'>
+                <div class="col-md-3">{{ form_label(form.fechaquirofano , "Fecha:" ) }}</div>
+                <div class="col-md-9">{{ form_row(form.fechaquirofano) }}</div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success col-md-2"><i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                    Ver disponibilidad </button>
+            </div>
+            {{ form_end(form) }}
         </div>
-    <div class="form-group">
-
-        <button type="submit" class="btn btn-success col-md-2"> <i class="fa fa-check " aria-hidden="true"></i>
-
-            Ver disponibilidad </button>
     </div>
 
-       <br><br>   <br><br>
-    {{ form_end(form) }}
-
-
-     {{ form_start(form2) }}
-    <div class="row">
-
-        <div class='col-sm-3 col-sm-offset-9' >
-            <a href="{{ path('paciente_agregarpaciente_reserva') }}" class="btn btn-primary"> Nuevo paciente</a>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Cargar paciente nuevo al sistema</h3>
         </div>
-
-          <div class='col-sm-6'>
-        {{ form_row(form2.paciente) }}
+        <div class="panel-body">
+            {{ form_start(form2) }}
+            <a href="{{ path('paciente_agregarpaciente_reserva') }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Paciente</a>
         </div>
-    
-        <div class='col-sm-6'>
-
-       
-        {{ form_row(form2.estado) }}
-
-   
-    
-        </div>
-
-         <div class='col-sm-6'>
-        {{ form_row(form2.numero_reserva) }}
-        </div>
-        <div class='col-sm-6'>
-        {{ form_row(form2.servicio) }}
-        </div>
-        <div class='col-sm-6'>
-        {{ form_row(form2.fecha_inicio) }}
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form2.fecha_fin) }}
-        </div>
-    
-        
-        <div class='col-sm-6'>
-            {{ form_row(form2.quirofano) }}
-        </div>
-      
-        <div class='col-sm-6'>
-            {{ form_row(form2.sangre) }}
-
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form2.asa) }}
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form2.Anestesia) }}
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form2.diagnostico) }}
-        </div>
-         <div class='col-sm-6'>
-            {{ form_row(form2.habitacion) }}
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form2.observaciones) }}
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form2.cirugia) }}
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form2.Internado) }}
-        </div>
-        <div class='col-sm-6'>
-            {{ form_row(form2.TiempoQuirurgico) }}
-        </div>
-          <div class='col-sm-6'>
-            {{ form_row(form2.personal) }}
-        </div>
-
     </div>
+        <div<div class="form-group">
+            <div class='col-sm-6'>
+                {{ form_row(form2.paciente) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.estado) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.numero_reserva) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.servicio) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.fecha_inicio) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.fecha_fin) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.quirofano) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.sangre) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.asa) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.Anestesia) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.diagnostico) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.habitacion) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.observaciones) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.cirugia) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.Internado) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form2.TiempoQuirurgico) }}
+            </div>
+        </div>
 
+        <div class="alert alert-info">Los campos con * son obligatorios.</div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-success col-sm-offset-10"> <i class="fa fa-check " aria-hidden="true"></i>
-            Confirmar </button>
-    </div>
-    {{ form_end(form2) }}
+        <div class="form-group">
+            <button type="submit" class="btn btn-success col-sm-offset-10"> <i class="fa fa-check " aria-hidden="true"></i>
+                Confirmar </button>
+        </div>
+        {{ form_end(form2) }}
 
     <table class="table table-striped">
         <tbody>
