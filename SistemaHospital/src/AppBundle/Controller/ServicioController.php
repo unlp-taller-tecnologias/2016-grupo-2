@@ -55,7 +55,7 @@ class ServicioController extends Controller
             $em->persist($servicio);
             $em->flush($servicio);
 
-            return $this->redirectToRoute('admin_servicio_show', array('id' => $servicio->getId()));
+            return $this->redirectToRoute('admin_servicio_show', array('id' => $servicio->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/servicio/new.html.twig', array(
@@ -102,7 +102,7 @@ class ServicioController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_servicio_show', array('id' => $servicio->getId()));
+            return $this->redirectToRoute('admin_servicio_show', array('id' => $servicio->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/servicio/edit.html.twig', array(
@@ -155,9 +155,16 @@ class ServicioController extends Controller
                 return $this->renderizar($error,$view,$servicio,$create,$edit,$delete);
             }
         }
-        if (!strcmp($this->existe($datos['tipo']),"OK") == 0){
-            $error = $this->existe($datos['tipo']);
-            return $this->renderizar($error,$view,$servicio,$create,$edit,$delete);
+        if($create != false){
+            if (!strcmp($this->existe($datos['tipo']),"OK") == 0){
+                $error = $this->existe($datos['tipo']);
+                return $this->renderizar($error,$view,$servicio,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['tipo']),"OK") == 0){
+                $error = $this->existeModificar($datos['tipo']);
+                return $this->renderizar($error,$view,$servicio,$create,$edit,$delete);
+            }
         }
     }
 
@@ -202,5 +209,12 @@ class ServicioController extends Controller
             return "¡Alto! El tipo de servicio ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeModificar($tipo){
+        if(strcmp($_POST['actual'],$tipo) == 0){
+            return "OK";
+        }
+        return $this->existe($tipo);
     }
 }
