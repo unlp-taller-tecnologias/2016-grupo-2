@@ -6,11 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AjaxController.php" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ed80508-c5bd-40d3-b7ad-f729ad8086dc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php" />
-    </list>
+    <list default="true" id="6ed80508-c5bd-40d3-b7ad-f729ad8086dc" name="Default" comment="" />
     <ignored path="taller.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -630,18 +626,18 @@
       <workItem from="1481294989618" duration="2782000" />
       <workItem from="1481370760205" duration="1131000" />
       <workItem from="1481569626637" duration="10719000" />
-      <workItem from="1481663543647" duration="955000" />
+      <workItem from="1481663543647" duration="1698000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203772000" />
+    <option name="totallyTimeSpent" value="204515000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20594369" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20594369" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26025236" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
