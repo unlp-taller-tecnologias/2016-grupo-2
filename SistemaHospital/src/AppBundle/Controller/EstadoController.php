@@ -57,7 +57,7 @@ class EstadoController extends Controller
             $em->persist($estado);
             $em->flush($estado);
 
-            return $this->redirectToRoute('admin_estado_show', array('id' => $estado->getId()));
+            return $this->redirectToRoute('admin_estado_show', array('id' => $estado->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/estado/new.html.twig', array(
@@ -97,8 +97,11 @@ class EstadoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $form = $editForm->getData();
-            $datos = array('tipo' => $form->getTipo(), 'descripcion' => $form->getDescripcion());
+            //$form = $editForm->getData();
+            //$datos = array('diagnostico' => $datos['diagnostico'], 'habitacion' => $datos['habitacion'],
+            //    'observaciones' => $datos['observaciones'], 'internado' => $datos['internado'], 'cirugia' => $datos['cirugia'],
+            //    'tq' => $datos['TiempoQuirurgico'], 'sangre' => $datos['sangre'], 'asa' => $datos['asa'],
+            //    'anestesia' => $datos['Anestesia'] );
 
             if($this->procesardatos($datos,'Admin/partials/estado/edit.html.twig',$estado,false,$editForm->createView(),$deleteForm->createView())){
                 return $this->procesardatos($datos,'Admin/partials/estado/edit.html.twig',$estado,false,$editForm->createView(),$deleteForm->createView());
@@ -106,7 +109,7 @@ class EstadoController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_estado_show', array('id' => $estado->getId()));
+            return $this->redirectToRoute('admin_estado_show', array('id' => $estado->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/estado/edit.html.twig', array(
@@ -159,9 +162,16 @@ class EstadoController extends Controller
                 return $this->renderizar($error,$view,$estado,$create,$edit,$delete);
             }
         }
-        if (!strcmp($this->existe($datos['tipo']),"OK") == 0){
-            $error = $this->existe($datos['tipo']);
-            return $this->renderizar($error,$view,$estado,$create,$edit,$delete);
+        if($create != false){
+            if (!strcmp($this->existe($datos['tipo']),"OK") == 0){
+                $error = $this->existe($datos['tipo']);
+                return $this->renderizar($error,$view,$estado,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['tipo']),"OK") == 0){
+                $error = $this->existeModificar($datos['tipo']);
+                return $this->renderizar($error,$view,$estado,$create,$edit,$delete);
+            }
         }
     }
 
@@ -206,5 +216,12 @@ class EstadoController extends Controller
             return "¡Alto! El tipo de estado ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeModificar($tipo){
+        if(strcmp($_POST['actual'],$tipo) == 0){
+            return "OK";
+        }
+        return $this->existe($tipo);
     }
 }
