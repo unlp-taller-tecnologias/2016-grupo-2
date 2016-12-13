@@ -24,19 +24,19 @@ class PersonalType extends AbstractType
     {
         $builder
             ->add("nombre", "text",[
-                'label' => 'Nombre',
+                'label' => 'Nombre *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("apellido", "text",[
-                'label' => 'Apellido',
+                'label' => 'Apellido *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("genero", "choice",[
-                'label' => 'Género',
+                'label' => 'Género *',
                 'choices' => [
                     '' => '',
                     'Masculino' => 'Masculino',
@@ -47,18 +47,19 @@ class PersonalType extends AbstractType
                 ]
             ])
             ->add("dni", "integer",[
-                'label' => 'DNI',
+                'label' => 'DNI *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("edad", "integer",[
-                'label' => 'Edad',
+                'label' => 'Edad *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add('servicios', 'entity', array(
+                'label' => 'Servicios *',
                 'multiple' => true,   // Multiple selection allowed
                 'expanded' => false,   // Render as checkboxes
                 'class' => 'AppBundle:Servicio',
@@ -80,6 +81,7 @@ class PersonalType extends AbstractType
 //
 //            ])
             ->add('rol', EntityType::class, [
+                'label' => 'Rol *',
                 'empty_value' => '',
                 'class'=>"AppBundle:Rol",
                 'choice_label' => 'getNombre',
