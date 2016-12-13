@@ -69,7 +69,8 @@ class Operacion
     private $reserva;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Personal", mappedBy="operaciones")
+     * @ORM\ManyToMany(targetEntity="Personal",inversedBy="operaciones")
+     * @ORM\JoinTable(name="personal_operacion")
      */
     protected $personal;
 

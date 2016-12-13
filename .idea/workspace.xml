@@ -7,80 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ed80508-c5bd-40d3-b7ad-f729ad8086dc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/listaPersonal.html.twig" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/anestesia/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/anestesia/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/anestesia/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/anestesia/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/anestesia/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/anestesia/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/asa/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/asa/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/asa/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/asa/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/asa/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/asa/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/estado/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/estado/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/estado/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/estado/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/estado/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/estado/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/quirofano/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/quirofano/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/quirofano/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/quirofano/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/quirofano/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/quirofano/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/rol/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/rol/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/rol/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/rol/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/rol/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/rol/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/sangre/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/sangre/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/sangre/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/sangre/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/sangre/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/sangre/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/servicio/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/servicio/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/servicio/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/servicio/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/user/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/user/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/user/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/user/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/user/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/user/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/base.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/index.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/layout.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/layout.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/search.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/search.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/index.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/newInOperacion.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/newInOperacion.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/newInReserva.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/newInReserva.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/index.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/new.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/show.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/show.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AnestesiaController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AnestesiaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AsaController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AsaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/EstadoController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/EstadoController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/OperacionController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/OperacionController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PacienteController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PacienteController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PersonalController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PersonalController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/QuirofanoController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/QuirofanoController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ReservaController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ReservaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/RolController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/RolController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/SangreController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/SangreController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ServicioController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ServicioController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/UserController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/AnestesiaType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/AnestesiaType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/AsaType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/AsaType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/EstadoType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/EstadoType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FechaPendientesType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FechaPendientesType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FiltroOperacionType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FiltroOperacionType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FiltroReservaType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FiltroReservaType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/NewReservaType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/NewReservaType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/OperacionType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/OperacionType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteInReservaType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteInReservaType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/QuirofanoType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/QuirofanoType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/ReservaType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/ReservaType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/RolType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/RolType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/SangreType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/SangreType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/ServicioType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/ServicioType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/UserType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/UserType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php" />
     </list>
     <ignored path="taller.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -101,24 +30,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="grafico.html.twig" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig">
+      <file leaf-file-name="LoadFixtures.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="85" column="44" selection-start-line="85" selection-start-column="44" selection-end-line="85" selection-end-column="44" />
+            <state relative-caret-position="862">
+              <caret line="478" column="5" selection-start-line="478" selection-start-column="5" selection-end-line="478" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AjaxController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AjaxController.php">
+      <file leaf-file-name="Operacion.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="25" column="47" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="47" />
-              <folding>
-                <element signature="e#41#72#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="738">
+              <caret line="88" column="22" selection-start-line="88" selection-start-column="22" selection-end-line="88" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Personal.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -150,7 +87,6 @@
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Security/login.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Security/login_content.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/EstadisticaController.php" />
-        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/SSP.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PersonalController.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/AppKernel.php" />
@@ -163,7 +99,6 @@
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Repository/OperacionRepository.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/operacion/index.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/web/css/main.css" />
-        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Repository/ReservaRepository.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FechaPendientesType.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FiltroReserva.php" />
@@ -178,10 +113,12 @@
         <option value="$PROJECT_DIR$/SistemaHospital/web/js/main.js" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/base.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/show.html.twig" />
-        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ReservaController.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AjaxController.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig" />
+        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php" />
+        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php" />
+        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php" />
       </list>
     </option>
   </component>
@@ -389,6 +326,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Entity" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SistemaHospital" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AppBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DataFixtures" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ORM" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -663,12 +630,12 @@
       <workItem from="1481294989618" duration="2782000" />
       <workItem from="1481370760205" duration="1131000" />
       <workItem from="1481569626637" duration="10719000" />
-      <workItem from="1481663543647" duration="86000" />
+      <workItem from="1481663543647" duration="955000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="202903000" />
+    <option name="totallyTimeSpent" value="203772000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
@@ -742,13 +709,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Paciente.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="21" column="17" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Reserva.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -1028,13 +988,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="40" column="26" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/share/phpmyadmin/phpmyadmin.css.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -1066,13 +1019,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="362" column="22" selection-start-line="362" selection-start-column="22" selection-end-line="362" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AjaxController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -1085,8 +1031,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="85" column="44" selection-start-line="85" selection-start-column="44" selection-end-line="85" selection-end-column="44" />
+        <state relative-caret-position="180">
+          <caret line="64" column="58" selection-start-line="64" selection-start-column="58" selection-end-line="64" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="862">
+          <caret line="478" column="5" selection-start-line="478" selection-start-column="5" selection-end-line="478" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="88" column="22" selection-start-line="88" selection-start-column="22" selection-end-line="88" selection-end-column="22" />
           <folding />
         </state>
       </provider>
