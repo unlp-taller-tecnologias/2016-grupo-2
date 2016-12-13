@@ -55,7 +55,7 @@ class RolController extends Controller
             $em->persist($rol);
             $em->flush($rol);
 
-            return $this->redirectToRoute('admin_rol_show', array('id' => $rol->getId()));
+            return $this->redirectToRoute('admin_rol_show', array('id' => $rol->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/rol/new.html.twig', array(
@@ -103,7 +103,7 @@ class RolController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_rol_show', array('id' => $rol->getId()));
+            return $this->redirectToRoute('admin_rol_show', array('id' => $rol->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/rol/edit.html.twig', array(
@@ -156,9 +156,16 @@ class RolController extends Controller
                 return $this->renderizar($error,$view,$rol,$create,$edit,$delete);
             }
         }
-        if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
-            $error = $this->existe($datos['nombre']);
-            return $this->renderizar($error,$view,$rol,$create,$edit,$delete);
+        if($create != false){
+            if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
+                $error = $this->existe($datos['nombre']);
+                return $this->renderizar($error,$view,$rol,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['nombre']),"OK") == 0){
+                $error = $this->existeModificar($datos['nombre']);
+                return $this->renderizar($error,$view,$rol,$create,$edit,$delete);
+            }
         }
     }
 
@@ -203,5 +210,12 @@ class RolController extends Controller
             return "¡Alto! El nombre de rol ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeModificar($nombre){
+        if(strcmp($_POST['actual'],$nombre) == 0){
+            return "OK";
+        }
+        return $this->existe($nombre);
     }
 }
