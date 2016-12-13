@@ -15,25 +15,32 @@ class PacienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("mutual", "text",[
-                'label' => 'Mutual',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
             ->add("nombre", "text",[
-                'label' => 'Nombre',
+                'label' => 'Nombre *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("apellido", "text",[
-                'label' => 'Apellido',
+                'label' => 'Apellido *',
                 "attr" => [
                     "class" => "form-control"
                 ]
-            ])->add("genero", "choice",[
-                'label' => 'Género',
+            ])
+            ->add("dni", "integer",[
+                'label' => 'DNI *',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("edad", "integer",[
+                'label' => 'Edad *',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add("genero", "choice",[
+                'label' => 'Género *',
                 'choices' => [
                     'Masculino' => 'Masculino',
                     'Femenino' => 'Femenino'
@@ -42,14 +49,8 @@ class PacienteType extends AbstractType
                     "class" => "chosen-select form-control"
                 ]
             ])
-            ->add("dni", "integer",[
-                'label' => 'DNI',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            ->add("edad", "integer",[
-                'label' => 'Edad',
+            ->add("mutual", "text",[
+                'label' => 'Mutual',
                 "attr" => [
                     "class" => "form-control"
                 ]
