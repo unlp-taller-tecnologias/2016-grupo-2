@@ -39,14 +39,14 @@ class FiltroReservaType extends AbstractType
                         ->where('u.baja = FALSE');
                 },
                 'property'     => 'getTipo',
-                "placeholder" =>"Elige un servicio..",
+                "placeholder" =>"Elige un Servicio..",
                 'required' => false,
                 "attr" => [
                     "class" => " chosen-select form-control",
                 ]
             ))
             ->add("numeroReserva", "text", [
-                'label' => 'Numero Reserva',
+                'label' => 'Número Reserva',
                 'required' => false,
                 "attr" => [
                     "class" => "form-control"
@@ -71,9 +71,9 @@ class FiltroReservaType extends AbstractType
                 ]
             ))
             ->add('save', SubmitType::class, array(
-                'label' => 'Buscar reservas',
+                'label' => 'Buscar Reservas',
                 "attr" => [
-                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                    "class" => "btn btn-primary col-md-offset-5"
                 ]
             ));
     }
