@@ -33,6 +33,7 @@ class Persona
     protected $edad;
 
 
+
     /**
      * Set nombre
      *
@@ -172,9 +173,9 @@ class Persona
         $edad = (strtotime($fechaactual)-strtotime($fechanac))/(365.25*60*60*24);
         $edad = abs($edad); $edad = floor($edad);
 
+        $this->edadPersona =$edad;
         
-        return $edad;
-        
+        return $this->edadPersona;
     }
 
 

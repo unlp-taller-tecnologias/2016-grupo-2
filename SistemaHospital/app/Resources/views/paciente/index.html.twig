@@ -5,6 +5,39 @@
 
     <a href="{{ path('paciente_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nuevo Paciente </a>
+
+
+
+    <div class="well">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class='col-sm-6'>
+                {{ form_row(form.nombre) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form.apellido) }}
+            </div>
+            {#<div class="col-md-6">#}
+                {#<div class="col-md-6">#}
+                    {#{{ form_row(form.edadmin) }}#}
+                {#</div>#}
+                {#<div class="col-md-6">#}
+                    {#{{ form_row(form.edadmax) }}#}
+                {#</div>#}
+            {#</div>#}
+            <div class="col-md-6">
+                {{ form_row(form.paciente) }}
+            </div>
+
+            <div class="col-md-12 espacio"></div>
+            {{ form_row(form.save) }}
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
     <div class="col-md-12 espacio"></div>
     <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
