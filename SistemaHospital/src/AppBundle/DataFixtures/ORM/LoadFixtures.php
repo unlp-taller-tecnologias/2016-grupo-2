@@ -420,18 +420,16 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
     {
         $reservas=array();
         $value = 0001;
+        $randDays=["+1","-1","+0","+2","-2","-3","+3","+4","-4","+5","-5"];
         foreach (range(1, self::RESERVASYOPECANT) as $i) {
             $reservas[$i] = new Reserva();
             $operaciones[$i]=new Operacion();
 
-            //RESERVAS
-            //$reservas[$i]->setNumeroReserva((string)$value);
 
-            //VER COMO HACER EL RANDON DE FECHAS
-            //$reservas[$i]->setFechaInicio($this->randomDate(20150101000000,20161123115959));
+            $rand=$randDays[array_rand($randDays)];
 
-            $reservas[$i]->setFechaInicio(new \DateTime('now + 1 month - '.$i.'days'));
-            $reservas[$i]->setFechaFin(new \DateTime('now +1 month -'.$i.'days'));
+            $reservas[$i]->setFechaInicio(new \DateTime('now '.$rand.'days'));
+            $reservas[$i]->setFechaFin(new \DateTime('now '.$rand.'days'));
 
             $rand= rand(1,self::PACIENTESCANT);
             $reservas[$i]->setPaciente($this->getReference("paciente-$rand"));
@@ -482,41 +480,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
             $this->addReference('personal-'.$i, $personal[$i]);
         }
     }
-    /*
 
-    funcion vieja
-
-    private function loadPersonals(ObjectManager $manager)
-    {
-        $min=10000000;
-        $max=99999999;
-        $fecha=new \DateTime('02/31/1990');
-        $personal= array();
-        foreach (range(1, self::PERSONALCANT) as $i) {
-            $personal[$i] = new Personal();
-            $randRol=rand( 1 , self::ROLESCANT );//valores random para aplicar roles y servicios
-            $personal[$i]->setNombre($this->getRandomNombre());
-            $personal[$i]->setApellido($this->getRandomApellido());
-            $personal[$i]->setBaja(0);
-            $personal[$i]->setDni(rand ( $min , $max ));
-            $personal[$i]->setEdad($fecha);
-            $personal[$i]->setRol($this->getReference("rol-$randRol"));
-            $randServ=array(1,2,3,4,5,6,7,8,9,10,11,12,13);
-            foreach (range(1, 4) as $j) {
-                $ran = $randServ[array_rand($randServ)];
-                $personal[$i]->addServicio($this->getReference("servicio-$ran"));
-                unset($randServ[$ran-1]);
-            }
-            $personal[$i]->setGenero("Masculino");
-
-            //$personal->setPublishedAt(new \DateTime('now - '.$i.'days'));
-
-            $manager->persist($personal[$i]);
-        }
-
-        $manager->flush();
-    }
-    */
 
     private function loadOperaciones(ObjectManager $manager)
     {
@@ -530,7 +494,6 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
             de 2 a 3 hrs -> media
             de 3 a 4 hrs -> larga
             de 4 o > ->muy largo
-         *
          * */
         foreach (range(1, self::RESERVASYOPECANT) as $i) {
             $operaciones[$i]=new Operacion();

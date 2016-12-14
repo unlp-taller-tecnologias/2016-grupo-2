@@ -22,45 +22,23 @@ class ReservaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
              $builder
-             ->add('fecha_inicio',  DateTimeType::class, array(
-                
-                'format' => 'yyyy-MM-dd',
-                "attr" => [
-                    "class" => " datetimepicker"
-                ]
-            ))
-             ->add('fecha_fin',  DateTimeType::class, array(
-                'format' => 'yyyy-MM-dd',
-                "attr" => [
-                    "class" => " datetimepicker"
-                ]
-            ))
-            
-
-           /*
-           ->add("fecha_inicio", "date",[
-                'label' => 'Fecha y Hora de Inicio *',
-                
+             ->add('fecha_inicio',  DateTimePickerType::class, array(
+              'format' => 'yyyy-MM-dd',
+//                 'widget' => 'text',
+                 'label' => '*Fecha de inicio',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
-            ])
-
-            ->add("fecha_fin", "date",[
-                'label' => 'Fecha y Hora de Finalización *',
-                
+            ))
+             ->add('fecha_fin', DateTimePickerType::class, array(
+               'format' => 'yyyy-MM-dd',
+//                 'widget' => 'text',
+                 'label' => '*Fecha fin',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
-            ])
-            */
-            
-            ->add("paciente", "choice",[
-                'label' => 'Paciente',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
+            ))
+
             ->add('estado', 'entity', array(
                 'class' => 'AppBundle:Estado',
                 'property'     => 'getTipo',
@@ -74,7 +52,7 @@ class ReservaType extends AbstractType
                 'property'     => 'getNombreyApellido',
                 'label' => 'Paciente',
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "form-control chosen-select"
                 ]
             ))
             ->add('servicio', 'entity', array(
@@ -82,7 +60,7 @@ class ReservaType extends AbstractType
                 'property'     => 'getTipo',
                 'label' => 'Servicio',
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "form-control chosen-select"
                 ]
             ))
             ->add('quirofano', 'entity', array(
@@ -90,7 +68,7 @@ class ReservaType extends AbstractType
                 'property'     => 'getNombre',
                 'label' => 'Quirófano',
                 "attr" => [
-                    "class" => "form-control"
+                    "class" => "form-control chosen-select"
                 ]
             ))
             ;
