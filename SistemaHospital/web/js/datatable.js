@@ -7,7 +7,10 @@
             "info": false,
             "responsive": true,
             "language": {
-                "search": "Busqueda por pagina:"
+                "emptyTable": "No hay resultados.",
+                "zeroRecords": "No hay resultados.",
+                "lengthMenu": "Mostrando _MENU_ Resultados",
+                "search": "Búsqueda por Página:"
             },
             "dom": "<'row'<'col-sm-6'<'pull-left'f>><'col-sm-6'<'pull-right'B>>>" +
             "<'row'<'col-sm-12'tr>>",
@@ -17,19 +20,19 @@
                     text: ' <i class="fa fa-share"></i><span class="hidden-xs"> Herramientas </span><i class="fa fa-angle-down"></i>',
                     className: 'btn btn-primary',
                     buttons: [{
-                        extend: "print", text: '<i class="fa fa-print"></i> Print'
+                        extend: "print", text: '<i class="fa fa-print"></i> Imprimir'
                     }
                         , {
-                            extend: "copy", text: '<i class="fa fa-check-circle-o"></i> Copy'
+                            extend: "copy", text: '<i class="fa fa-check-circle-o"></i> Copiar'
                         }
                         , {
-                            extend: "pdf", text: ' <i class="fa fa-file-pdf-o "></i> PDF'
+                            extend: "pdf", text: ' <i class="fa fa-file-pdf-o "></i> Generar PDF'
                         }
                         , {
-                            extend: "excel", text: '<i class="fa fa-file-excel-o"></i> Excel'
+                            extend: "excel", text: '<i class="fa fa-file-excel-o"></i> Generar Excel'
                         }
                         , {
-                            extend: "csv", text: '<i class="fa fa-cloud-upload"></i> CSV'
+                            extend: "csv", text: '<i class="fa fa-cloud-upload"></i> Generar CSV'
                         }
                     ]
 
@@ -42,7 +45,10 @@
             "processing": true,
             "paging": false,
             "language": {
-                "search": "Busqueda por pagina:",
+                "emptyTable": "No hay resultados.",
+                "zeroRecords": "No hay resultados.",
+                "lengthMenu": "Mostrando _MENU_ Resultados",
+                "search": "Búsqueda por Página:"
             },
             "ordering": false,
             "searching": false,
@@ -57,19 +63,19 @@
                     text: ' <i class="fa fa-share"></i><span class="hidden-xs"> Herramientas </span><i class="fa fa-angle-down"></i>',
                     className: 'btn btn-primary',
                     buttons: [{
-                        extend: "print", text: '<i class="fa fa-print"></i> Print'
+                        extend: "print", text: '<i class="fa fa-print"></i> Imprimir'
                     }
                         , {
-                            extend: "copy", text: '<i class="fa fa-check-circle-o"></i> Copy'
+                            extend: "copy", text: '<i class="fa fa-check-circle-o"></i> Copiar'
                         }
                         , {
-                            extend: "pdf", text: ' <i class="fa fa-file-pdf-o "></i> PDF'
+                            extend: "pdf", text: ' <i class="fa fa-file-pdf-o "></i> Generar PDF'
                         }
                         , {
-                            extend: "excel", text: '<i class="fa fa-file-excel-o"></i> Excel'
+                            extend: "excel", text: '<i class="fa fa-file-excel-o"></i> Generar Excel'
                         }
                         , {
-                            extend: "csv", text: '<i class="fa fa-cloud-upload"></i> CSV'
+                            extend: "csv", text: '<i class="fa fa-cloud-upload"></i> Generar CSV'
                         }
                     ]
 
@@ -82,22 +88,23 @@
             "processing": true,
             "paging": true,
             "language": {
-                "search": "Busqueda por pagina:",
+                "emptyTable": "No hay resultados.",
+                "zeroRecords": "No hay resultados.",
+                "lengthMenu": "Mostrando _MENU_ Resultados",
                 "paginate": {
                     "sFirst": "Primero",
                     "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
+                    "sNext": "Siguiente →",
+                    "sPrevious": "← Anterior"
                 },
-                // "processing":"Procesando...",
-                "lengthMenu":     "_MENU_ registros",
+                "search": "Búsqueda por Página:"
             },
             "ordering": true,
             "searching": true,
             "responsive": {details: "inline"},
-            "dom": "<'row'<'col-sm-5'<'pull-left'f>><'col-sm-3'<'pull-right'l>><'col-sm-4'<'pull-right'B>>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-12'p>>",
+            "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+            "<'row'<'col-sm-5'B><'col-sm-7'>>" +
+            "<'row'<'col-sm-12'tr>>",
             "info": false,
             buttons: [
                 // {
@@ -108,21 +115,21 @@
                 {
                     extend: 'collection',
                     text: ' <i class="fa fa-share"></i><span class="hidden-xs"> Herramientas </span><i class="fa fa-angle-down"></i>',
-                    className: 'btn btn-success',
+                    className: 'btn btn-primary',
                     buttons: [{
-                        extend: "print", text: '<i class="fa fa-print"></i> Print'
+                        extend: "print", text: '<i class="fa fa-print"></i> Imprimir'
                     }
                         , {
-                            extend: "copy", text: '<i class="fa fa-check-circle-o"></i> Copy'
+                            extend: "copy", text: '<i class="fa fa-check-circle-o"></i> Copiar'
                         }
                         , {
-                            extend: "pdf", text: ' <i class="fa fa-file-pdf-o "></i> PDF'
+                            extend: "pdf", text: ' <i class="fa fa-file-pdf-o "></i> Generar PDF'
                         }
                         , {
-                            extend: "excel", text: '<i class="fa fa-file-excel-o"></i> Excel'
+                            extend: "excel", text: '<i class="fa fa-file-excel-o"></i> Generar Excel'
                         }
                         , {
-                            extend: "csv", text: '<i class="fa fa-cloud-upload"></i> CSV'
+                            extend: "csv", text: '<i class="fa fa-cloud-upload"></i> Generar CSV'
                         }
                     ]
 
