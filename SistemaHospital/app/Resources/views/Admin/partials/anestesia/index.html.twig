@@ -1,9 +1,14 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente la Anestesia.</div>
+    {% endif %}
+
     <h1>Listado de Anestesias</h1>
 
-    <a href="{{ path('admin_anestesia_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('admin_anestesia_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva Anestesia </a>
 
     {% if anestesias is not empty %}

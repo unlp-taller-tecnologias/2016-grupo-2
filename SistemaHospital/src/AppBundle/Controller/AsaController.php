@@ -143,7 +143,7 @@ class AsaController extends Controller
             $em->flush($asa);
         }
 
-        return $this->redirectToRoute('admin_asa_index');
+        return $this->redirectToRoute('admin_asa_index', array('exito' => 'delete'));
     }
 
     /**
@@ -235,7 +235,13 @@ class AsaController extends Controller
     }
 
     private function existeModificar($grado){
-        if(strcmp($_POST['actual'],$grado) == 0){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$grado) == 0){
             return "OK";
         }
         return $this->existe($grado);

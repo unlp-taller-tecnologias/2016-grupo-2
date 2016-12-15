@@ -1,9 +1,13 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el Estado de Reserva.</div>
+    {% endif %}
+
     <h1>Listado de Estados de Reserva </h1>
 
-    <a href="{{ path('admin_estado_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('admin_estado_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nuevo Estado </a>
 
     {% if estados is not empty %}

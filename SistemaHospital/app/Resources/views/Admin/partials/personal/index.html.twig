@@ -1,9 +1,13 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el Personal.</div>
+    {% endif %}
+
     <h1>Listado del Personal</h1>
 
-    <a href="{{ path('personal_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('personal_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nuevo Personal </a>
 
     <div class="col-md-12 espacio"></div>

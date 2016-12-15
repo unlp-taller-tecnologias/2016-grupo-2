@@ -142,7 +142,7 @@ class UserController extends Controller
             $em->flush($user);
         }
 
-        return $this->redirectToRoute('user_index');
+        return $this->redirectToRoute('user_index', array('exito' => 'delete'));
     }
 
     /**
@@ -173,13 +173,20 @@ class UserController extends Controller
                 $error = $this->existe($datos['username']);
                 return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
             }
+            if (!strcmp($this->existeMail($datos['mail']),"OK") == 0){
+                $error = $this->existeMail($datos['mail']);
+                return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
+            }
         } else {
             if (!strcmp($this->existeModificar($datos['username']),"OK") == 0){
                 $error = $this->existeModificar($datos['username']);
                 return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
             }
+            if (!strcmp($this->existeMailModificar($datos['mail']),"OK") == 0){
+                $error = $this->existeMailModificar($datos['mail']);
+                return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
+            }
         }
-
         if (!strcmp($this->validarMail($datos['mail']),"OK") == 0){
             $error = $this->validarMail($datos['mail']);
             return $this->renderizar($error,$view,$usuario,$create,$edit,$delete);
@@ -229,11 +236,39 @@ class UserController extends Controller
         return "OK";
     }
 
+    private function existeMail($mail){
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array(
+            'email'  => $mail , 'enabled' => 1));
+        if ($user) {
+            return "¡Alto! El E-Mail ingresado ya se encuentra asociado a un usuario existente.";
+        }
+        return "OK";
+    }
+
     private function existeModificar($username){
-        if(strcmp($_POST['actual'],$username) == 0){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$username) == 0){
             return "OK";
         }
         return $this->existe($username);
+    }
+
+    private function existeMailModificar($mail){
+        if(isset($_POST['mailactual'])){
+            $actual = $_POST['mailactual'];
+            setcookie('mailactual',$actual);
+        } else {
+            $actual = $_COOKIE['mailactual'];
+        }
+        if(strcmp($actual,$mail) == 0){
+            return "OK";
+        }
+        return $this->existe($mail);
     }
 
     private function validarMail($mail){
