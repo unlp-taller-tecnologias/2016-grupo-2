@@ -1,9 +1,13 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el Usuario.</div>
+    {% endif %}
+
     <h1>Listado de Usuarios</h1>
 
-    <button class="btn btn-success col-md-offset-10" data-toggle="modal" data-target="#aviso">
+    <button class="btn btn-primary col-md-offset-10" data-toggle="modal" data-target="#aviso">
         <i class="fa fa-plus" aria-hidden="true"></i>Nuevo Usuario
     </button>
 
