@@ -102,7 +102,7 @@
                 <td>{{ operacion.reserva.fechafin|date('d/m/Y H:i:s')  }}</td>
                 <td>{{ operacion.habitacion }}</td>
                 <td>{{ operacion.observaciones }}</td>
-                <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
+                <td>{% if operacion.internado %}Si{% else %}No{% endif %}</td>
                 <td>{{ operacion.tq }}</td>
                 <td>{{ operacion.diagnostico|slice(0, 50) }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
