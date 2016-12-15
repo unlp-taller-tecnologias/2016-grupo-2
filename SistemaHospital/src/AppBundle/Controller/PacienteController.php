@@ -21,15 +21,37 @@ class PacienteController extends Controller
      *
      * @Route("/",defaults={"page": 1}, name="paciente_index")
      * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="paciente_index_paginated")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function indexAction($page)
+    public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page);
+
+        $form = $this->createForm('AppBundle\Form\FiltroPacienteType');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
+            $datos = $form->getData();
+
+            setcookie("filtrosR",serialize($datos));
+            $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page,$datos);
+            return $this->render('paciente/index.html.twig', array(
+                'pacientes' => $pacientes,
+                "form" => $form->createView(),
+             ));
+        }
+
+        $pacientes=null;
+        if(isset($_COOKIE) && isset($_COOKIE["filtrosR"]) ){
+            $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page,unserialize($_COOKIE["filtrosR"]));
+        }else{
+            $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page,null);
+        }
 
         return $this->render('paciente/index.html.twig', array(
             'pacientes' => $pacientes,
+            "form" => $form->createView(),
         ));
     }
 
