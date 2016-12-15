@@ -76,8 +76,19 @@ class PersonalController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($personal);
-            $em->flush($personal);
+
+            if($aux = $this->existeElemntoEnBaja($personal->getDni())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux = $aux->fillEntity($personal);
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('personal_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($personal);
+                $em->flush();
+            }
+
 
             return $this->redirectToRoute('personal_show', array('id' => $personal->getId(), 'exito' => 'new'));
         }
@@ -245,6 +256,15 @@ class PersonalController extends Controller
             return "¡Alto! Ya existe un personal asociado al DNI ingresado.";
         }
         return "OK";
+    }
+
+    private function existeElemntoEnBaja($dni){
+        $aux = $this->getDoctrine()->getRepository('AppBundle:Personal')->findOneBy(array(
+            'dni'  => $dni , 'baja' => 1));
+        if ($aux) {
+            return $aux;
+        }
+        return false;
     }
 
     private function existeModificar($dni){

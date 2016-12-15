@@ -53,9 +53,19 @@ class QuirofanoController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($quirofano);
-            $em->flush($quirofano);
 
+            if($aux = $this->existeElemntoEnBaja($quirofano->getNombre())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux->setBaja(0);
+                $aux->setNombre($quirofano->getNombre());
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('admin_quirofano_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($quirofano);
+                $em->flush();
+            }
             return $this->redirectToRoute('admin_quirofano_show', array('id' => $quirofano->getId(), 'exito' => 'new'));
         }
 
@@ -208,12 +218,22 @@ class QuirofanoController extends Controller
 
     private function existe($nombre){
         $quirofano = $this->getDoctrine()->getRepository('AppBundle:Quirofano')->findOneBy(array(
-            'nombre'  => $nombre));
+            'nombre'  => $nombre, 'baja' => 0));
         if ($quirofano) {
             return "¡Alto! El nombre de quirófano ingresado ya existe.";
         }
         return "OK";
     }
+
+    private function existeElemntoEnBaja($nombre){
+        $aux = $this->getDoctrine()->getRepository('AppBundle:Quirofano')->findOneBy(array(
+            'nombre'  => $nombre , 'baja' => 1));
+        if ($aux) {
+            return $aux;
+        }
+        return false;
+    }
+
 
     private function existeModificar($nombre){
         if(strcmp($_POST['actual'],$nombre) == 0){

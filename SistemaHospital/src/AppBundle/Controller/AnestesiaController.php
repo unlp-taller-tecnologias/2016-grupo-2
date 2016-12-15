@@ -54,9 +54,20 @@ class AnestesiaController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($anestesium);
-            $em->flush($anestesium);
 
+            if($aux = $this->existeElemntoEnBaja($anestesium->getTipo())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux->setBaja(0);
+                $aux->setDescripcion($anestesium->getDescripcion());
+                $aux->setTipo($anestesium->getTipo());
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('admin_anestesia_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($anestesium);
+                $em->flush();
+            }
             return $this->redirectToRoute('admin_anestesia_show', array('id' => $anestesium->getId(), 'exito' => 'new'));
         }
 
@@ -214,6 +225,15 @@ class AnestesiaController extends Controller
             return "¡Alto! El tipo de anestesia ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeElemntoEnBaja($tipo){
+        $anestesia = $this->getDoctrine()->getRepository('AppBundle:Anestesia')->findOneBy(array(
+            'tipo'  => $tipo , 'baja' => 1));
+        if ($anestesia) {
+            return $anestesia;
+        }
+        return false;
     }
 
     private function existeModificar($tipo){

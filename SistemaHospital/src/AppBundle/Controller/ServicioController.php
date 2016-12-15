@@ -52,9 +52,20 @@ class ServicioController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($servicio);
-            $em->flush($servicio);
 
+            if($aux = $this->existeElemntoEnBaja($servicio->getTipo())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux->setBaja(0);
+                $aux->setTipo($servicio->getTipo());
+                $aux->setDescripcion($servicio->getDescripcion());
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('admin_servicio_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($servicio);
+                $em->flush();
+            }
             return $this->redirectToRoute('admin_servicio_show', array('id' => $servicio->getId(), 'exito' => 'new'));
         }
 
@@ -211,6 +222,15 @@ class ServicioController extends Controller
             return "¡Alto! El tipo de servicio ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeElemntoEnBaja($tipo){
+        $aux = $this->getDoctrine()->getRepository('AppBundle:Servicio')->findOneBy(array(
+            'tipo'  => $tipo , 'baja' => 1));
+        if ($aux) {
+            return $aux;
+        }
+        return false;
     }
 
     private function existeModificar($tipo){

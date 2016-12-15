@@ -78,8 +78,18 @@ class PacienteController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($paciente);
-            $em->flush($paciente);
+
+            if($aux = $this->existeElemntoEnBaja($paciente->getDni())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux = $aux->fillEntity($paciente);
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('paciente_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($paciente);
+                $em->flush();
+            }
 
             return $this->redirectToRoute('paciente_show', array('id' => $paciente->getId(), 'exito' => 'new'));
 
@@ -114,8 +124,19 @@ class PacienteController extends Controller
                 return $this->procesardatos($datos,'paciente/newInReserva.html.twig',$paciente,$form->createView(),false,false);
             }
             $em = $this->getDoctrine()->getManager();
-            $em->persist($paciente);
-            $em->flush($paciente);
+
+            if($aux = $this->existeElemntoEnBaja($paciente->getDni())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux = $aux->fillEntity($paciente);
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('reserva_new');
+            }else{
+                $em->persist($paciente);
+                $em->flush();
+            }
+
 
             return $this->redirectToRoute('reserva_new');
 
@@ -150,11 +171,20 @@ class PacienteController extends Controller
                 return $this->procesardatos($datos,'paciente/newInOperacion.html.twig',$paciente,$form->createView(),false,false);
             }
             $em = $this->getDoctrine()->getManager();
-            $em->persist($paciente);
-            $em->flush($paciente);
+
+            if($aux = $this->existeElemntoEnBaja($paciente->getDni())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux = $aux->fillEntity($paciente);
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('operacion_new');
+            }else{
+                $em->persist($paciente);
+                $em->flush();
+            }
 
             return $this->redirectToRoute('operacion_new');
-
         }
 
         return $this->render('paciente/newInOperacion.html.twig', array(
@@ -322,6 +352,15 @@ class PacienteController extends Controller
             return "¡Alto! Ya existe un paciente asociado al DNI ingresado.";
         }
         return "OK";
+    }
+
+    private function existeElemntoEnBaja($dni){
+        $aux = $this->getDoctrine()->getRepository('AppBundle:Paciente')->findOneBy(array(
+            'dni'  => $dni , 'baja' => 1));
+        if ($aux) {
+            return $aux;
+        }
+        return false;
     }
 
     private function existeModificar($dni){

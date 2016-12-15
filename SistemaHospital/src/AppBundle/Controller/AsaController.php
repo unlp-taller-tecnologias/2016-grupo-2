@@ -53,13 +53,20 @@ class AsaController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
-            if($this->existeElemntoEnBaja($asa->getGrado())){
-                $em->persist($asa);
-                $em->flush($asa);
-            }else{
-                $asa->setBaja(0);
-            }
 
+            if($aux = $this->existeElemntoEnBaja($asa->getGrado())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux->setBaja(0);
+                $aux->setDescripcion($asa->getDescripcion());
+                $aux->setGrado($asa->getGrado());
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('admin_asa_show', array('id' => $aux->getId()));
+            }else{
+                $em->persist($asa);
+                $em->flush();
+            }
             return $this->redirectToRoute('admin_asa_show', array('id' => $asa->getId()));
         }
 
@@ -73,7 +80,7 @@ class AsaController extends Controller
      * Finds and displays a asa entity.
      *
      * @Route("/{id}", name="admin_asa_show")
-     * @Method("GET")
+     * @Method("GET")Asa
      */
     public function showAction(Asa $asa)
     {
@@ -222,7 +229,7 @@ class AsaController extends Controller
         $aux = $this->getDoctrine()->getRepository('AppBundle:Asa')->findOneBy(array(
             'grado'  => $grado , 'baja' => 1));
         if ($aux) {
-            return true;
+            return $aux;
         }
         return false;
     }

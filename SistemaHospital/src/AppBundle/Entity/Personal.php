@@ -208,5 +208,32 @@ class Personal extends Persona
     {
         return $this->rol;
     }
+
+
+    /**
+     * Set rol
+     *
+     * @param \AppBundle\Entity\Personal $personal
+     *
+     * @return Personal
+     */
+    public function fillEntity(\AppBundle\Entity\Personal $personal){
+        $this->setBaja($personal->getBaja());
+        $this->setNombre($personal->getNombre());
+        $this->setApellido($personal->getApellido());
+        $this->setDni($personal->getDni());
+        $this->setRol($personal->getRol());
+        $this->setGenero($personal->getGenero());
+        $this->setEdad($personal->getEdad());
+
+        foreach ( $this->getServicios() as $servicio){
+            $this->removeServicio($servicio);
+        }
+        foreach ( $personal->getServicios() as $servicio){
+            $this->addServicio($servicio);
+        }
+
+        return $this;
+    }
     
 }

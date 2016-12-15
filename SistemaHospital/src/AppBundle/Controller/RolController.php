@@ -52,8 +52,19 @@ class RolController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($rol);
-            $em->flush($rol);
+
+            if($aux = $this->existeElemntoEnBaja($rol->getNombre())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux->setBaja(0);
+                $aux->setNombre($rol->getNombre());
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('admin_rol_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($rol);
+                $em->flush();
+            }
 
             return $this->redirectToRoute('admin_rol_show', array('id' => $rol->getId(), 'exito' => 'new'));
         }
@@ -212,6 +223,16 @@ class RolController extends Controller
         }
         return "OK";
     }
+
+    private function existeElemntoEnBaja($nombre){
+        $aux = $this->getDoctrine()->getRepository('AppBundle:Rol')->findOneBy(array(
+            'nombre'  => $nombre , 'baja' => 1));
+        if ($aux) {
+            return $aux;
+        }
+        return false;
+    }
+
 
     private function existeModificar($nombre){
         if(strcmp($_POST['actual'],$nombre) == 0){

@@ -213,6 +213,7 @@ class SangreController extends Controller
         return "OK";
     }
 
+
     private function existeModificar($nombre){
         if(strcmp($_POST['actual'],$nombre) == 0){
             return "OK";
