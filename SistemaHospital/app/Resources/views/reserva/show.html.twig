@@ -49,6 +49,10 @@
                 <th>Fecha y Hora Fin</th>
                 <td>{% if reserva.fechafin %}{{ reserva.fechafin|date('d/m/Y H:i:s') }}{% endif %}</td>
             </tr>
+            <tr>
+                <th>Tiempo quirurgico</th>
+                <td>{{ reserva.operacion.tq }}</td>
+            </tr>
              <tr>
                 <th>Estado</th>
                 <td>{{ reserva.estado.tipo }}</td>

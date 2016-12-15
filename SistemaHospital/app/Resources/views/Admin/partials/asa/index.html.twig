@@ -21,6 +21,7 @@
         </thead>
         <tbody>
         {% for asa in asas %}
+        {% if asa.baja == 0 %}
             <tr>
                 
 
@@ -38,6 +39,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

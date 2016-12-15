@@ -21,12 +21,7 @@
                 <th>Descripción</th>
                 <td>{{ asa.descripcion }}</td>
             </tr>
-            {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <tr>
-                <th>Baja</th>
-                <td>{% if asa.baja %}Si{% else %}No{% endif %}</td>
-            </tr>
-            {% endif %}
+           
         </tbody>
     </table>
 

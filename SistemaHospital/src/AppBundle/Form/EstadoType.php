@@ -27,16 +27,7 @@ class EstadoType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-             ->add('baja', ChoiceType::class, array(
-                'label' => 'Dar de baja',
-                'choices'  => array(
-                    1 => 'Si',
-                    0 => 'No',
-                ),
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
+             
         ;
     }
     

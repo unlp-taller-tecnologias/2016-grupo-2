@@ -12,20 +12,17 @@
             <tr>
                 
                 <th>Nombre</th>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <th>Baja</th>
-                {% endif %}
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
         </thead>
         <tbody>
         {% for rol in rols %}
+        {% if rol.baja == 0 %}
             <tr>
         
                 <td>{{ rol.nombre }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <td>{% if rol.baja %}Yes{% else %}No{% endif %}</td>
                 {% endif %}
                 <td>
                     <a href="{{ path('admin_rol_show', { 'id': rol.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -36,6 +33,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

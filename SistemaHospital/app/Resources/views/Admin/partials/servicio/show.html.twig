@@ -14,12 +14,7 @@
                 <th>Descripción</th>
                 <td>{{ servicio.descripcion }}</td>
             </tr>
-            {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <tr>
-                <th>Baja</th>
-                <td>{% if servicio.baja %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            {% endif %}
+            
         </tbody>
     </table>
 

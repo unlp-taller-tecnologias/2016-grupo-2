@@ -204,13 +204,11 @@ class ReservaController extends Controller
             $operacion->setObservaciones($datos["observaciones"]);
             $operacion->setInternado($datos["Internado"]);
             $operacion->setCirujia($datos["cirugia"]);
-            $operacion->setTq($datos["TiempoQuirurgico"]);
+            
             $operacion->setBaja(0); //Se setea en 0 por defecto siempre.
             $operacion->setSangre($datos["sangre"]);
             $operacion->setAsa($datos["asa"]);
             $operacion->setAnestesia($datos["Anestesia"]);
-
-
 
             foreach ($datos["personal"] as $p) {
               
@@ -218,32 +216,55 @@ class ReservaController extends Controller
             }
 
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($operacion);
-            $em->flush($operacion);
 
             $reserva = new Reserva();
             //$reserva->setNumeroReserva($datos['numero_reserva']);
             $reserva->setBaja(0);
 
-            $datos["fecha_inicio"]= date('Y-m-d H:i', strtotime($datos["fecha_inicio"]));
+            //$datos["fecha_inicio"]= date('Y-m-d H:i', strtotime($datos["fecha_inicio"]));
 
-            $datos["fecha_fin"]= date('Y-m-d H:i', strtotime($datos["fecha_fin"]));
+            //$datos["fecha_fin"]= date('Y-m-d H:i', strtotime($datos["fecha_fin"]));
 
 
-            $inicio = new \DateTime($datos['fecha_inicio']);
-            $fin = new \DateTime($datos['fecha_fin']);
+            //$inicio = new \DateTime($datos['fecha_inicio']);
+            //$fin = new \DateTime($datos['fecha_fin']);
 
-            $reserva->setFechaInicio($inicio);
-            $reserva->setFechaFin($fin);
+            $reserva->setFechaInicio($datos["fecha_inicio"]);
+            $reserva->setFechaFin($datos["fecha_fin"]);
             $reserva->setPaciente($datos['paciente']);
             $reserva->setServicio($datos['servicio']);
             $reserva->setEstado($datos['estado']);
             $reserva->setQuirofano($datos['quirofano']);
             $reserva->setOperacion($operacion);
+            
+            $inicio=$datos["fecha_inicio"]->format('Y-m-d H:i:s');
+            $fin=$datos["fecha_fin"]->format('Y-m-d H:i:s');
+
+            $minutos = (strtotime($fin)-strtotime($inicio))/60;
+            $minutos = abs($minutos); $minutos = floor($minutos);
+
+            switch ($minutos) {
+                case $minutos <= 120:  // menor o igual a 2hs
+                    $operacion->setTq('Corto');
+                    break;
+                case ($minutos <= 240 and $minutos > 120 ): // entre 2 y 4hs
+                    $operacion->setTq('Medio');
+                    break;
+                case ($minutos <= 480 and $minutos > 240): // entre 4 y 6hs
+                    $operacion->setTq('Largo');
+                    break;
+                case ($minutos > 480): // mas de 6hs
+                    $operacion->setTq('Muy largo');
+                    break;
+            }
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($operacion);
+            $em->flush($operacion);
+
             $em->persist($reserva);
             $em->flush($reserva);
-
 
             return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId(), 'exito' => 'new'));
         }
@@ -330,6 +351,28 @@ class ReservaController extends Controller
             //    return $this->procesardatos($datos,'Admin/reserva/edit.html.twig',false,$editForm->createView(),$deleteForm->createView());
             //}
 
+            $datos = $editForm->getData();
+
+            $inicio= $reserva->getFechaInicio()->format('Y-m-d H:i:s');
+            $fin= $reserva->getFechaFin()->format('Y-m-d H:i:s');
+
+            $minutos = (strtotime($fin)-strtotime($inicio))/60;
+            $minutos = abs($minutos); $minutos = floor($minutos);
+
+            switch ($minutos) {
+                case $minutos <= 120:  // menor o igual a 2hs
+                    $reserva->getOperacion()->setTq('Corto');
+                    break;
+                case ($minutos <= 240 and $minutos > 120 ): // entre 2 y 4hs
+                    $reserva->getOperacion()->setTq('Medio');
+                    break;
+                case ($minutos <= 480 and $minutos > 240): // entre 4 y 6hs
+                    $reserva->getOperacion()->setTq('Largo');
+                    break;
+                case ($minutos > 480): // mas de 6hs
+                    $reserva->getOperacion()->setTq('Muy largo');
+                    break;
+            }
 
 
             $this->getDoctrine()->getManager()->flush();

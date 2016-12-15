@@ -148,11 +148,8 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
           return  $qb ->select('o')
                 ->from('AppBundle:Operacion', 'o')
                 ->join('o.reserva', 'r')
-                ->join('r.estado', 'e')
-                ->where('e.tipo = :pend')
-                ->orWhere('e.tipo = :esperando')
-                ->setParameter('pend', "PENDIENTE")
-                ->setParameter('esperando', "ESPERANDO CONFIRMACION")
+                ->where('r.estado = 3')
+                ->orWhere('r.estado = 4')
                 ->getQuery()->execute()
               ;
     }

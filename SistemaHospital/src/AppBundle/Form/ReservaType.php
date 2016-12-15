@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\Type\DateTimePickerType;
-
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use AppBundle\Entity\Estado;
@@ -23,7 +22,7 @@ class ReservaType extends AbstractType
     {
              $builder
              ->add('fecha_inicio',  DateTimePickerType::class, array(
-              'format' => 'yyyy-MM-dd',
+              'format' => 'yyyy-MM-dd HH:mm',
 //                 'widget' => 'text',
                  'label' => '*Fecha de inicio',
                 "attr" => [
@@ -31,7 +30,7 @@ class ReservaType extends AbstractType
                 ]
             ))
              ->add('fecha_fin', DateTimePickerType::class, array(
-               'format' => 'yyyy-MM-dd',
+               'format' => 'yyyy-MM-dd HH:mm',
 //                 'widget' => 'text',
                  'label' => '*Fecha fin',
                 "attr" => [

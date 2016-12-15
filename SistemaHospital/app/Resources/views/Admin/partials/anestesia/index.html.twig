@@ -13,21 +13,20 @@
               
                 <th>Tipo</th>
                 <th>Descripción</th>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <th>Baja</th>
-                {% endif %}
+                
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
         </thead>
         <tbody>
         {% for anestesium in anestesias %}
+        {% if anestesium.baja == 0 %}
             <tr>
                
                 <td>{{ anestesium.tipo }}</td>
                 <td>{{ anestesium.descripcion }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <td>{% if anestesium.baja %}Yes{% else %}No{% endif %}</td>
+              
                 {% endif %}
                 <td>
                     <a href="{{ path('admin_anestesia_show', { 'id': anestesium.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -38,6 +37,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

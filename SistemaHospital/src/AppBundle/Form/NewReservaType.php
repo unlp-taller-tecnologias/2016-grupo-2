@@ -7,7 +7,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use AppBundle\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Estado;
 use Doctrine\ORM\EntityRepository;
@@ -22,18 +22,22 @@ class NewReservaType extends AbstractType
     {
 
         $builder
-            ->add("fecha_inicio", "text",[
-                'label' => 'Fecha y Hora de Inicio *',
+            ->add('fecha_inicio',  DateTimePickerType::class, array(
+              'format' => 'yyyy-MM-dd HH:mm',
+//                 'widget' => 'text',
+                 'label' => '*Fecha de inicio',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
-            ])
-            ->add("fecha_fin", "text",[
-                'label' => 'Fecha y Hora de Finalización *',
+            ))
+             ->add('fecha_fin', DateTimePickerType::class, array(
+               'format' => 'yyyy-MM-dd HH:mm',
+//                 'widget' => 'text',
+                 'label' => '*Fecha fin',
                 "attr" => [
                     "class" => "form-control datetimepicker"
                 ]
-            ])
+            ))
             ->add('paciente', 'entity', array(
                 'multiple' => false,   // Multiple selection allowed
                 'expanded' => false,   // Render as checkboxes
@@ -154,18 +158,6 @@ class NewReservaType extends AbstractType
                     0 => 'No',
                 ),
                 'label' => 'Internado *',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-            ->add('TiempoQuirurgico', ChoiceType::class, array(
-                'choices'  => array(
-                    "Corto" => 'Corto',
-                    "Medio" => 'Medio',
-                    "Largo" => 'Largo',
-                    "Muy Largo" => 'Muy Largo',
-                ),
-                 'label' => 'Tiempo Quirurgico * ',
                 "attr" => [
                     "class" => "form-control"
                 ]
