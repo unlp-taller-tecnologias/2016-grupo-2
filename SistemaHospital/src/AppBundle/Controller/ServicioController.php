@@ -131,7 +131,7 @@ class ServicioController extends Controller
             $em->flush($servicio);
         }
 
-        return $this->redirectToRoute('admin_servicio_index');
+        return $this->redirectToRoute('admin_servicio_index', array('exito' => 'delete'));
     }
 
     /**
@@ -214,7 +214,13 @@ class ServicioController extends Controller
     }
 
     private function existeModificar($tipo){
-        if(strcmp($_POST['actual'],$tipo) == 0){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$tipo) == 0){
             return "OK";
         }
         return $this->existe($tipo);
