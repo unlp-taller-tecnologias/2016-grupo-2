@@ -1,38 +1,38 @@
 {% extends 'operacion/layout.html.twig' %}
 {% block main %}
 
-
-     <div class="col-md-6">
-         <div class="col-md-5">
-             <label for="graffechaDesde">Fecha hasta:</label>
-         </div>
-        <div class="col-md-7">
-            <input id="graffechaDesde" type="text" class="datetimepickerWithoutTime form-control" name="graffechaDesde" required>
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-5">
+                    <label for="graffechaDesde">Generar estadística desde:</label>
+                </div>
+                <div class="col-md-7">
+                    <input id="graffechaDesde" type="text" class="datetimepickerWithoutTime form-control" name="graffechaDesde" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-5">
+                    <label for="graffechaHasta">Hasta:</label>
+                </div>
+                <div class="col-md-7">
+                    <input id="graffechaHasta" type="text" class="datetimepickerWithoutTime form-control" name="graffechaHasta" required>
+                </div>
+            </div>
+            <div class="col-md-offset-5 col-md-3">
+                <button id="graficar" class="btn btn-primary espacio"> Realizar estadística </button>
+            </div>
         </div>
-     </div>
-     <div class="col-md-6">
-         <div class="col-md-5">
-             <label for="graffechaHasta">Fecha hasta:</label>
-         </div>
-         <div class="col-md-7">
-             <input id="graffechaHasta" type="text" class="datetimepickerWithoutTime form-control" name="graffechaHasta" required>
-         </div>
-     </div>
-
-
-    <div class="col-md-offset-5 col-md-3">
-        <button id="graficar" class="btn btn-primary espacio"> Estadistica entre fechas </button>
     </div>
 
     <div id="loadingGif" class="col-md-12 espacio ">
         <img  class="col-md-offset-6" src="{{ asset('images/ajax-loader.gif') }}" alt="gif-loading">
     </div>
-<div id="exampleGRaf" class="col-md-12"></div>
+    <div id="exampleGRaf" class="col-md-12"></div>
+    <div id="grafBarra" class="col-md-12"></div>
+    <div id="grafBarra2" class="col-md-12"></div>
 
-
-<div id="grafBarra" class="col-md-12"></div>
-<div id="grafBarra2" class="col-md-12"></div>
-{#<div id="grafTorta" class="col-12"></div>#}
+    {#<div id="grafTorta" class="col-12"></div>#}
 
 {% endblock  %}
 
