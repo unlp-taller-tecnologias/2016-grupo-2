@@ -126,7 +126,8 @@ class RolController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($rol);
+            $rol->setBaja(1);
+            $em->persist($rol);
             $em->flush($rol);
         }
 

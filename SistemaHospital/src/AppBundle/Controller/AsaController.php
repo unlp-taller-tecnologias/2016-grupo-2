@@ -127,7 +127,8 @@ class AsaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($asa);
+            $asa->setBaja(1);
+            $em->persist($asa);
             $em->flush($asa);
         }
 

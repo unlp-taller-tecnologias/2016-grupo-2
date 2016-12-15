@@ -379,7 +379,13 @@ class ReservaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($reserva);
+            $reserva->setBaja(1);
+            $reserva->getOperacion()->setBaja(1);
+
+            $em->persist($reserva->getOperacion());
+            $em->flush($reserva->getOperacion());
+
+            $em->persist($reserva);
             $em->flush($reserva);
         }
 

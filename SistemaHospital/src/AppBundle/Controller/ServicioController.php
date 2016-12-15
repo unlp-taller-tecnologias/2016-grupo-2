@@ -125,7 +125,9 @@ class ServicioController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($servicio);
+
+            $servicio->setBaja(1);
+            $em->persist($servicio);
             $em->flush($servicio);
         }
 

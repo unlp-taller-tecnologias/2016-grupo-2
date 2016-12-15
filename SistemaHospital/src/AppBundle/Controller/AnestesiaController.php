@@ -128,7 +128,9 @@ class AnestesiaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($anestesium);
+
+            $anestesium->setBaja(1);
+            $em->persist($anestesium);
             $em->flush($anestesium);
         }
 

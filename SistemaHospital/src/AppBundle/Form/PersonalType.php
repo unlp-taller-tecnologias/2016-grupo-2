@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Doctrine\ORM\EntityRepository;
 
 
@@ -48,12 +49,15 @@ class PersonalType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add("edad", "date",[
-                'label' => 'Edad *',
-                "attr" => [
-                    "class" => "form-control"
+            ->add('edad', DateType::class, array(
+                'widget' => 'single_text',
+                 'label' => 'Fecha de nacimiento *',
+
+                'format' => 'yyyy-MM-dd',
+                 "attr" => [
+                    "class" => " form-control"
                 ]
-            ])
+            ))
             ->add('servicios', 'entity', array(
                 'label' => 'Servicios *',
                 'multiple' => true,   // Multiple selection allowed

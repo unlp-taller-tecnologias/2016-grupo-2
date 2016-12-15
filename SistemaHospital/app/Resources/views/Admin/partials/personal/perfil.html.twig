@@ -18,7 +18,7 @@
                  <p>{{ app.user.personal.dni }}</p>
 
                  <h3>Edad</h3>
-                 <p>{{ app.user.personal.edad }}</p>
+                 <p>{{ app.user.personal.edad|date('d/m/Y') }}</p>
 
                  <h3>Rol</h3>
                  <p>{{ app.user.personal.rol.nombre }}</p>

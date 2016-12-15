@@ -127,7 +127,8 @@ class QuirofanoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($quirofano);
+            $quirofano->setBaja(1);
+            $em->persist($quirofano);
             $em->flush($quirofano);
         }
 

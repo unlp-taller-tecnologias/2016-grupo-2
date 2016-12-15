@@ -292,7 +292,12 @@ class OperacionController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($operacion);
+            $operacion->setBaja(1);
+            $operacion->getReserva()->setBaja(1);
+
+            $em->persist($operacion->getReserva());
+            $em->flush($operacion->getReserva());
+            $em->persist($operacion);
             $em->flush($operacion);
         }
 
