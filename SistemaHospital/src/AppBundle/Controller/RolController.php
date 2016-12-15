@@ -131,7 +131,7 @@ class RolController extends Controller
             $em->flush($rol);
         }
 
-        return $this->redirectToRoute('admin_rol_index');
+        return $this->redirectToRoute('admin_rol_index', array('exito' => 'delete'));
     }
 
     /**
@@ -214,7 +214,13 @@ class RolController extends Controller
     }
 
     private function existeModificar($nombre){
-        if(strcmp($_POST['actual'],$nombre) == 0){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$nombre) == 0){
             return "OK";
         }
         return $this->existe($nombre);
