@@ -131,7 +131,7 @@ class SangreController extends Controller
             $em->flush($sangre);
         }
 
-        return $this->redirectToRoute('Admin_sangre_index');
+        return $this->redirectToRoute('Admin_sangre_index', array('exito' => 'delete'));
     }
 
     /**
@@ -214,7 +214,13 @@ class SangreController extends Controller
     }
 
     private function existeModificar($nombre){
-        if(strcmp($_POST['actual'],$nombre) == 0){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$nombre) == 0){
             return "OK";
         }
         return $this->existe($nombre);
