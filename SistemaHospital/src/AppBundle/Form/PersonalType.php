@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use AppBundle\Form\Type\DateTimePickerType;
 use Doctrine\ORM\EntityRepository;
 
 
@@ -49,15 +50,14 @@ class PersonalType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add('edad', DateType::class, array(
-                'widget' => 'single_text',
-                 'label' => 'Fecha de nacimiento *',
-
+            ->add('edad',  DateTimePickerType::class, array(
                 'format' => 'yyyy-MM-dd',
-                 "attr" => [
-                    "class" => " form-control"
+                'label' => 'Fecha de nacimiento *',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
                 ]
             ))
+
             ->add('servicios', 'entity', array(
                 'label' => 'Servicios *',
                 'multiple' => true,   // Multiple selection allowed

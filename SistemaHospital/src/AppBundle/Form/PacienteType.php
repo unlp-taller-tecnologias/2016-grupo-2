@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use AppBundle\Form\Type\DateTimePickerType;
 
 class PacienteType extends AbstractType
 {
@@ -34,15 +35,15 @@ class PacienteType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add('edad', DateType::class, array(
-                'widget' => 'single_text',
-                 'label' => 'Fecha de nacimiento *',
 
+            ->add('edad',  DateTimePickerType::class, array(
                 'format' => 'yyyy-MM-dd',
-                 "attr" => [
-                    "class" => " form-control"
+                'label' => 'Fecha de nacimiento*',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
                 ]
             ))
+
             ->add("genero", "choice",[
                 'label' => 'Género *',
                 'choices' => [

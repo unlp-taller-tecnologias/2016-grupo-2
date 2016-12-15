@@ -53,8 +53,12 @@ class AsaController extends Controller
             }
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($asa);
-            $em->flush($asa);
+            if($this->existeElemntoEnBaja($asa->getGrado())){
+                $em->persist($asa);
+                $em->flush($asa);
+            }else{
+                $asa->setBaja(0);
+            }
 
             return $this->redirectToRoute('admin_asa_show', array('id' => $asa->getId()));
         }
@@ -212,6 +216,15 @@ class AsaController extends Controller
             return "¡Alto! El nombre de ASA ingresado ya existe.";
         }
         return "OK";
+    }
+
+    private function existeElemntoEnBaja($grado){
+        $aux = $this->getDoctrine()->getRepository('AppBundle:Asa')->findOneBy(array(
+            'grado'  => $grado , 'baja' => 1));
+        if ($aux) {
+            return true;
+        }
+        return false;
     }
 
     private function existeModificar($grado){

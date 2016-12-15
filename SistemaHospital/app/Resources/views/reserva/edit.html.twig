@@ -9,12 +9,10 @@
 
     {{ form_start(edit_form) }}
 
-
-    {#<div class="form-group">#}
-        {#{{ form_widget(edit_form) }}#}
-    {#</div>#}
     <div class="alert alert-info">Los campos con * son obligatorios.</div>
-
+    <div class="col-12-md">
+        {{ form_errors(edit_form) }}
+    </div>
     <div class="form-group">
 
         <div class='col-md-6'>

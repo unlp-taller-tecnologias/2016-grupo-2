@@ -8,6 +8,15 @@
   <component name="ChangeListManager">
     <list default="true" id="6ed80508-c5bd-40d3-b7ad-f729ad8086dc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/edit.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/new.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/edit.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/new.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/new.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/edit.html.twig" afterPath="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/edit.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/app/config/parameters.yml" afterPath="$PROJECT_DIR$/SistemaHospital/app/config/parameters.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AsaController.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AsaController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteType.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php" afterPath="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php" />
     </list>
     <ignored path="taller.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,24 +37,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="grafico.html.twig" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig">
+      <file leaf-file-name="new.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/new.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="147" column="51" selection-start-line="147" selection-start-column="51" selection-end-line="147" selection-end-column="51" />
+            <state relative-caret-position="648">
+              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AjaxController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AjaxController.php">
+      <file leaf-file-name="edit.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/edit.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2322">
-              <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-              <folding>
-                <element signature="e#41#98#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="666">
+              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="new.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/new.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="774">
+              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit.html.twig" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/edit.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="522">
+              <caret line="29" column="39" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,12 +85,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/servicio/index.html.twig" />
-        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/show.html.twig" />
-        <option value="$PROJECT_DIR$/SistemaHospital/app/config/config.yml" />
-        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteType.php" />
-        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/edit.html.twig" />
-        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/new.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Resources/views/layout.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Security/login.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Security/login_content.html.twig" />
@@ -94,14 +115,11 @@
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Operacion.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PersonalController.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Personal.php" />
-        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/cache/dev/doctrine/orm/Proxies/__CG__AppBundleEntityServicio.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AjaxController.php" />
-        <option value="$PROJECT_DIR$/SistemaHospital/app/config/parameters.yml" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/new.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/ReservaType.php" />
-        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/edit.html.twig" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PacienteController.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Paciente.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Persona.php" />
@@ -109,6 +127,15 @@
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Repository/PacienteRepository.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/FiltroPacienteType.php" />
         <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/estadistica/grafico.html.twig" />
+        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AsaController.php" />
+        <option value="$PROJECT_DIR$/SistemaHospital/app/config/parameters.yml" />
+        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/edit.html.twig" />
+        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteType.php" />
+        <option value="$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php" />
+        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/new.html.twig" />
+        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/edit.html.twig" />
+        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/new.html.twig" />
+        <option value="$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/edit.html.twig" />
       </list>
     </option>
   </component>
@@ -541,7 +568,139 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="paciente" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SistemaHospital" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="estadistica" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SistemaHospital" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Admin" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SistemaHospital" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Admin" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="partials" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="taller" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SistemaHospital" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Admin" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="partials" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="personal" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -726,12 +885,12 @@
       <workItem from="1481569626637" duration="10719000" />
       <workItem from="1481663543647" duration="11590000" />
       <workItem from="1481732665731" duration="19949000" />
-      <workItem from="1481827921589" duration="744000" />
+      <workItem from="1481827921589" duration="3928000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235100000" />
+    <option name="totallyTimeSpent" value="238284000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1055" extended-state="0" />
@@ -786,11 +945,16 @@
           <line>3</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/ReservaType.php</url>
+          <line>4</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="76" />
+      <option name="time" value="78" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="app_dev.php">
@@ -820,59 +984,11 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Estado.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/web/js/pdf-estadistica.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Quirofano.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/SangreType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/NewReservaType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="108" column="22" selection-start-line="108" selection-start-column="22" selection-end-line="108" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Sangre.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Asa.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Entity/Anestesia.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -901,6 +1017,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="12" column="58" selection-start-line="12" selection-start-column="58" selection-end-line="12" selection-end-column="58" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -922,6 +1039,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="281" column="79" selection-start-line="281" selection-start-column="79" selection-end-line="281" selection-end-column="79" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -932,31 +1050,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PersonalController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="115" column="0" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteInReservaType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -964,13 +1062,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AsaController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-270">
-          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="38" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -978,6 +1070,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1206">
           <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1009,21 +1102,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/config/parameters.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="433" column="47" selection-start-line="433" selection-start-column="47" selection-end-line="433" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/app/cache/dev/doctrine/orm/Proxies/__CG__AppBundleEntityServicio.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -1038,32 +1116,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/new.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="37" column="32" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Utils/Slugger.php" />
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/ReservaType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/Type/DateTimePickerType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/edit.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="754">
-          <caret line="54" column="12" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1071,6 +1129,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1078,6 +1137,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1085,6 +1145,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
           <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="51" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1092,6 +1153,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="31" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1102,17 +1164,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ReservaController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="76" column="46" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Repository/OperacionRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="63" column="82" selection-start-line="61" selection-start-column="16" selection-end-line="63" selection-end-column="82" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1120,6 +1176,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="702">
           <caret line="53" column="42" selection-start-line="53" selection-start-column="42" selection-end-line="53" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1127,6 +1184,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1134,6 +1192,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="522">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1158,6 +1217,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
           <caret line="57" column="68" selection-start-line="57" selection-start-column="68" selection-end-line="57" selection-end-column="68" />
+          <folding>
+            <element signature="e#34#74#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1166,7 +1228,7 @@
         <state relative-caret-position="2322">
           <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding>
-            <element signature="e#41#98#0#PHP" expanded="true" />
+            <element signature="e#41#98#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1175,6 +1237,146 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="558">
           <caret line="147" column="51" selection-start-line="147" selection-start-column="51" selection-end-line="147" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/EstadoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/EstadisticaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/AsaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="56" column="35" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/config/parameters.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="33" selection-start-line="5" selection-start-column="33" selection-end-line="5" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/DataFixtures/ORM/LoadFixtures.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="776">
+          <caret line="113" column="33" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/show.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/ReservaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2988">
+          <caret line="76" column="46" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/ReservaType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/new.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PacienteType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
+          <folding>
+            <element signature="e#34#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Controller/PersonalController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="134" column="36" selection-start-line="134" selection-start-column="36" selection-end-line="134" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/reserva/edit.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/src/AppBundle/Form/PersonalType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="53" column="41" selection-start-line="53" selection-start-column="41" selection-end-line="53" selection-end-column="41" />
+          <folding>
+            <element signature="e#34#94#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/new.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/paciente/edit.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/new.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="774">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SistemaHospital/app/Resources/views/Admin/partials/personal/edit.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="29" column="39" selection-start-line="29" selection-start-column="39" selection-end-line="29" selection-end-column="39" />
           <folding />
         </state>
       </provider>
