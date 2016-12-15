@@ -142,7 +142,7 @@ class UserController extends Controller
             $em->flush($user);
         }
 
-        return $this->redirectToRoute('user_index');
+        return $this->redirectToRoute('user_index', array('exito' => 'delete'));
     }
 
     /**
@@ -246,17 +246,29 @@ class UserController extends Controller
     }
 
     private function existeModificar($username){
-        if(strcmp($_POST['actual'],$username) == 0){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$username) == 0){
             return "OK";
         }
         return $this->existe($username);
     }
 
     private function existeMailModificar($mail){
-        if(strcmp($_POST['mailactual'],$mail) == 0){
+        if(isset($_POST['mailactual'])){
+            $actual = $_POST['mailactual'];
+            setcookie('mailactual',$actual);
+        } else {
+            $actual = $_COOKIE['mailactual'];
+        }
+        if(strcmp($actual,$mail) == 0){
             return "OK";
         }
-        return $this->existeMail($mail);
+        return $this->existe($mail);
     }
 
     private function validarMail($mail){
