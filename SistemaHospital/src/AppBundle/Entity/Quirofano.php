@@ -28,6 +28,9 @@ class Quirofano
      * @ORM\OneToMany(targetEntity="Reserva", mappedBy="quirofano",cascade={"remove"}, orphanRemoval=true)
      */
     protected $reservas;
+    /** @ORM\Column(type="boolean") **/
+
+    protected $baja=false;
 
     public function __construct()
     {
@@ -102,5 +105,28 @@ class Quirofano
     public function getReservas()
     {
         return $this->reservas;
+    }
+    /**
+     * Set baja
+     *
+     * @param boolean $baja
+     *
+     * @return Quirofano
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+
+        return $this;
+    }
+
+    /**
+     * Get baja
+     *
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
     }
 }

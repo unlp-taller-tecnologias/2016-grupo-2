@@ -48,9 +48,8 @@
         <tbody>
 
         {% for reserva in reservasPen %}
+        {% if reserva.baja == 0%}
             <tr>
-                
-    
                 <td>{{ reserva.servicio.tipo }}</td>
                 <td>{{ reserva.paciente.nombre }} {{ reserva.paciente.apellido }}</td>
                 <td>{{ reserva.estado.tipo }}</td>
@@ -80,6 +79,7 @@
                     </td>
                 {% endif %}
             </tr>
+            {% endif %}
         {% endfor %}
 
         </tbody>
@@ -153,6 +153,7 @@
         </thead>
         <tbody>
         {% for reserva in reservas %}
+        {% if reserva.baja == 0%}
             <tr>
                 
                 <td>{{ reserva.servicio.tipo }}</td>
@@ -183,6 +184,7 @@
                     </td>
                 {% endif %}
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

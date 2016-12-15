@@ -60,6 +60,7 @@
         </thead>
         <tbody>
         {% for paciente in pacientes %}
+        {% if paciente.baja == 0 %}
             <tr>
                 <td>{{ paciente.nombre }}</td>
                 <td>{{ paciente.apellido }}</td>
@@ -83,6 +84,7 @@
 
                 </td>
             </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
     </table>

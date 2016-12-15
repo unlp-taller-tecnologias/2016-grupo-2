@@ -47,18 +47,6 @@ class OperacionType extends AbstractType
                     "class" => "form-control"
                 ]
             ))
-        ->add('tq', ChoiceType::class, array(
-                'label' => 'Tiempo Quirúrgico',
-                'choices'  => array(
-                    "Corto" => 'Corto',
-                    "Medio" => 'Medio',
-                    "Largo" => 'Largo',
-                    "Muy Largo" => 'Muy Largo',
-                ),
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
         ->add('baja', ChoiceType::class, array(
                 'label' => 'Dar de baja',
                 'choices'  => array(

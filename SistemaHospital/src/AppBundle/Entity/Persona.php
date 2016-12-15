@@ -166,7 +166,7 @@ class Persona
      */
     public function getEdadPersona()
     {
-         $fechanac = $this->getEdad()->format('Y-m-d H:i:s');; //getEdad en realidad es el date que indica la fecha nacimiento 
+        $fechanac = $this->getEdad()->format('Y-m-d H:i:s');; //getEdad en realidad es el date que indica la fecha nacimiento 
 
         $fechaactual = (new \DateTime())->format('Y-m-d H:i:s');
 
@@ -176,6 +176,8 @@ class Persona
         $this->edadPersona =$edad;
         
         return $this->edadPersona;
+        
+
     }
 
 

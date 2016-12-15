@@ -30,6 +30,7 @@
         </thead>
         <tbody>
         {% for operacion in opeSinFinalizar %}
+        {% if operacion.baja == 0 %}
             <tr>
     
                <td>{{ operacion.reserva.paciente.nombre }} {{ operacion.reserva.paciente.apellido }}</td> 
@@ -52,6 +53,7 @@
                 </td>
 
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

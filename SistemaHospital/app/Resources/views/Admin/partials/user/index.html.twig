@@ -21,6 +21,7 @@
         </thead>
         <tbody>
         {% for user in users %}
+        {% if user.baja == 0 %}
             <tr>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <td>
@@ -37,6 +38,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

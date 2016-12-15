@@ -152,7 +152,8 @@ class PersonalController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($personal);
+            $personal->setBaja(1);
+            $em->persist($personal);
             $em->flush($personal);
         }
 

@@ -229,7 +229,8 @@ class PacienteController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($paciente);
+            $paciente->setBaja(1);
+            $em->persist($paciente);
             $em->flush($paciente);
         }
 

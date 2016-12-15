@@ -26,6 +26,11 @@ class User extends BaseUser{
      */
     private $personal;
 
+    /** @ORM\Column(type="boolean") **/
+    protected $baja=false;
+
+
+
 
     /* Es posible agregar más atributos además de los que vienen en BaseUser */
     public function __construct(){
@@ -52,5 +57,29 @@ class User extends BaseUser{
     public function getPersonal()
     {
         return $this->personal;
+    }
+
+    /**
+     * Set baja
+     *
+     * @param boolean $baja
+     *
+     * @return User
+     */
+    public function setBaja($baja)
+    {
+        $this->baja = $baja;
+
+        return $this;
+    }
+
+    /**
+     * Get baja
+     *
+     * @return boolean
+     */
+    public function getBaja()
+    {
+        return $this->baja;
     }
 }

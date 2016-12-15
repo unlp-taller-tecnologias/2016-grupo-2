@@ -17,12 +17,7 @@
                 <th>Nombre</th>
                 <td>{{ rol.nombre }}</td>
             </tr>
-            {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <tr>
-                <th>Baja</th>
-                <td>{% if rol.baja %}Si{% else %}No{% endif %}</td>
-            </tr>
-            {% endif %}
+            
         </tbody>
     </table>
 

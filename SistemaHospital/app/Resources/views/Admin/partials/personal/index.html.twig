@@ -17,13 +17,14 @@
                 <th>Genero</th>
                 <th>DNI</th>
                 <th>Fecha de nacimiento</th>
-                <th>Baja</th>
+                
                 <th>Es administrador</th>
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
         </thead>
         {% for personal in personals %}
+        {% if personal.baja == 0 %}
             <tr>
                
                 <td>{{ personal.nombre }}</td>
@@ -31,7 +32,7 @@
                 <td>{{ personal.genero }}</td>
                 <td>{{ personal.dni }}</td>
                 <td>{{ personal.edad|date('d / m / Y') }}</td>
-                <td>{% if personal.baja %}Yes{% else %}No{% endif %}</td>
+              
 
                 <td>{% if personal.user is not empty %}
                         Si
@@ -46,6 +47,7 @@
                     <a href="{{ path('personal_edit', { 'id': personal.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
     </table>
     <div class="navigation text-center">

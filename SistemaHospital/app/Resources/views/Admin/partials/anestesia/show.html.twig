@@ -26,12 +26,7 @@
                 <th>Descripción</th>
                 <td>{{ anestesium.descripcion }}</td>
             </tr>
-            {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <tr>
-                <th>Baja</th>
-                <td>{% if anestesium.baja %}Si{% else %}No{% endif %}</td>
-            </tr>
-            {% endif %}
+          
         </tbody>
     </table>
 

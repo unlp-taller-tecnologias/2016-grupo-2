@@ -18,6 +18,7 @@
         </thead>
         <tbody>
         {% for quirofano in quirofanos %}
+        {% if quirofano.baja == 0 %}
             <tr>
               
 
@@ -31,6 +32,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
