@@ -55,8 +55,6 @@
             path1="{{ path('ajax_RerservaXDia') }}";
             path2="{{ path('prueba_ajax') }}";
 
-            global1=null;
-            global2=null ;
 
             function parseDate(str) {
                 var mdy = str.split('/');
@@ -76,7 +74,7 @@
             function graficar(auxhasta,auxdesde){
                 genericoAjax(path1,funcionResXDia,{fechaHasta : auxhasta , fechaDesde : auxdesde});
                 genericoAjax(path2,funcionOpeXServ,{fechaHasta : auxhasta , fechaDesde : auxdesde});
-                graficarBarra();
+               // graficarBarra();
 
             }
             $('#loadingGif').hide();
@@ -104,18 +102,25 @@
 
 
 
-            function funcionResXDia(data){
-                global1=new Array() ;
-                if (data != null) {
-                    global1= data;
-                }
-            }
-            function funcionOpeXServ(data){
 
-                global2={};
+
+            function funcionResXDia(data){
+                globa=[];
+                if (data != null) {
+                    globa= data;
+                }
+
+                graficarBarra(globa);
+
+
+            }
+
+            function funcionOpeXServ(data){
+                globa2=[];
+
                 if (data != null) {
                     //console.log(global2);
-                    var nuevoServOpe = new Array();
+                    var nuevoServOpe =[];
                     $.each(data, function( index, value ) {
                         //console.log("index:"+index+" valor: "+value);
                         nuevoServOpe.push({
@@ -123,18 +128,19 @@
                             data: value
                         });
                     });
-                    global2= nuevoServOpe;
+                    globa2=nuevoServOpe;
 
-                    //console.log(global2);
+                    console.log(globa2);
+                    graficarBarra2(globa2);
                 }
             }
 
-            function graficarBarra(){
+            function graficarBarra(globa) {
 
-                auxfechaDesde = fechadesde.val().split('-');
+                auxfechaDesde = fechadesde.val().split('/');
+                grafbarra.show();
 
-                $('#grafBarra').show();
-                Highcharts.chart('grafBarra', {
+                grafbarra.highcharts({
                     chart: {
                         type: 'spline'
                     },
@@ -142,7 +148,7 @@
                         text: 'Operaciones por dia'
                     },
                     subtitle: {
-                        text: 'Desde '+fechadesde.val()+' hasta '+fechahasta.val()
+                        text: 'Desde ' + fechadesde.val() + ' hasta ' + fechahasta.val()
                     },
                     xAxis: {
                         type: 'datetime',
@@ -154,7 +160,7 @@
                         }
                     },
                     tooltip: {
-                        valueSuffix: 'Gan/Dia'
+                        valueSuffix: 'Ope/Dia'
                     },
                     plotOptions: {
                         spline: {
@@ -167,16 +173,13 @@
                             marker: {
                                 enabled: false
                             },
-                            pointInterval: 24 * 3600 * 1000, // one hour
-                            /*NO ENTIENDO PORQUE LE TENGO Q DESCONDATAR 1 AL MES
-                             LE SUMARA 1 DIGITO AL MES??? NO ENTIENDO PORQ
-                             */
-                            pointStart: Date.UTC(auxfechaDesde[2],auxfechaDesde[1]-1,auxfechaDesde[0])
+                            pointInterval: 24 * 3600 * 1000, //1 dia
+                            pointStart: Date.UTC(auxfechaDesde[2], auxfechaDesde[1], auxfechaDesde[0])
                         }
                     },
                     series: [{
                         name: 'Reservas/Operaciones',
-                        data: global1 //[100,50,30,800,-300,400,500,30] //aca va el arreglo..//
+                        data: globa //[100,50,30,800,-300,400,500,30] //aca va el arreglo..//
                     }
 
                     ],
@@ -186,10 +189,13 @@
                         }
                     }
                 });
+            }
 
+            function graficarBarra2(globa2){
+                auxfechaDesde2 = fechadesde.val().split('/');
+                grafbarra2.show();
 
-                $('#grafBarra2').show();
-                Highcharts.chart('grafBarra2', {
+                grafbarra2.highcharts({
                     chart: {
                         type: 'spline'
                     },
@@ -209,7 +215,7 @@
                         }
                     },
                     tooltip: {
-                        valueSuffix: 'Gan/Dia'
+                        valueSuffix: 'Serv/Ope'
                     },
                     plotOptions: {
                         spline: {
@@ -222,26 +228,20 @@
                             marker: {
                                 enabled: false
                             },
-                            pointInterval: 24 * 3600 * 1000, // one hour
-                            /*NO ENTIENDO PORQUE LE TENGO Q DESCONDATAR 1 AL MES
-                             LE SUMARA 1 DIGITO AL MES??? NO ENTIENDO PORQ
-                             */
-                            pointStart: Date.UTC(auxfechaDesde[2],auxfechaDesde[1]-1,auxfechaDesde[0])
+                            pointInterval: 24 * 3600 * 1000,
+                            pointStart: Date.UTC(auxfechaDesde2[2],auxfechaDesde2[1],auxfechaDesde2[0])
                         }
                     },
-                    series: global2/*[{
-                        name: 'Reservas/Operaciones',
-                        data: global1 //[100,50,30,800,-300,400,500,30] //aca va el arreglo..//
-                    }
-
-                    ]*/,
+                    series: globa2,
                     navigation: {
                         menuItemStyle: {
                             fontSize: '10px'
                         }
                     }
                 });
+
             }
+
 
 
         });
