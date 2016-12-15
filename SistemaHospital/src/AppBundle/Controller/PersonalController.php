@@ -157,7 +157,7 @@ class PersonalController extends Controller
             $em->flush($personal);
         }
 
-        return $this->redirectToRoute('personal_index');
+        return $this->redirectToRoute('personal_index', array('exito' => 'delete'));
     }
 
     /**
@@ -248,7 +248,13 @@ class PersonalController extends Controller
     }
 
     private function existeModificar($dni){
-        if(($_POST['actual'] - $dni) == 0){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$dni) == 0){
             return "OK";
         }
         return $this->existe($dni);
