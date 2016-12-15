@@ -97,12 +97,9 @@ class EstadoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            //$form = $editForm->getData();
-            //$datos = array('diagnostico' => $datos['diagnostico'], 'habitacion' => $datos['habitacion'],
-            //    'observaciones' => $datos['observaciones'], 'internado' => $datos['internado'], 'cirugia' => $datos['cirugia'],
-            //    'tq' => $datos['TiempoQuirurgico'], 'sangre' => $datos['sangre'], 'asa' => $datos['asa'],
-            //    'anestesia' => $datos['Anestesia'] );
-
+            $form = $editForm->getData();
+            $datos = array('tipo' => $form->getTipo(), 'descripcion' => $form->getDescripcion());
+            
             if($this->procesardatos($datos,'Admin/partials/estado/edit.html.twig',$estado,false,$editForm->createView(),$deleteForm->createView())){
                 return $this->procesardatos($datos,'Admin/partials/estado/edit.html.twig',$estado,false,$editForm->createView(),$deleteForm->createView());
             }
