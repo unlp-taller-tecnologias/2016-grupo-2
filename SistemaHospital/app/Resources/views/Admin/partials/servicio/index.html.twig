@@ -1,9 +1,13 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el Servicio.</div>
+    {% endif %}
+
     <h1>Lista de Servicios</h1>
 
-    <a href="{{ path('admin_servicio_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('admin_servicio_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
          Nuevo Servicio </a>
 
     {% if servicios is not empty %}
