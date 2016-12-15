@@ -12,7 +12,9 @@
         {{ form_errors(edit_form) }}
     </div>
     <div class="form-group">
-        <input type="hidden" name="actual" value="{{ edit_form.vars.value.dni }}"/>
+        {% if not error is defined %}
+            <input type="hidden" name="actual" value="{{ edit_form.vars.value.dni }}"/>
+        {% endif %}
         <div class='col-sm-6'>
             {{ form_row(edit_form.nombre) }}
         </div>
