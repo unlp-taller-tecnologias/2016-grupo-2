@@ -234,7 +234,7 @@ class PacienteController extends Controller
             $em->flush($paciente);
         }
 
-        return $this->redirectToRoute('paciente_index');
+        return $this->redirectToRoute('paciente_index', array('exito' => 'delete'));
     }
 
     /**
@@ -325,7 +325,13 @@ class PacienteController extends Controller
     }
 
     private function existeModificar($dni){
-        if(($_POST['actual'] - $dni) == 0){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$dni) == 0){
             return "OK";
         }
         return $this->existe($dni);
