@@ -166,16 +166,19 @@ class Persona
      */
     public function getEdadPersona()
     {
-        $fechanac = $this->getEdad()->format('Y-m-d H:i:s');; //getEdad en realidad es el date que indica la fecha nacimiento 
+//        $fechanac = $this->getEdad()->format('Y-m-d H:i:s');; //getEdad en realidad es el date que indica la fecha nacimiento
+//
+//        $fechaactual = (new \DateTime())->format('Y-m-d H:i:s');
+//
+//        $edad = (strtotime($fechaactual)-strtotime($fechanac))/(365.25*60*60*24);
+//        $edad = abs($edad); $edad = floor($edad);
+//
+//        $this->edadPersona =$edad;
 
-        $fechaactual = (new \DateTime())->format('Y-m-d H:i:s');
 
-        $edad = (strtotime($fechaactual)-strtotime($fechanac))/(365.25*60*60*24);
-        $edad = abs($edad); $edad = floor($edad);
-
-        $this->edadPersona =$edad;
-        
-        return $this->edadPersona;
+        $from = new \DateTime($this->getEdad()->format("Y-m-d"));
+        $to   = new \DateTime('today');
+        return $from->diff($to)->y;
         
 
     }
