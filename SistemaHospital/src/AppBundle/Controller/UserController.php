@@ -259,11 +259,11 @@ class UserController extends Controller
     }
 
     private function existeMailModificar($mail){
-        if(isset($_POST['mailactual'])){
-            $actual = $_POST['mailactual'];
-            setcookie('mailactual',$actual);
+        if(isset($_POST['actualmail'])){
+            $actual = $_POST['actualmail'];
+            setcookie('actualmail',$actual);
         } else {
-            $actual = $_COOKIE['mailactual'];
+            $actual = $_COOKIE['actualmail'];
         }
         if(strcmp($actual,$mail) == 0){
             return "OK";
