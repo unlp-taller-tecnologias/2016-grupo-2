@@ -5,7 +5,8 @@
 
     {% if app.request.query.get("exito") == "new" %}
         <div class="alert alert-success">Se ha creado exitósamente la nueva Reserva.</div>
-    {% else %}
+    {% endif %}
+    {% if app.request.query.get("exito") == "edit" %}
         <div class="alert alert-success">Se ha modificado exitósamente la Reserva.</div>
     {% endif %}
 
