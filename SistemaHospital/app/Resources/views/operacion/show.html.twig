@@ -40,15 +40,27 @@
             </tr>
             <tr>
                 <th>Habitación</th>
+                {% if operacion.habitacion is not null %}
                 <td>{{ operacion.habitacion }}</td>
+                {% else %}
+                <td> * Falta completar </td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Observaciones</th>
+                {% if operacion.observaciones is not null %}
                 <td>{{ operacion.observaciones }}</td>
+                {% else %}
+                <td> * Falta completar </td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Cirugia</th>
-                <td>{{ operacion.cirujia}}</td>
+                {% if operacion.cirujia is not null %}
+                <td>{{ operacion.cirujia }}</td>
+                {% else %}
+                <td> * Falta completar </td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Internado</th>

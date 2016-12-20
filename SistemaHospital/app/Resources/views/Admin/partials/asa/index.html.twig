@@ -16,9 +16,6 @@
             <tr>
                 <th>Grado</th>
                 <th>Descripción</th>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <th>Baja</th>
-                {% endif %}
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
@@ -31,9 +28,7 @@
 
                 <td>{{ asa.grado }}</td>
                 <td>{{ asa.descripcion }}</td>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <td>{% if asa.baja %}Yes{% else %}No{% endif %}</td>
-                {% endif %}
+              
                 <td>
                     <a href="{{ path('admin_asa_show', { 'id': asa.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                     </a>

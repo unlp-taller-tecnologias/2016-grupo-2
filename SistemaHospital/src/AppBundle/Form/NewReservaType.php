@@ -69,7 +69,7 @@ class NewReservaType extends AbstractType
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('u')->where('u.baja = 0');
                 },
-                'label' => 'Estado de la reserva *',
+                'label' => 'Estado actual *',
                 "placeholder" =>"Elige el estado en el que se encuentra...",
                 "attr" => [
                     "class" => "form-control"

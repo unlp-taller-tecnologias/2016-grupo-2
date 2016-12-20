@@ -140,7 +140,7 @@ class PersonalController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('personal_edit', array('id' => $personal->getId(), 'exito' => 'edit'));
+            return $this->redirectToRoute('personal_show', array('id' => $personal->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/personal/edit.html.twig', array(
