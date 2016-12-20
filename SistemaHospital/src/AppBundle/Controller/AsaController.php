@@ -62,12 +62,12 @@ class AsaController extends Controller
                 /****************/
                 $em->persist($aux);
                 $em->flush();
-                return $this->redirectToRoute('admin_asa_show', array('id' => $aux->getId()));
+                return $this->redirectToRoute('admin_asa_show', array('id' => $aux->getId(), 'exito' => 'new'));
             }else{
                 $em->persist($asa);
                 $em->flush();
             }
-            return $this->redirectToRoute('admin_asa_show', array('id' => $asa->getId()));
+            return $this->redirectToRoute('admin_asa_show', array('id' => $asa->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/asa/new.html.twig', array(
@@ -115,7 +115,7 @@ class AsaController extends Controller
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_asa_show', array('id' => $asa->getId()));
+            return $this->redirectToRoute('admin_asa_show', array('id' => $asa->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/asa/edit.html.twig', array(
