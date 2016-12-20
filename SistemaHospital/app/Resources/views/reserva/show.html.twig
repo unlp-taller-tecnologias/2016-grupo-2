@@ -74,13 +74,33 @@
                             Editar </a>
                     </td>
                     <td>
-                        {{ form_start(delete_form) }}
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i> Cancelar </button>
-                        {{ form_end(delete_form) }}
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">
+                            <i class="fa fa-ban" aria-hidden="true"></i>Cancelar
+                        </button>
                     </td>
                 {% endif %}
             </tr>
         </tbody>
     </table>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="panel-heading" style="background-color: #2c3e50;">
+                    <h2 class="text-center" style="color: white;">Confirmación de Cancelación</h2>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center">¿Está seguro que desea cancelar la Reserva?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="float:left;" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban" aria-hidden="true"></i>Cancelar </button>
+                    {{ form_start(delete_form) }}
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-check" aria-hidden="true"></i>Confirmar </button>
+                    {{ form_end(delete_form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
