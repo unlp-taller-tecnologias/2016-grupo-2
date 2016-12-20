@@ -405,7 +405,7 @@ class ReservaController extends Controller
         $em->persist($reserva);
         $em->flush();
 
-        return $this->redirectToRoute('reserva_index');
+        return $this->redirectToRoute('reserva_index', array('exito' => 'cancel'));
     }
 
 
@@ -432,7 +432,7 @@ class ReservaController extends Controller
             $em->flush($reserva);
         }
 
-        return $this->redirectToRoute('reserva_index');
+        return $this->redirectToRoute('reserva_index', array('exito' => 'cancel'));
     }
 
     /**
