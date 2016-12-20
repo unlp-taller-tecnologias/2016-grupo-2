@@ -322,7 +322,7 @@ class OperacionController extends Controller
             $em->flush($operacion);
         }
 
-        return $this->redirectToRoute('operacion_index');
+        return $this->redirectToRoute('operacion_index', array('exito' => 'cancel'));
     }
 
     /**
