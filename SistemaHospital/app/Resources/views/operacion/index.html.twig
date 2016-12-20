@@ -2,8 +2,8 @@
 
 {% block main %}
 
-    {% if app.request.query.get("exito") == "delete" %}
-        <div class="alert alert-success">Se ha eliminado exitósamente la Operación.</div>
+    {% if app.request.query.get("exito") == "cancel" %}
+        <div class="alert alert-success">Se ha finalizado exitósamente la Operación.</div>
     {% endif %}
 
     <h1>Listado de Operaciones</h1>
