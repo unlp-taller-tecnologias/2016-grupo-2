@@ -50,8 +50,7 @@ class NewReservaType extends AbstractType
                 'choice_label'  => function ($paciente) {
                     return (string)($paciente->getNombre()." ".$paciente->getApellido()." ".$paciente->getDni());
                 },
-                "placeholder" =>"Elige un Paciente *",
-                'required' => false,
+                "placeholder" =>"ELIGE UN PACIENTE *",
                 "attr" => [
                     "class" => "chosen-select  form-control",
                 ]
@@ -126,7 +125,8 @@ class NewReservaType extends AbstractType
                 ]
             ))
             ->add("diagnostico", "text",[
-                'label' => 'Diagnóstico *',
+                'label' => 'Diagnóstico ',
+                'required' =>false,
                 "attr" => [
                     "class" => "form-control"
                 ]

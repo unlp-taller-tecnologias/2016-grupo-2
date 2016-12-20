@@ -21,7 +21,7 @@ class Operacion
      */
     protected $id;
 
-    /** @ORM\Column(type="string", length=255) **/
+    /** @ORM\Column(type="string", length=255,nullable=true) **/
     protected $diagnostico;
 
     /** @ORM\Column(type="string", length=30,nullable=true) **/

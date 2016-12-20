@@ -36,7 +36,11 @@
             </tr>
             <tr>
                 <th>Diagnóstico</th>
+                 {% if operacion.diagnostico is not null %}
                 <td>{{ operacion.diagnostico }}</td>
+                {% else %}
+                <td> * Falta completar </td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Habitación</th>

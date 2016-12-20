@@ -162,6 +162,7 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
                 ->where('o.observaciones is NULL')
                 ->orWhere('o.habitacion is NULL')
                 ->orWhere('o.cirujia is NULL')
+                ->orWhere('o.diagnostico is NULL')
                 ->getQuery()->execute()
               ;
 

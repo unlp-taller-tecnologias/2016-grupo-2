@@ -12,12 +12,7 @@
 
     <table class="table table-striped table-hover">
         <tbody>
-            {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <tr>
-                <th>Id</th>
-                <td>{{ quirofano.id }}</td>
-            </tr>
-            {% endif %}
+          
             <tr>
                 <th>Nombre</th>
                 <td>{{ quirofano.nombre }}</td>
