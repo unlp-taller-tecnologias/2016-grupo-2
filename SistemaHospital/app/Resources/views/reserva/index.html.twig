@@ -2,8 +2,12 @@
 
 {% block body %}
 
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente la Reserva.</div>
+    {% endif %}
+
     <h1>Listado de Reservas</h1>
-    <a href="{{ path('reserva_new') }}" class="btn btn-success col-md-offset-10 block"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('reserva_new') }}" class="btn btn-primary col-md-offset-10 block"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva Reserva </a>
     <br>
     <div class="panel panel-primary">
