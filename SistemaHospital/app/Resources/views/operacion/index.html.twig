@@ -2,6 +2,10 @@
 
 {% block main %}
 
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente la Operación.</div>
+    {% endif %}
+
     <h1>Listado de Operaciones</h1>
 
         <a href="{{ path('operacion_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
