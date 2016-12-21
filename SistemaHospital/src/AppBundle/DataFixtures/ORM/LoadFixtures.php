@@ -89,7 +89,6 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
         $encodedPassword = $passwordEncoder->encodePassword($admin, '123456');
         $admin->setPassword($encodedPassword);
         $admin->setUsername("admin");
-        $admin->setPersonal($this->getReference("personal-3"));
         $admin->addRole("ROLE_SUPER_ADMIN");
         $admin->setEnabled(true);
         $manager->persist($admin);
@@ -99,7 +98,6 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
         $encodedPassword = $passwordEncoder->encodePassword($user1, '123456');
         $user1->setPassword($encodedPassword);
         $user1->setUsername("user1");
-        $user1->setPersonal($this->getReference("personal-1"));
         $user1->addRole("ROLE_ADMIN");
         $user1->setEnabled(true);
         $manager->persist($user1);
@@ -109,7 +107,6 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
         $encodedPassword = $passwordEncoder->encodePassword($user2, '123456');
         $user2->setPassword($encodedPassword);
         $user2->setUsername("user2");
-        $user1->setPersonal($this->getReference("personal-2"));
         $user2->addRole("ROLE_ADMIN");
         $user2->setEnabled(true);
         $manager->persist($user2);
@@ -279,7 +276,7 @@ class LoadFixtures extends AbstractFixture implements FixtureInterface, Containe
 
     private function loadServicios(ObjectManager $manager)
     {
-        // O- 	O+ 	A− 	A+ 	B− 	B+ 	AB− 	AB+
+        // O- 	O+ 	A− 	A+ 	B− 	B+ 	AB− AB+
 
         $serv1 = new Servicio();
         $serv1->setDescripcion("especialidad otorrinonaringologo");

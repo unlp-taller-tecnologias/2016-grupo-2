@@ -36,10 +36,10 @@ class UserController extends Controller
     /**
      * Creates a new user entity.
      *
-     * @Route("{id_personal}/new", name="user_new")
+     * @Route("/new", name="user_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, $id_personal)
+    public function newAction(Request $request)
     {
 
         $user = new User();
@@ -49,11 +49,7 @@ class UserController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $user->addRole("ROLE_ADMIN");
             $user->setEnabled(true);
-
             $em = $this->getDoctrine()->getManager();
-
-            $personal= $em->getRepository('AppBundle:Personal')->find($id_personal);
-            $user->setPersonal($personal);
 
             $formnew = $form->getData();
             $datos = array('username' => $formnew->getUsername(), 'mail' => $formnew->getEmail(), 'pass1' => $formnew->getPlainPassword('first'),

@@ -21,8 +21,6 @@
                 <th>G&eacute;nero</th>
                 <th>DNI</th>
                 <th>Fecha de nacimiento</th>
-                
-                <th>Es administrador</th>
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
@@ -36,14 +34,7 @@
                 <td>{{ personal.genero }}</td>
                 <td>{{ personal.dni }}</td>
                 <td>{{ personal.edad|date('d / m / Y') }}</td>
-              
 
-                <td>{% if personal.user is not empty %}
-                        Si
-                        {% else %}
-                        No
-                    {% endif %}
-                </td>
                 <td>
                     <a href="{{ path('personal_show', { 'id': personal.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                 </td>

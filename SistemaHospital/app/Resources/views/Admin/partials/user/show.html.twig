@@ -19,10 +19,8 @@
             </tr>
             {% endif %}
             <tr>
-                <th>Datos Personales</th>
-                {% if user.personal != null  %}
-                    <td>{{ user.personal.nombre }} {{ user.personal.apellido }} </td>
-                {% endif %}
+                <th>Usuario</th>
+                    <td>{{ user.username }} </td>
             </tr>
         </tbody>
     </table>
@@ -54,7 +52,7 @@
                     <h2 class="text-center" style="color: white;">Confirmación de Eliminación</h2>
                 </div>
                 <div class="modal-body">
-                    <h4 class="text-center">¿Está seguro que desea eliminar <b>el usuario de {{ user.personal.nombre }} {{ user.personal.apellido }}</b>?</h4>
+                    <h4 class="text-center">¿Está seguro que desea eliminar <b>el usuario {{ user.username }}</b>?</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" style="float:left;" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban" aria-hidden="true"></i>Cancelar </button>

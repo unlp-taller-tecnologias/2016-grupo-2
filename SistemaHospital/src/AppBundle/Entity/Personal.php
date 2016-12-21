@@ -22,11 +22,7 @@ class Personal extends Persona
      */
     protected $id;
 
-    /**
-     *
-     * @ORM\OneToOne(targetEntity="User", mappedBy="personal")
-     */
-    private $user;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="Servicio",inversedBy="personal")
@@ -93,30 +89,7 @@ class Personal extends Persona
         return $this->baja;
     }
 
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Personal
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
+  
     /**
      * Add servicio
      *

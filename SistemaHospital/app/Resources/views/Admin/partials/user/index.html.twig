@@ -7,9 +7,7 @@
 
     <h1>Listado de Usuarios</h1>
 
-    <button class="btn btn-primary col-md-offset-10" data-toggle="modal" data-target="#aviso">
-        <i class="fa fa-plus" aria-hidden="true"></i>Nuevo Usuario
-    </button>
+    <a href="{{ path('user_new') }}" class="btn btn-success">Nuevo Usuario</a>
 
     {% if users is not empty %}
     <table class="table table-striped table-hover ">
@@ -18,7 +16,7 @@
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <th>Id</th>
                 {% endif %}
-                <th>Nombre</th>
+                <th>Nombre Usuario</th>
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
@@ -50,6 +48,7 @@
         <h2>¡Lo sentimos! No hay usuarios cargados en el sistema.</h2>
     {% endif %}
 
+  {#
     <div class="modal fade" id="aviso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -66,5 +65,5 @@
             </div>
         </div>
     </div>
-
+#}
 {% endblock %}

@@ -33,18 +33,6 @@
                 <th>Fecha de nacimiento</th>
                 <td>{{ personal.edad|date('d / m / Y') }}</td>
             </tr>
-            {% if personal.user is not empty %}
-                <tr>
-                    <th>Nombre de Usuario</th>
-                    <td>{{ personal.user.username }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <th>Nombre de Usuario</th>
-                    <td><a href="{{ path('user_new', { 'id_personal': personal.id }) }}" class="btn btn-success"> <i class="fa fa-plus" aria-hidden="true"></i>
-                    Crear Usuario </a></td>
-                </tr>
-            {% endif %}
         </tbody>
     </table>
 

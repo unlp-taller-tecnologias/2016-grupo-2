@@ -17,19 +17,9 @@ class User extends BaseUser{
      */
     protected $id;
 
-    /**
-     *
-     *
-     *
-     * @ORM\OneToOne(targetEntity="Personal",inversedBy="user")
-     * @ORM\JoinColumn(name="personal_id", referencedColumnName="id", nullable=true)
-     */
-    private $personal;
 
     /** @ORM\Column(type="boolean") **/
     protected $baja=false;
-
-
 
 
     /* Es posible agregar más atributos además de los que vienen en BaseUser */
@@ -37,27 +27,7 @@ class User extends BaseUser{
         parent::__construct();
     }
 
-    /**
-     * Set Personal
-     *
-     * @param Personal $personal
-     * @return User
-     */
-    public function setPersonal($personal)
-    {
-        $this->personal = $personal;
-        return $this;
-    }
 
-    /**
-     * Get personal
-     *
-     * @return Personal
-     */
-    public function getPersonal()
-    {
-        return $this->personal;
-    }
 
     /**
      * Set baja
