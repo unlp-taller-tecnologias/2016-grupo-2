@@ -1,38 +1,36 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el Servicio.</div>
+    {% endif %}
+
     <h1>Lista de Servicios</h1>
 
-    <a href="{{ path('admin_servicio_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('admin_servicio_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
          Nuevo Servicio </a>
 
     {% if servicios is not empty %}
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
+                
                 <th>Nombre</th>
                 <th>Descripción</th>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <th>Baja</th>
-                {% endif %}
+                
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
         </thead>
         <tbody>
         {% for servicio in servicios %}
+        {% if servicio.baja == 0 %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('admin_servicio_show', { 'id': servicio.id }) }}">{{ servicio.id }}</a></td>
-                {% endif %}
+                
 
                 <td>{{ servicio.tipo }}</td>
                 <td>{{ servicio.descripcion }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <td>{% if servicio.baja %}Yes{% else %}No{% endif %}</td>
                 {% endif %}
                 <td>
                     <a href="{{ path('admin_servicio_show', { 'id': servicio.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -43,6 +41,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

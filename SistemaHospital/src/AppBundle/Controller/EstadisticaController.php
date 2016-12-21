@@ -65,7 +65,7 @@ class EstadisticaController extends Controller
             ->add('save', SubmitType::class, array(
                 'label' => 'Realizar estadística',
                 "attr" => [
-                    "class" => "btn btn-primary col-md-2 col-md-offset-5"
+                    "class" => "btn btn-primary col-md-offset-5"
                 ]
             ))
             ->getForm();

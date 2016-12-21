@@ -16,21 +16,11 @@ class RolType extends AbstractType
     {
         $builder
             ->add("nombre", "text",[
-                'label' => 'Nombre',
+                'label' => 'Nombre *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
-              ->add('baja', ChoiceType::class, array(
-                'label' => 'Dar de baja',
-                'choices'  => array(
-                    1 => 'Si',
-                    0 => 'No',
-                ),
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
         ;
     }
     

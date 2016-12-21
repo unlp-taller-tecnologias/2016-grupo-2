@@ -21,7 +21,7 @@ class Operacion
      */
     protected $id;
 
-    /** @ORM\Column(type="string", length=255) **/
+    /** @ORM\Column(type="string", length=255,nullable=true) **/
     protected $diagnostico;
 
     /** @ORM\Column(type="string", length=30,nullable=true) **/
@@ -69,7 +69,8 @@ class Operacion
     private $reserva;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Personal", mappedBy="operaciones")
+     * @ORM\ManyToMany(targetEntity="Personal",inversedBy="operaciones")
+     * @ORM\JoinTable(name="personal_operacion")
      */
     protected $personal;
 
@@ -208,7 +209,7 @@ class Operacion
      */
     public function getCirujia()
     {
-        return $this->diagnostico;
+        return $this->cirujia;
     }
 
     /**

@@ -24,11 +24,6 @@ class Reserva
      */
     protected $id;
 
-    /**
-     * @ORM\Column(type="string", length=45, unique=true) *
-     */
-    protected $numeroReserva;
-
     /** @ORM\Column(type="boolean") **/
     protected $baja=false;
 
@@ -68,9 +63,6 @@ class Reserva
      */
     protected $quirofano;
 
-    
-
-
     /**
      * Get id
      *
@@ -81,29 +73,7 @@ class Reserva
         return $this->id;
     }
 
-    /**
-     * Set numeroReserva
-     *
-     * @param string $numeroReserva
-     *
-     * @return Reserva
-     */
-    public function setNumeroReserva($numeroReserva)
-    {
-        $this->numeroReserva = $numeroReserva;
 
-        return $this;
-    }
-
-    /**
-     * Get numeroReserva
-     *
-     * @return string
-     */
-    public function getNumeroReserva()
-    {
-        return $this->numeroReserva;
-    }
 
     /**
      * Set baja
@@ -296,6 +266,8 @@ class Reserva
     {
         return $this->quirofano;
     }
+
+
     public function __toString() {
           return $this->numeroReserva;
     }

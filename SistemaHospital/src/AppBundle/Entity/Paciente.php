@@ -138,4 +138,24 @@ class Paciente extends Persona
     public function __toString() {
           return $this->nombre;
     }
+
+
+    /**
+     * Set rol
+     *
+     * @param \AppBundle\Entity\Paciente $paciente
+     *
+     * @return Paciente
+     */
+    public function fillEntity(\AppBundle\Entity\Paciente $paciente){
+        $this->setBaja($paciente->getBaja());
+        $this->setNombre($paciente->getNombre());
+        $this->setApellido($paciente->getApellido());
+        $this->setDni($paciente->getDni());
+        $this->setGenero($paciente->getGenero());
+        $this->setEdad($paciente->getEdad());
+        $this->setMutual($paciente->getMutual());
+
+        return $this;
+    }
 }

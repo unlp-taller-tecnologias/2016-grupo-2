@@ -38,6 +38,25 @@ class OperacionController extends Controller
     /**
      * Lists all operacion entities.
      *
+     * @Route("/incompletas", name="operacion_incompletas")
+     * @Method({"GET","POST"})
+     */
+    public function indexIncompletas()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $incompletas = $em->getRepository(Operacion::class)->findIncompletas();
+   
+
+        return $this->render('operacion/incompletas.html.twig', array(
+            'incompletas' =>$incompletas,
+
+        ));
+    }
+
+    /**
+     * Lists all operacion entities.
+     *
      * @Route("/search",defaults={"page": 1}, name="operacion_search")
      * @Route("/search/page/{page}", requirements={"page": "[1-9]\d*"}, name="operacion_search_paginated")
      * @Method({"GET","POST"})
@@ -131,47 +150,82 @@ class OperacionController extends Controller
 
             $datos = $form2->getData();
 
+            //if($this->procesardatos($datos,'Admin/operacion/new.html.twig',$form2->createView(),false,false)){
+            //    return $this->procesardatos($datos,'Admin/operacion/new.html.twig',$form2->createView(),false,false);
+            //}
+
             $operacion = new Operacion();
             $operacion->setDiagnostico($datos["diagnostico"]);
             $operacion->setHabitacion($datos["habitacion"]);
             $operacion->setObservaciones($datos["observaciones"]);
             $operacion->setInternado($datos["Internado"]);
             $operacion->setCirujia($datos["cirugia"]);
-            $operacion->setTq($datos["TiempoQuirurgico"]);
             $operacion->setBaja(0); //Se setea en 0 por defecto siempre.
             $operacion->setSangre($datos["sangre"]);
             $operacion->setAsa($datos["asa"]);
             $operacion->setAnestesia($datos["Anestesia"]);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($operacion);
-            $em->flush($operacion);
+
+
+            foreach ($datos["personal"] as $p) {
+                $operacion->addPersonal($p);
+            }
+
 
             $reserva = new Reserva();
-            $reserva->setNumeroReserva($datos['numero_reserva']);
+            //$reserva->setNumeroReserva($datos['numero_reserva']);
             $reserva->setBaja(0);
 
-            $inicio = new \DateTime($datos['fecha_inicio']);
-            $fin = new \DateTime($datos['fecha_fin']);
+            // $datos["fecha_inicio"]= date('Y-m-d H:i', strtotime($datos["fecha_inicio"]));
 
-            $reserva->setFechaInicio($inicio);
-            $reserva->setFechaFin($fin);
+            // $datos["fecha_fin"]= date('Y-m-d H:i', strtotime($datos["fecha_fin"]));
+
+            //$inicio = new \DateTime($datos['fecha_inicio']);
+            // $fin = new \DateTime($datos['fecha_fin']);
+
+            $reserva->setFechaInicio($datos["fecha_inicio"]);
+            $reserva->setFechaFin($datos["fecha_fin"]);
             $reserva->setPaciente($datos['paciente']);
             $reserva->setServicio($datos['servicio']);
             $reserva->setEstado($datos['estado']);
             $reserva->setQuirofano($datos['quirofano']);
             $reserva->setOperacion($operacion);
+
+
+            $inicio=$datos["fecha_inicio"]->format('Y-m-d H:i:s');
+            $fin=$datos["fecha_fin"]->format('Y-m-d H:i:s');
+
+            $minutos = (strtotime($fin)-strtotime($inicio))/60;
+            $minutos = abs($minutos); $minutos = floor($minutos);
+
+            switch ($minutos) {
+                case $minutos <= 120:  // menor o igual a 2hs
+                    $operacion->setTq('Corto');
+                    break;
+                case ($minutos <= 240 and $minutos > 120 ): // entre 2 y 4hs
+                    $operacion->setTq('Medio');
+                    break;
+                case ($minutos <= 480 and $minutos > 240): // entre 4 y 6hs
+                    $operacion->setTq('Largo');
+                    break;
+                case ($minutos > 480): // mas de 6hs
+                    $operacion->setTq('Muy largo');
+                    break;
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($operacion);
+            $em->flush($operacion);
             $em->persist($reserva);
             $em->flush($reserva);
 
 
-            return $this->redirectToRoute('operacion_show', array('id' => $operacion->getId()));
+            return $this->redirectToRoute('operacion_show', array('id' => $operacion->getId(), 'exito' => 'new'));
         }
 
         return $this->render('operacion/new.html.twig', array(
             'form2' => $form2->createView()
         ));
     }
-
 
 
     /**
@@ -190,6 +244,31 @@ class OperacionController extends Controller
         ));
     }
 
+     /**
+     * Displays a form to edit an existing operacion entity.
+     *
+     * @Route("/{id}/finish", name="operacion_finish")
+     * @Method({"GET", "POST"})
+     */
+    public function finishAction(Request $request, Operacion $operacion)
+    {
+        
+   
+       $em = $this->getDoctrine()->getManager();
+       $finalizada = $em->getRepository('AppBundle:Estado')->findOneByTipo('FINALIZADA');
+       $operacion->getReserva()->setEstado($finalizada);
+       $em->persist($operacion);
+       $em->flush($operacion);
+
+       $deleteForm = $this->createDeleteForm($operacion);
+
+        return $this->render('operacion/show.html.twig', array(
+            'operacion' => $operacion,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+
     /**
      * Displays a form to edit an existing operacion entity.
      *
@@ -203,9 +282,15 @@ class OperacionController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            //$datos = $editForm->getData();
+            //if($this->procesardatos($datos,'Admin/operacion/edit.html.twig',false,$editForm->createView(),$deleteForm->createView())){
+            //    return $this->procesardatos($datos,'Admin/operacion/edit.html.twig',false,$editForm->createView(),$deleteForm->createView());
+            //}
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('operacion_edit', array('id' => $operacion->getId()));
+            return $this->redirectToRoute('operacion_show', array('id' => $operacion->getId(), 'exito' => 'edit'));
+
         }
 
         return $this->render('operacion/edit.html.twig', array(
@@ -228,11 +313,16 @@ class OperacionController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($operacion);
+            $operacion->setBaja(1);
+            $operacion->getReserva()->setBaja(1);
+
+            $em->persist($operacion->getReserva());
+            $em->flush($operacion->getReserva());
+            $em->persist($operacion);
             $em->flush($operacion);
         }
 
-        return $this->redirectToRoute('operacion_index');
+        return $this->redirectToRoute('operacion_index', array('exito' => 'cancel'));
     }
 
     /**
@@ -249,5 +339,54 @@ class OperacionController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function procesardatos($datos,$view,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$create,$edit,$delete);
+            }
+        }
+    }
+
+    private function renderizar($error,$view,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        if (is_array($texto)){
+            foreach($texto as $campo){
+                return $this->validar($campo);
+            }
+        }
+        if (is_object($texto)){
+            return "OK";
+        }
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
     }
 }

@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'operacion/layout.html.twig' %}
 
-{% block body %}
+{% block main %}
 
-    <h1>Busqueda de Operaciones</h1>
+    <h1>Búsqueda de Operaciones</h1>
 
     <div class="col-md-12 espacio">
         <a href="{{ path('operacion_new') }}" class="btn btn-primary pull-right"> <i class="fa fa-plus" aria-hidden="true"></i>
@@ -23,7 +23,7 @@
             {{ form_row(form.fechaFin) }}
         </div>
         <div class="col-md-12">
-            <a id="verFiltrosOperaciones">mas filtros...</a>
+            <a id="verFiltrosOperaciones">Más filtros...</a>
         </div>
         <div id="ocultarFiltrosOperaciones">
             <div class='col-sm-6'>
@@ -40,7 +40,7 @@
                 {{ form_row(form.esInternado) }}
             </div>
             <div class='col-sm-6'>
-                {{ form_label(form.esInternado, 'Tiempo Quirurgico (TQ)') }}
+                {{ form_label(form.esInternado, 'Tiempo Quirúrgico (TQ)') }}
                 {{ form_row(form.tq) }}
             </div>
             <div class='col-sm-6'>
@@ -72,7 +72,7 @@
 
             <th>Paciente</th>
             <th>Servicio</th>
-            <th>Quirofano</th>
+            <th>Quirófano</th>
             <th>Habitación</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
@@ -102,7 +102,7 @@
                 <td>{{ operacion.reserva.fechafin|date('d/m/Y H:i:s')  }}</td>
                 <td>{{ operacion.habitacion }}</td>
                 <td>{{ operacion.observaciones }}</td>
-                <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
+                <td>{% if operacion.internado %}Si{% else %}No{% endif %}</td>
                 <td>{{ operacion.tq }}</td>
                 <td>{{ operacion.diagnostico|slice(0, 50) }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}

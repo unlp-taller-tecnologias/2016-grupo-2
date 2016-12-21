@@ -104,5 +104,6 @@ class Sangre
     {
         return $this->operaciones;
     }
+    
    
 }

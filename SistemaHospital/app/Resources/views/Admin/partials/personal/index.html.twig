@@ -1,9 +1,13 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el Personal.</div>
+    {% endif %}
+
     <h1>Listado del Personal</h1>
 
-    <a href="{{ path('personal_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('personal_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nuevo Personal </a>
 
     <div class="col-md-12 espacio"></div>
@@ -11,34 +15,28 @@
     <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
-
+                
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Genero</th>
-                <th>Dni</th>
-                <th>Edad</th>
-                <th>Baja</th>
+                <th>G&eacute;nero</th>
+                <th>DNI</th>
+                <th>Fecha de nacimiento</th>
+                
                 <th>Es administrador</th>
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
         </thead>
         {% for personal in personals %}
+        {% if personal.baja == 0 %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('personal_show', { 'id': personal.id }) }}">{{ personal.id }}</a></td>
-                {% endif %}
-
-
+               
                 <td>{{ personal.nombre }}</td>
                 <td>{{ personal.apellido }}</td>
                 <td>{{ personal.genero }}</td>
                 <td>{{ personal.dni }}</td>
-                <td>{{ personal.edad }}</td>
-                <td>{% if personal.baja %}Yes{% else %}No{% endif %}</td>
+                <td>{{ personal.edad|date('d / m / Y') }}</td>
+              
 
                 <td>{% if personal.user is not empty %}
                         Si
@@ -53,6 +51,7 @@
                     <a href="{{ path('personal_edit', { 'id': personal.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
     </table>
     <div class="navigation text-center">

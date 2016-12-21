@@ -5,6 +5,9 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use AppBundle\Form\Type\DateTimePickerType;
 
 class PacienteType extends AbstractType
 {
@@ -14,25 +17,35 @@ class PacienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("mutual", "text",[
-                'label' => 'Mutual',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
             ->add("nombre", "text",[
-                'label' => 'Nombre',
+                'label' => 'Nombre *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("apellido", "text",[
-                'label' => 'Apellido',
+                'label' => 'Apellido *',
                 "attr" => [
                     "class" => "form-control"
                 ]
-            ])->add("genero", "choice",[
-                'label' => 'Género',
+            ])
+            ->add("dni", "integer",[
+                'label' => 'DNI *',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+
+            ->add('edad',  DateTimePickerType::class, array(
+                'format' => 'yyyy-MM-dd',
+                'label' => 'Fecha de nacimiento*',
+                "attr" => [
+                    "class" => "form-control datetimepicker"
+                ]
+            ))
+
+            ->add("genero", "choice",[
+                'label' => 'Género *',
                 'choices' => [
                     'Masculino' => 'Masculino',
                     'Femenino' => 'Femenino'
@@ -41,18 +54,13 @@ class PacienteType extends AbstractType
                     "class" => "chosen-select form-control"
                 ]
             ])
-            ->add("dni", "integer",[
-                'label' => 'DNI',
+            ->add("mutual", "text",[
+                'label' => 'Mutual',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
-            ->add("edad", "integer",[
-                'label' => 'Edad',
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ]);
+           ;
     }
     
     /**

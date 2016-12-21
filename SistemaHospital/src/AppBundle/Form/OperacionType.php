@@ -15,19 +15,25 @@ class OperacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add("diagnostico", "text",[
-                'label' => 'Diagnostico',
+                'label' => 'Diagnóstico',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
        ->add("habitacion", "text",[
-                'label' => 'Habitacion',
+                'label' => 'Habitación',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
         ->add("observaciones", "text",[
                 'label' => 'Observaciones',
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+        ->add("cirujia", "text",[
+                'label' => 'Cirugía',
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -41,27 +47,16 @@ class OperacionType extends AbstractType
                     "class" => "form-control"
                 ]
             ))
-        ->add('tq', ChoiceType::class, array(
-                'choices'  => array(
-                    "Corto" => 'Corto',
-                    "Medio" => 'Medio',
-                    "Largo" => 'Largo',
-                    "Muy Largo" => 'Muy Largo',
-                ),
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
-        ->add('baja', ChoiceType::class, array(
-                'label' => 'Dar de baja',
-                'choices'  => array(
-                    1 => 'Si',
-                    0 => 'No',
-                ),
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
+//        ->add('baja', ChoiceType::class, array(
+//                'label' => 'Dar de baja',
+//                'choices'  => array(
+//                    1 => 'Si',
+//                    0 => 'No',
+//                ),
+//                "attr" => [
+//                    "class" => "form-control"
+//                ]
+//            ))
          ->add('sangre', 'entity', array(
                 'class' => 'AppBundle:Sangre',
                 'property'     => 'getNombre',
@@ -74,7 +69,7 @@ class OperacionType extends AbstractType
         ->add('asa', 'entity', array(
                 'class' => 'AppBundle:Asa',
                 'property'     => 'getGrado',
-                'label' => 'Asa',
+                'label' => 'ASA',
                 "attr" => [
                     "class" => "form-control"
                 ]

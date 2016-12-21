@@ -1,39 +1,34 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el ASA.</div>
+    {% endif %}
+
     <h1>Listado de ASAs</h1>
 
-    <a href="{{ path('admin_asa_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('admin_asa_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva ASA </a>
 
     {% if asas is not empty %}
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
                 <th>Grado</th>
                 <th>Descripción</th>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <th>Baja</th>
-                {% endif %}
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
         </thead>
         <tbody>
         {% for asa in asas %}
+        {% if asa.baja == 0 %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('admin_asa_show', { 'id': asa.id }) }}">{{ asa.id }}</a></td>
-                {% endif %}
+                
 
                 <td>{{ asa.grado }}</td>
                 <td>{{ asa.descripcion }}</td>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <td>{% if asa.baja %}Yes{% else %}No{% endif %}</td>
-                {% endif %}
+              
                 <td>
                     <a href="{{ path('admin_asa_show', { 'id': asa.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                     </a>
@@ -43,6 +38,7 @@
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

@@ -148,8 +148,23 @@ class OperacionRepository extends \Doctrine\ORM\EntityRepository
           return  $qb ->select('o')
                 ->from('AppBundle:Operacion', 'o')
                 ->join('o.reserva', 'r')
-                ->where('r.estado = 4')
+                ->where('r.estado = 3')
+                ->orWhere('r.estado = 4')
                 ->getQuery()->execute()
               ;
+    }
+
+    public function findIncompletas(){
+         $qb = $this->getEntityManager()->createQueryBuilder();
+          return  $qb ->select('o')
+                ->from('AppBundle:Operacion', 'o')
+                ->join('o.reserva', 'r')
+                ->where('o.observaciones is NULL')
+                ->orWhere('o.habitacion is NULL')
+                ->orWhere('o.cirujia is NULL')
+                ->orWhere('o.diagnostico is NULL')
+                ->getQuery()->execute()
+              ;
+
     }
 }

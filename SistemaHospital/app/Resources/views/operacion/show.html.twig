@@ -3,6 +3,13 @@
 {% block body %}
     <h1>Operación</h1>
 
+    {% if app.request.query.get("exito") == "new" %}
+        <div class="alert alert-success">Se ha creado exitósamente la nueva Operación.</div>
+    {% endif %}
+    {% if app.request.query.get("exito") == "edit" %}
+        <div class="alert alert-success">Se ha modificado exitósamente la Operación.</div>
+    {% endif %}
+
     <table class="table table-striped table-hover">
         <tbody>
             {% if is_granted('ROLE_SUPER_ADMIN') %}
@@ -29,15 +36,35 @@
             </tr>
             <tr>
                 <th>Diagnóstico</th>
+                 {% if operacion.diagnostico is not null %}
                 <td>{{ operacion.diagnostico }}</td>
+                {% else %}
+                <td> * Falta completar </td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Habitación</th>
+                {% if operacion.habitacion is not null %}
                 <td>{{ operacion.habitacion }}</td>
+                {% else %}
+                <td> * Falta completar </td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Observaciones</th>
+                {% if operacion.observaciones is not null %}
                 <td>{{ operacion.observaciones }}</td>
+                {% else %}
+                <td> * Falta completar </td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Cirugia</th>
+                {% if operacion.cirujia is not null %}
+                <td>{{ operacion.cirujia }}</td>
+                {% else %}
+                <td> * Falta completar </td>
+                {% endif %}
             </tr>
             <tr>
                 <th>Internado</th>
@@ -50,7 +77,7 @@
             {% if is_granted('ROLE_SUPER_ADMIN') %}
             <tr>
                 <th>Baja</th>
-                <td>{% if operacion.baja %}Yes{% else %}No{% endif %}</td>
+                <td>{% if operacion.baja %}Si{% else %}No{% endif %}</td>
             </tr>
             {% endif %}
         </tbody>
@@ -68,12 +95,31 @@
                     Editar </a>
             </td>
             <td>
-                {{ form_start(delete_form) }}
-                <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
-                    Eliminar </button>
-                {{ form_end(delete_form) }}
+                <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete">
+                    <i class="fa fa-check" aria-hidden="true"></i>Finalizar
+                </button>
             </td>
         </tr>
         </tbody>
     </table>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="panel-heading" style="background-color: #2c3e50;">
+                    <h2 class="text-center" style="color: white;">Confirmación de Finalización</h2>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center">¿Está seguro que desea finalizar la operación?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="float:left;" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban" aria-hidden="true"></i>Cancelar </button>
+                    {{ form_start(delete_form) }}
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-check" aria-hidden="true"></i>Finalizar </button>
+                    {{ form_end(delete_form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

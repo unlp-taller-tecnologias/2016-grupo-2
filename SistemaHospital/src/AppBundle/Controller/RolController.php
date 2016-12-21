@@ -44,11 +44,29 @@ class RolController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($rol);
-            $em->flush($rol);
+            $formnew = $form->getData();
+            $datos = array('nombre' => $formnew->getNombre());
 
-            return $this->redirectToRoute('admin_rol_show', array('id' => $rol->getId()));
+            if($this->procesardatos($datos,'Admin/partials/rol/new.html.twig',$rol,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'Admin/partials/rol/new.html.twig',$rol,$form->createView(),false,false);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+
+            if($aux = $this->existeElemntoEnBaja($rol->getNombre())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux->setBaja(0);
+                $aux->setNombre($rol->getNombre());
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('admin_rol_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($rol);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('admin_rol_show', array('id' => $rol->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/rol/new.html.twig', array(
@@ -86,9 +104,17 @@ class RolController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $form = $editForm->getData();
+            $datos = array('nombre' => $form->getNombre());
+
+            if($this->procesardatos($datos,'Admin/partials/rol/edit.html.twig',$rol,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'Admin/partials/rol/edit.html.twig',$rol,false,$editForm->createView(),$deleteForm->createView());
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_rol_edit', array('id' => $rol->getId()));
+            return $this->redirectToRoute('admin_rol_show', array('id' => $rol->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/rol/edit.html.twig', array(
@@ -111,11 +137,12 @@ class RolController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($rol);
+            $rol->setBaja(1);
+            $em->persist($rol);
             $em->flush($rol);
         }
 
-        return $this->redirectToRoute('admin_rol_index');
+        return $this->redirectToRoute('admin_rol_index', array('exito' => 'delete'));
     }
 
     /**
@@ -132,5 +159,91 @@ class RolController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function procesardatos($datos,$view,$rol,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$rol,$create,$edit,$delete);
+            }
+        }
+        if($create != false){
+            if (!strcmp($this->existe($datos['nombre']),"OK") == 0){
+                $error = $this->existe($datos['nombre']);
+                return $this->renderizar($error,$view,$rol,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['nombre']),"OK") == 0){
+                $error = $this->existeModificar($datos['nombre']);
+                return $this->renderizar($error,$view,$rol,$create,$edit,$delete);
+            }
+        }
+    }
+
+    private function renderizar($error,$view,$rol,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'rol' => $rol,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'rol' => $rol,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
+    private function existe($nombre){
+        $rol = $this->getDoctrine()->getRepository('AppBundle:Rol')->findOneBy(array(
+            'nombre'  => $nombre , 'baja' => 0));
+        if ($rol) {
+            return "¡Alto! El nombre de rol ingresado ya existe.";
+        }
+        return "OK";
+    }
+
+    private function existeElemntoEnBaja($nombre){
+        $aux = $this->getDoctrine()->getRepository('AppBundle:Rol')->findOneBy(array(
+            'nombre'  => $nombre , 'baja' => 1));
+        if ($aux) {
+            return $aux;
+        }
+        return false;
+    }
+
+
+    private function existeModificar($nombre){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$nombre) == 0){
+            return "OK";
+        }
+        return $this->existe($nombre);
     }
 }

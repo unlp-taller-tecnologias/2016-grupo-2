@@ -45,11 +45,30 @@ class AnestesiaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($anestesium);
-            $em->flush($anestesium);
 
-            return $this->redirectToRoute('admin_anestesia_show', array('id' => $anestesium->getId()));
+            $formnew = $form->getData();
+            $datos = array('tipo' => $formnew->getTipo(), 'descripcion' => $formnew->getDescripcion());
+
+            if($this->procesardatos($datos,'Admin/partials/anestesia/new.html.twig',$anestesium,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'Admin/partials/anestesia/new.html.twig',$anestesium,$form->createView(),false,false);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+
+            if($aux = $this->existeElemntoEnBaja($anestesium->getTipo())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux->setBaja(0);
+                $aux->setDescripcion($anestesium->getDescripcion());
+                $aux->setTipo($anestesium->getTipo());
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('admin_anestesia_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($anestesium);
+                $em->flush();
+            }
+            return $this->redirectToRoute('admin_anestesia_show', array('id' => $anestesium->getId(), 'exito' => 'new'));
         }
 
         return $this->render('Admin/partials/anestesia/new.html.twig', array(
@@ -87,9 +106,17 @@ class AnestesiaController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $form = $editForm->getData();
+            $datos = array('tipo' => $form->getTipo(), 'descripcion' => $form->getDescripcion());
+
+            if($this->procesardatos($datos,'Admin/partials/anestesia/edit.html.twig',$anestesium,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'Admin/partials/anestesia/edit.html.twig',$anestesium,false,$editForm->createView(),$deleteForm->createView());
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_anestesia_edit', array('id' => $anestesium->getId()));
+            return $this->redirectToRoute('admin_anestesia_show', array('id' => $anestesium->getId(), 'exito' => 'edit'));
         }
 
         return $this->render('Admin/partials/anestesia/edit.html.twig', array(
@@ -112,11 +139,13 @@ class AnestesiaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($anestesium);
+
+            $anestesium->setBaja(1);
+            $em->persist($anestesium);
             $em->flush($anestesium);
         }
 
-        return $this->redirectToRoute('admin_anestesia_index');
+        return $this->redirectToRoute('admin_anestesia_index', array('exito' => 'delete'));
     }
 
     /**
@@ -133,5 +162,90 @@ class AnestesiaController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function procesardatos($datos,$view,$anestesia,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$anestesia,$create,$edit,$delete);
+            }
+        }
+        if($create != false){
+            if (!strcmp($this->existe($datos['tipo']),"OK") == 0){
+                $error = $this->existe($datos['tipo']);
+                return $this->renderizar($error,$view,$anestesia,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['tipo']),"OK") == 0){
+                $error = $this->existeModificar($datos['tipo']);
+                return $this->renderizar($error,$view,$anestesia,$create,$edit,$delete);
+            }
+        }
+    }
+
+    private function renderizar($error,$view,$anestesia,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'anestesium' => $anestesia,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'anestesium' => $anestesia,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
+    private function existe($tipo){
+        $anestesia = $this->getDoctrine()->getRepository('AppBundle:Anestesia')->findOneBy(array(
+            'tipo'  => $tipo , 'baja' => 0));
+        if ($anestesia) {
+            return "¡Alto! El tipo de anestesia ingresado ya existe.";
+        }
+        return "OK";
+    }
+
+    private function existeElemntoEnBaja($tipo){
+        $anestesia = $this->getDoctrine()->getRepository('AppBundle:Anestesia')->findOneBy(array(
+            'tipo'  => $tipo , 'baja' => 1));
+        if ($anestesia) {
+            return $anestesia;
+        }
+        return false;
+    }
+
+    private function existeModificar($tipo){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$tipo) == 0){
+            return "OK";
+        }
+        return $this->existe($tipo);
     }
 }

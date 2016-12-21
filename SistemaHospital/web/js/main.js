@@ -81,12 +81,19 @@
             $('#filtro_reserva_fechaIni').data("DateTimePicker").maxDate(e.date);
         });
 
-
-        $("#graffechaHasta").on("dp.change", function (e) {
-            $('#graffechaDesde').data("DateTimePicker").minDate(e.date);
+        $("#form_fechaIni").on("dp.change", function (e) {
+            $('#form_fechaFin').data("DateTimePicker").minDate(e.date);
         });
+        $("#form_fechaFin").on("dp.change", function (e) {
+            $('#form_fechaIni').data("DateTimePicker").maxDate(e.date);
+        });
+
+
         $("#graffechaDesde").on("dp.change", function (e) {
-            $('#graffechaHasta').data("DateTimePicker").maxDate(e.date);
+            $('#graffechaHasta').data("DateTimePicker").minDate(e.date);
+        });
+        $("#graffechaHasta").on("dp.change", function (e) {
+            $('#graffechaDesde').data("DateTimePicker").maxDate(e.date);
         });
 
 

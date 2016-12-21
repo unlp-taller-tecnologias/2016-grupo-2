@@ -6,6 +6,7 @@ use AppBundle\Entity\Reserva;
 use AppBundle\Entity\Quirofano;
 use AppBundle\Entity\Operacion;
 use AppBundle\Entity\Sangre;
+use AppBundle\Entity\Estado;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Reserva controller.
@@ -119,9 +121,10 @@ class ReservaController extends Controller
     public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+         $states = $this->getEstados();
         $form = $this->createFormBuilder()
-
             ->add('quirofano', 'entity', array(
+                'class' => $states,
                 'class' => 'AppBundle:Quirofano',
                 'property'     => 'getNombre',
                 'label' => false,
@@ -135,6 +138,20 @@ class ReservaController extends Controller
                     "class" => "form-control datetimepickerWithoutTime"
                 ]
             ])
+            /*
+            ->add('states', 'entity', array(
+                'class' => 'AppBundle:Estado',
+                'property'     => 'getTipo',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')->where('u.baja = 0');
+                },
+                'label' => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ))
+            */
+            
             ->getForm();
 
         $form->handleRequest($request);
@@ -177,40 +194,79 @@ class ReservaController extends Controller
 
             $datos = $form2->getData();
 
+            //if($this->procesardatos($datos,'Admin/reserva/new.html.twig',$form2->createView(),false,false)){
+            //    return $this->procesardatos($datos,'Admin/reserva/new.html.twig',$form2->createView(),false,false);
+            //}
+
             $operacion = new Operacion();
             $operacion->setDiagnostico($datos["diagnostico"]);
             $operacion->setHabitacion($datos["habitacion"]);
             $operacion->setObservaciones($datos["observaciones"]);
             $operacion->setInternado($datos["Internado"]);
             $operacion->setCirujia($datos["cirugia"]);
-            $operacion->setTq($datos["TiempoQuirurgico"]);
+            
             $operacion->setBaja(0); //Se setea en 0 por defecto siempre.
             $operacion->setSangre($datos["sangre"]);
             $operacion->setAsa($datos["asa"]);
             $operacion->setAnestesia($datos["Anestesia"]);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($operacion);
-            $em->flush($operacion);
+
+            foreach ($datos["personal"] as $p) {
+              
+                $operacion->addPersonal($p);
+            }
+
+
 
             $reserva = new Reserva();
-            $reserva->setNumeroReserva($datos['numero_reserva']);
+            //$reserva->setNumeroReserva($datos['numero_reserva']);
             $reserva->setBaja(0);
 
-            $inicio = new \DateTime($datos['fecha_inicio']);
-            $fin = new \DateTime($datos['fecha_fin']);
+            //$datos["fecha_inicio"]= date('Y-m-d H:i', strtotime($datos["fecha_inicio"]));
 
-            $reserva->setFechaInicio($inicio);
-            $reserva->setFechaFin($fin);
+            //$datos["fecha_fin"]= date('Y-m-d H:i', strtotime($datos["fecha_fin"]));
+
+
+            //$inicio = new \DateTime($datos['fecha_inicio']);
+            //$fin = new \DateTime($datos['fecha_fin']);
+
+            $reserva->setFechaInicio($datos["fecha_inicio"]);
+            $reserva->setFechaFin($datos["fecha_fin"]);
             $reserva->setPaciente($datos['paciente']);
             $reserva->setServicio($datos['servicio']);
             $reserva->setEstado($datos['estado']);
             $reserva->setQuirofano($datos['quirofano']);
             $reserva->setOperacion($operacion);
+            
+            $inicio=$datos["fecha_inicio"]->format('Y-m-d H:i:s');
+            $fin=$datos["fecha_fin"]->format('Y-m-d H:i:s');
+
+            $minutos = (strtotime($fin)-strtotime($inicio))/60;
+            $minutos = abs($minutos); $minutos = floor($minutos);
+
+            switch ($minutos) {
+                case $minutos <= 120:  // menor o igual a 2hs
+                    $operacion->setTq('Corto');
+                    break;
+                case ($minutos <= 240 and $minutos > 120 ): // entre 2 y 4hs
+                    $operacion->setTq('Medio');
+                    break;
+                case ($minutos <= 480 and $minutos > 240): // entre 4 y 6hs
+                    $operacion->setTq('Largo');
+                    break;
+                case ($minutos > 480): // mas de 6hs
+                    $operacion->setTq('Muy largo');
+                    break;
+            }
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($operacion);
+            $em->flush($operacion);
+
             $em->persist($reserva);
             $em->flush($reserva);
 
-
-            return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId()));
+            return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId(), 'exito' => 'new'));
         }
 
 
@@ -283,13 +339,46 @@ class ReservaController extends Controller
     public function editAction(Request $request, Reserva $reserva)
     {
         $deleteForm = $this->createDeleteForm($reserva);
+
+        
+        
         $editForm = $this->createForm('AppBundle\Form\ReservaType', $reserva);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            //$datos = $editForm->getData();
+            //if($this->procesardatos($datos,'Admin/reserva/edit.html.twig',false,$editForm->createView(),$deleteForm->createView())){
+            //    return $this->procesardatos($datos,'Admin/reserva/edit.html.twig',false,$editForm->createView(),$deleteForm->createView());
+            //}
+
+            $datos = $editForm->getData();
+
+            $inicio= $reserva->getFechaInicio()->format('Y-m-d H:i:s');
+            $fin= $reserva->getFechaFin()->format('Y-m-d H:i:s');
+
+            $minutos = (strtotime($fin)-strtotime($inicio))/60;
+            $minutos = abs($minutos); $minutos = floor($minutos);
+
+            switch ($minutos) {
+                case $minutos <= 120:  // menor o igual a 2hs
+                    $reserva->getOperacion()->setTq('Corto');
+                    break;
+                case ($minutos <= 240 and $minutos > 120 ): // entre 2 y 4hs
+                    $reserva->getOperacion()->setTq('Medio');
+                    break;
+                case ($minutos <= 480 and $minutos > 240): // entre 4 y 6hs
+                    $reserva->getOperacion()->setTq('Largo');
+                    break;
+                case ($minutos > 480): // mas de 6hs
+                    $reserva->getOperacion()->setTq('Muy largo');
+                    break;
+            }
+
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('reserva_edit', array('id' => $reserva->getId()));
+            return $this->redirectToRoute('reserva_show', array('id' => $reserva->getId(), 'exito' => 'edit'));
+
         }
 
         return $this->render('reserva/edit.html.twig', array(
@@ -316,7 +405,7 @@ class ReservaController extends Controller
         $em->persist($reserva);
         $em->flush();
 
-        return $this->redirectToRoute('reserva_index');
+        return $this->redirectToRoute('reserva_index', array('exito' => 'cancel'));
     }
 
 
@@ -333,11 +422,17 @@ class ReservaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($reserva);
+            $reserva->setBaja(1);
+            $reserva->getOperacion()->setBaja(1);
+
+            $em->persist($reserva->getOperacion());
+            $em->flush($reserva->getOperacion());
+
+            $em->persist($reserva);
             $em->flush($reserva);
         }
 
-        return $this->redirectToRoute('reserva_index');
+        return $this->redirectToRoute('reserva_index', array('exito' => 'cancel'));
     }
 
     /**
@@ -354,4 +449,54 @@ class ReservaController extends Controller
             ->setMethod('DELETE')
             ->getForm();
     }
+
+    private function procesardatos($datos,$view,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$create,$edit,$delete);
+            }
+        }
+    }
+
+    private function renderizar($error,$view,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        if (is_array($texto)){
+            foreach($texto as $campo){
+                return $this->validar($campo);
+            }
+        }
+        if (is_object($texto)){
+            return "OK";
+        }
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
 }

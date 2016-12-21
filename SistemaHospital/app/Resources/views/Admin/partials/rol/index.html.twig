@@ -1,45 +1,43 @@
 {% extends 'Admin/layout.html.twig' %}
 
 {% block main %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el Rol.</div>
+    {% endif %}
+
     <h1>Listado de Roles</h1>
 
-    <a href="{{ path('admin_rol_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('admin_rol_new') }}" class="btn btn-primary col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nuevo Rol </a>
 
     {% if rols is not empty %}
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
+                
                 <th>Nombre</th>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <th>Baja</th>
-                {% endif %}
                 <th>Ver</th>
                 <th>Editar</th>
             </tr>
         </thead>
         <tbody>
         {% for rol in rols %}
+        {% if rol.baja == 0 %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('admin_rol_show', { 'id': rol.id }) }}">{{ rol.id }}</a></td>
-                {% endif %}
+        
                 <td>{{ rol.nombre }}</td>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <td>{% if rol.baja %}Yes{% else %}No{% endif %}</td>
                 {% endif %}
                 <td>
                     <a href="{{ path('admin_rol_show', { 'id': rol.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="{{ path('admin_rol_show', { 'id': rol.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
+                    <a href="{{ path('admin_rol_edit', { 'id': rol.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

@@ -1,25 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if app.request.query.get("exito") == "delete" %}
+        <div class="alert alert-success">Se ha eliminado exitósamente el Paciente.</div>
+    {% endif %}
+
     <h1>Listado de Pacientes</h1>
 
-    <a href="{{ path('paciente_new') }}" class="btn btn-success col-md-offset-10"> <i class="fa fa-plus" aria-hidden="true"></i>
+    <a href="{{ path('paciente_new') }}" class="btn btn-primary col-md-offset-10 block"> <i class="fa fa-plus" aria-hidden="true"></i>
         Nuevo Paciente </a>
+
+    <br class="espacio"></br>
+
+    <div class="well">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class='col-sm-6'>
+                {{ form_row(form.nombre) }}
+            </div>
+            <div class='col-sm-6'>
+                {{ form_row(form.apellido) }}
+            </div>
+            {#<div class="col-md-6">#}
+                {#<div class="col-md-6">#}
+                    {#{{ form_row(form.edadmin) }}#}
+                {#</div>#}
+                {#<div class="col-md-6">#}
+                    {#{{ form_row(form.edadmax) }}#}
+                {#</div>#}
+            {#</div>#}
+            <div class="col-md-6">
+                {{ form_row(form.paciente) }}
+            </div>
+
+            <div class="col-md-12 espacio"></div>
+            {{ form_row(form.save) }}
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
     <div class="col-md-12 espacio"></div>
     <table class="datatable table table-striped table-hover dysplay" cellspacing="0" width="100%">
         <thead>
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <th>Id</th>
-                {% endif %}
+                <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Mutual</th>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <th>Baja</th>
                 {% endif %}
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Genero</th>
+            
+
+                <th>G&eacute;nero</th>
                 <th>Dni</th>
+                <th>Fecha de nacimiento</th>
                 <th>Edad</th>
                 <th>Ver</th>
                 <th>Editar</th>
@@ -27,19 +64,20 @@
         </thead>
         <tbody>
         {% for paciente in pacientes %}
+        {% if paciente.baja == 0 %}
             <tr>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td><a href="{{ path('paciente_show', { 'id': paciente.id }) }}">{{ paciente.id }}</a></td>
-                {% endif %}
-                <td>{{ paciente.mutual }}</td>
-                {% if is_granted('ROLE_SUPER_ADMIN') %}
-                    <td>{% if paciente.baja %}Yes{% else %}No{% endif %}</td>
-                {% endif %}
                 <td>{{ paciente.nombre }}</td>
                 <td>{{ paciente.apellido }}</td>
+                <td>{{ paciente.mutual }}</td>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <td>{% if paciente.baja %}Si{% else %}No{% endif %}</td>
+                {% endif %}
+            
                 <td>{{ paciente.genero }}</td>
                 <td>{{ paciente.dni }}</td>
-                <td>{{ paciente.edad }}</td>
+                <td>{{ paciente.edad|date('d / m / Y') }}</td>
+                 <td>{{ paciente.edadpersona }}</td>
+
                 <td>
                             <a href="{{ path('paciente_show', { 'id': paciente.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
                             </a>
@@ -50,6 +88,7 @@
 
                 </td>
             </tr>
+        {% endif %}
         {% endfor %}
         </tbody>
     </table>

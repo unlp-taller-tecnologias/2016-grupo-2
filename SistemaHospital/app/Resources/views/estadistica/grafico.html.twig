@@ -1,50 +1,60 @@
 {% extends 'operacion/layout.html.twig' %}
 {% block main %}
 
-
-     <div class="col-md-6">
-         <div class="col-md-5">
-             <label for="graffechaHasta">Fecha hasta:</label>
-         </div>
-        <div class="col-md-7">
-            <input id="graffechaHasta" type="text" class="datetimepickerWithoutTime form-control" name="graffechaHasta" required>
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-5">
+                    <label for="graffechaDesde">Generar estadística desde:</label>
+                </div>
+                <div class="col-md-7">
+                    <input id="graffechaDesde" type="text" class="datetimepickerWithoutTime form-control" name="graffechaDesde" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-5">
+                    <label for="graffechaHasta">Hasta:</label>
+                </div>
+                <div class="col-md-7">
+                    <input id="graffechaHasta" type="text" class="datetimepickerWithoutTime form-control" name="graffechaHasta" required>
+                </div>
+            </div>
+            <div class="col-md-offset-5 col-md-3">
+                <button id="graficar" class="btn btn-primary espacio"> Realizar estadística </button>
+            </div>
         </div>
-     </div>
-     <div class="col-md-6">
-         <div class="col-md-5">
-             <label for="graffechaDesde">Fecha hasta:</label>
-         </div>
-         <div class="col-md-7">
-             <input id="graffechaDesde" type="text" class="datetimepickerWithoutTime form-control" name="graffechaDesde" required>
-         </div>
-     </div>
-
-
-    <div class="col-md-offset-5 col-md-3">
-        <button id="graficar" class="btn btn-primary espacio"> Estadistica entre fechas </button>
     </div>
-    
+
     <div id="loadingGif" class="col-md-12 espacio ">
         <img  class="col-md-offset-6" src="{{ asset('images/ajax-loader.gif') }}" alt="gif-loading">
     </div>
+    <div id="exampleGRaf" class="col-md-12"></div>
+    <div id="grafBarra" class="col-md-12"></div>
+    <div id="grafBarra2" class="col-md-12"></div>
 
-<div id="grafBarra" class="col-12"></div>
-{#<div id="grafTorta" class="col-12"></div>#}
+    {#<div id="grafTorta" class="col-12"></div>#}
 
 {% endblock  %}
 
 {% block javascripts %}
 
     {{ parent() }}
+
     <script type="application/javascript">
         $(document).ready(function () {
             grafbarra= $("#grafBarra");
+            grafbarra2= $("#grafBarra2");
             grafbarra.hide();
+            grafbarra2.hide();
+
 
             btngraficar = $("#graficar");
             fechahasta= $("#graffechaHasta");
             fechadesde= $("#graffechaDesde");
-            path="{{ path('ajax_ejemplo') }}";
+
+            path1="{{ path('ajax_RerservaXDia') }}";
+            path2="{{ path('prueba_ajax') }}";
+
 
             function parseDate(str) {
                 var mdy = str.split('/');
@@ -52,7 +62,6 @@
             }
 
             btngraficar.click(function (){
-
                 if(fechahasta.val() && fechadesde.val()){
                      auxhasta=parseDate(fechahasta.val());
                      auxdesde=parseDate(fechadesde.val());
@@ -63,7 +72,9 @@
             });
 
             function graficar(auxhasta,auxdesde){
-                genericoAjax(path,funcOperacionCant,{fechaHasta : auxhasta , fechaDesde : auxdesde});
+                genericoAjax(path1,funcionResXDia,{fechaHasta : auxhasta , fechaDesde : auxdesde});
+                genericoAjax(path2,funcionOpeXServ,{fechaHasta : auxhasta , fechaDesde : auxdesde});
+               // graficarBarra();
 
             }
             $('#loadingGif').hide();
@@ -89,29 +100,123 @@
                 });
             }
 
-            global=null;
 
-            function funcOperacionCant(data){
-                global = new Array() ;
+
+
+
+            function funcionResXDia(data){
+                globa=[];
                 if (data != null) {
-                    global= data;
+                    globa= data;
                 }
-                graficarBarra()
+
+                graficarBarra(globa);
+
+
             }
 
+            function funcionOpeXServ(data){
+                globa2=[];
 
-            function graficarBarra(){
-                //gananciaXdia= {arreglo :[]};
-                //genericoAjax("./?action=gananciaPorDia",funcGanancia,{fechaDesde: fechaDesde.val(), fechaHasta: fechaHasta.val()},gananciaXdia);
+                if (data != null) {
+                    //console.log(global2);
+                    var nuevoServOpe =[];
+                    $.each(data, function( index, value ) {
+                        //console.log("index:"+index+" valor: "+value);
+                        nuevoServOpe.push({
+                            name: index,
+                            data: value
+                        });
+                    });
+                    globa2=nuevoServOpe;
 
-                auxfechaDesde = fechadesde.val().split('-');
-                grafBarra=$('#grafBarra');
-                grafBarra.highcharts({
+                    console.log(globa2);
+                    graficarBarra2(globa2);
+                }
+            }
+
+            function graficarBarra(globa) {
+
+                auxfechaDesde = fechadesde.val().split('/');
+                grafbarra.show();
+
+                grafbarra.highcharts({
                     chart: {
                         type: 'spline'
                     },
+                    lang: {
+                        printChart: 'Imprimir Grafico',
+                        downloadPNG: 'Descargar PNG',
+                        downloadJPEG: 'Descargar JPEG',
+                        downloadPDF: 'Descargar PDF',
+                        downloadSVG: 'Descargar SVG',
+                        contextButtonTitle: 'Context menu'
+                    },
                     title: {
                         text: 'Operaciones por dia'
+                    },
+                    subtitle: {
+                        text: 'Desde ' + fechadesde.val() + ' hasta ' + fechahasta.val()
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        labels: {
+                            overflow: 'justify'
+                        },
+                        dateTimeLabelFormats: {
+                            day: '%e/%m'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: 'Ope/Dia'
+                    },
+                    plotOptions: {
+                        spline: {
+                            lineWidth: 4,
+                            states: {
+                                hover: {
+                                    lineWidth: 5
+                                }
+                            },
+                            marker: {
+                                enabled: false
+                            },
+                            pointInterval: 24 * 3600 * 1000, //1 dia
+                            pointStart: Date.UTC(auxfechaDesde[2], auxfechaDesde[1], auxfechaDesde[0])
+                        }
+                    },
+                    series: [{
+                        name: 'Reservas/Operaciones',
+                        data: globa //[100,50,30,800,-300,400,500,30] //aca va el arreglo..//
+                    }
+
+                    ],
+                    navigation: {
+                        menuItemStyle: {
+                            fontSize: '10px'
+                        }
+                    }
+                });
+            }
+
+            function graficarBarra2(globa2){
+                auxfechaDesde2 = fechadesde.val().split('/');
+                grafbarra2.show();
+
+                grafbarra2.highcharts({
+                    chart: {
+                        type: 'spline'
+                    },
+                    lang: {
+                        printChart: 'Imprimir Grafico',
+                        downloadPNG: 'Descargar PNG',
+                        downloadJPEG: 'Descargar JPEG',
+                        downloadPDF: 'Descargar PDF',
+                        downloadSVG: 'Descargar SVG',
+                        contextButtonTitle: 'Context menu'
+                    },
+                    title: {
+                        text: 'Operaciones por servicios'
                     },
                     subtitle: {
                         text: 'Desde '+fechadesde.val()+' hasta '+fechahasta.val()
@@ -126,7 +231,7 @@
                         }
                     },
                     tooltip: {
-                        valueSuffix: 'Gan/Dia'
+                        valueSuffix: 'Serv/Ope'
                     },
                     plotOptions: {
                         spline: {
@@ -139,26 +244,20 @@
                             marker: {
                                 enabled: false
                             },
-                            pointInterval: 24 * 3600 * 1000, // one hour
-                            /*NO ENTIENDO PORQUE LE TENGO Q DESCONDATAR 1 AL MES
-                             LE SUMARA 1 DIGITO AL MES??? NO ENTIENDO PORQ
-                             */
-                            pointStart: Date.UTC(auxfechaDesde[2],auxfechaDesde[1]-1,auxfechaDesde[0])
+                            pointInterval: 24 * 3600 * 1000,
+                            pointStart: Date.UTC(auxfechaDesde2[2],auxfechaDesde2[1],auxfechaDesde2[0])
                         }
                     },
-                    series: [{
-                        name: 'Operaciones',
-                        data: global //[100,50,30,800,-300,400,500,30] //aca va el arreglo..//
-                    }
-
-                    ],
+                    series: globa2,
                     navigation: {
                         menuItemStyle: {
                             fontSize: '10px'
                         }
                     }
                 });
+
             }
+
 
 
         });

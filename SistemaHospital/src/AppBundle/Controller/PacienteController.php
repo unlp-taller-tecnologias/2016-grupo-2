@@ -21,15 +21,37 @@ class PacienteController extends Controller
      *
      * @Route("/",defaults={"page": 1}, name="paciente_index")
      * @Route("/page/{page}", requirements={"page": "[1-9]\d*"}, name="paciente_index_paginated")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
-    public function indexAction($page)
+    public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page);
+
+        $form = $this->createForm('AppBundle\Form\FiltroPacienteType');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $page=1;//para que reinicie la paginacion en la pagina 1 si es que se enviaron datos al formulario
+            $datos = $form->getData();
+
+            setcookie("filtrosR",serialize($datos));
+            $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page,$datos);
+            return $this->render('paciente/index.html.twig', array(
+                'pacientes' => $pacientes,
+                "form" => $form->createView(),
+             ));
+        }
+
+        $pacientes=null;
+        if(isset($_COOKIE) && isset($_COOKIE["filtrosR"]) ){
+            $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page,unserialize($_COOKIE["filtrosR"]));
+        }else{
+            $pacientes = $em->getRepository('AppBundle:Paciente')->findLatest($page,null);
+        }
 
         return $this->render('paciente/index.html.twig', array(
             'pacientes' => $pacientes,
+            "form" => $form->createView(),
         ));
     }
 
@@ -46,11 +68,30 @@ class PacienteController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($paciente);
-            $em->flush($paciente);
 
-            return $this->redirectToRoute('paciente_show', array('id' => $paciente->getId()));
+            $formnew = $form->getData();
+            $datos = array('nombre' => $formnew->getNombre(), 'apellido' => $formnew->getApellido(), 'dni' => $formnew->getDni(),
+                'edad' => $formnew->getEdad(), 'genero' => $formnew->getGenero());
+
+            if($this->procesardatos($datos,'paciente/new.html.twig',$paciente,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'paciente/new.html.twig',$paciente,$form->createView(),false,false);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+
+            if($aux = $this->existeElemntoEnBaja($paciente->getDni())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux = $aux->fillEntity($paciente);
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('paciente_show', array('id' => $aux->getId(), 'exito' => 'new'));
+            }else{
+                $em->persist($paciente);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('paciente_show', array('id' => $paciente->getId(), 'exito' => 'new'));
 
         }
 
@@ -75,9 +116,27 @@ class PacienteController extends Controller
        
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formnew = $form->getData();
+            $datos = array('nombre' => $formnew->getNombre(), 'apellido' => $formnew->getApellido(), 'dni' => $formnew->getDni(),
+                'edad' => $formnew->getEdad(), 'genero' => $formnew->getGenero());
+
+            if($this->procesardatos($datos,'paciente/newInReserva.html.twig',$paciente,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'paciente/newInReserva.html.twig',$paciente,$form->createView(),false,false);
+            }
             $em = $this->getDoctrine()->getManager();
-            $em->persist($paciente);
-            $em->flush($paciente);
+
+            if($aux = $this->existeElemntoEnBaja($paciente->getDni())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux = $aux->fillEntity($paciente);
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('reserva_new');
+            }else{
+                $em->persist($paciente);
+                $em->flush();
+            }
+
 
             return $this->redirectToRoute('reserva_new');
 
@@ -104,12 +163,28 @@ class PacienteController extends Controller
        
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $formnew = $form->getData();
+            $datos = array('nombre' => $formnew->getNombre(), 'apellido' => $formnew->getApellido(), 'dni' => $formnew->getDni(),
+                'edad' => $formnew->getEdad(), 'genero' => $formnew->getGenero());
+
+            if($this->procesardatos($datos,'paciente/newInOperacion.html.twig',$paciente,$form->createView(),false,false)){
+                return $this->procesardatos($datos,'paciente/newInOperacion.html.twig',$paciente,$form->createView(),false,false);
+            }
             $em = $this->getDoctrine()->getManager();
-            $em->persist($paciente);
-            $em->flush($paciente);
+
+            if($aux = $this->existeElemntoEnBaja($paciente->getDni())){
+                /*recorro todos los campos de asa para aplicarselos a aux*/
+                $aux = $aux->fillEntity($paciente);
+                /****************/
+                $em->persist($aux);
+                $em->flush();
+                return $this->redirectToRoute('operacion_new');
+            }else{
+                $em->persist($paciente);
+                $em->flush();
+            }
 
             return $this->redirectToRoute('operacion_new');
-
         }
 
         return $this->render('paciente/newInOperacion.html.twig', array(
@@ -148,9 +223,20 @@ class PacienteController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $form = $editForm->getData();
+            $datos = array('nombre' => $form->getNombre(), 'apellido' => $form->getApellido(), 'dni' => $form->getDni(),
+                'edad' => $form->getEdad(), 'genero' => $form->getGenero());
+
+            if($this->procesardatos($datos,'paciente/edit.html.twig',$paciente,false,$editForm->createView(),$deleteForm->createView())){
+                return $this->procesardatos($datos,'paciente/edit.html.twig',$paciente,false,$editForm->createView(),$deleteForm->createView());
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('paciente_edit', array('id' => $paciente->getId()));
+
+            return $this->redirectToRoute('paciente_show', array('id' => $paciente->getId(), 'exito' => 'edit'));
+
         }
 
         return $this->render('paciente/edit.html.twig', array(
@@ -173,11 +259,12 @@ class PacienteController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($paciente);
+            $paciente->setBaja(1);
+            $em->persist($paciente);
             $em->flush($paciente);
         }
 
-        return $this->redirectToRoute('paciente_index');
+        return $this->redirectToRoute('paciente_index', array('exito' => 'delete'));
     }
 
     /**
@@ -194,5 +281,98 @@ class PacienteController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function procesardatos($datos,$view,$paciente,$create,$edit,$delete){
+        foreach($datos as $campo){
+            if (!strcmp($this->validar($campo),"OK") == 0){
+                $error = $this->validar($campo);
+                return $this->renderizar($error,$view,$paciente,$create,$edit,$delete);
+            }
+        }
+        if($create != false){
+            if (!strcmp($this->existe($datos['dni']),"OK") == 0){
+                $error = $this->existe($datos['dni']);
+                return $this->renderizar($error,$view,$paciente,$create,$edit,$delete);
+            }
+        } else {
+            if (!strcmp($this->existeModificar($datos['dni']),"OK") == 0){
+                $error = $this->existeModificar($datos['dni']);
+                return $this->renderizar($error,$view,$paciente,$create,$edit,$delete);
+            }
+        }
+    }
+
+    private function renderizar($error,$view,$paciente,$create,$edit,$delete){
+        if($create != false){
+            return $this->render($view, array(
+                'error' => $error,
+                'paciente' => $paciente,
+                'form' => $create,
+            ));
+        } else {
+            return $this->render($view, array(
+                'error' => $error,
+                'paciente' => $paciente,
+                'edit_form' => $edit,
+                'delete_form' => $delete,
+            ));
+        }
+
+    }
+
+    private function validar($texto){
+        if (is_array($texto)){
+            foreach($texto as $campo){
+                return $this->validar($campo);
+            }
+        }
+        if (is_object($texto)){
+            return "OK";
+        }
+        $aux = $texto;
+        $aux = strip_tags($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar tags.";
+        }
+        $aux = trim($aux);
+        if (strlen($aux) != strlen($texto)) {
+            return "¡Alto! Está intentando ingresar caracteres inválidos.";
+        }
+        if (empty($aux)){
+            return "¡Alto! Está intentando ingresar campos vacios.";
+        }
+        return "OK";
+    }
+
+    private function existe($dni){
+        $paciente = $this->getDoctrine()->getRepository('AppBundle:Paciente')->findOneBy(array(
+            'dni'  => $dni , 'baja' => 0));
+        if ($paciente) {
+            return "¡Alto! Ya existe un paciente asociado al DNI ingresado.";
+        }
+        return "OK";
+    }
+
+    private function existeElemntoEnBaja($dni){
+        $aux = $this->getDoctrine()->getRepository('AppBundle:Paciente')->findOneBy(array(
+            'dni'  => $dni , 'baja' => 1));
+        if ($aux) {
+            return $aux;
+        }
+        return false;
+    }
+
+    private function existeModificar($dni){
+        if(isset($_POST['actual'])){
+            $actual = $_POST['actual'];
+            setcookie('actual',$actual);
+        } else {
+            $actual = $_COOKIE['actual'];
+        }
+        if(strcmp($actual,$dni) == 0){
+            return "OK";
+        }
+        return $this->existe($dni);
     }
 }

@@ -17,27 +17,18 @@ class AsaType extends AbstractType
     {
         $builder
             ->add("grado", "text",[
-                'label' => 'Nombre del ASAs',
+                'label' => 'Nombre del ASAs *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
             ->add("descripcion", "text",[
-                'label' => 'Descripción',
+                'label' => 'Descripción *',
                 "attr" => [
                     "class" => "form-control"
                 ]
             ])
-             ->add('baja', ChoiceType::class, array(
-                'label' => 'Dar de baja',
-                'choices'  => array(
-                    1 => 'Si',
-                    0 => 'No',
-                ),
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ))
+        
         ;
     }
     
