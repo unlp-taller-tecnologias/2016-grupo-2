@@ -41,7 +41,7 @@
                 <td>{{ operacion.habitacion }}</td>
                 <td>{{ operacion.reserva.fechainicio|date('d/m/Y')  }}</td> 
                 <td>{{ operacion.reserva.estado.tipo }}</td>
-                <td>{% if operacion.internado %}Yes{% else %}No{% endif %}</td>
+                <td>{% if operacion.internado %}Si{% else %}No{% endif %}</td>
       
                 <td>
                     <a href="{{ path('operacion_show', { 'id': operacion.id }) }}"><i class="fa fa-info-circle" aria-hidden="true"></i>
